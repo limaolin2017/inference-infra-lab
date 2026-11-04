@@ -2,7 +2,17 @@
 
 **Updated:** 2026-11-04  
 **Primary learning track:** job-ready inference engineering; follow [SKILL_MAP.md](SKILL_MAP.md). [vLLM #65161](issues/vllm-65161.md) stays a lower-priority research branch.  
-**Next action:** On 2026-11-05, do the brief [closed-book review quiz](reviews/2026-11-05.md) (no hints before the attempt). Then trace one request through Scheduler → KV → Model Runner and build a **public-safe reproducible benchmark** on NVIDIA. OffloadingConnector details are optional if #65161 is already fixed.
+**Next action:** On 2026-11-05, do the brief [closed-book review quiz](reviews/2026-11-05.md) (no hints before the attempt). Then trace one request through Scheduler → KV → Model Runner and select a **CPU-testable core Issue**. GPU benchmarking is deferred until access returns. OffloadingConnector details remain optional.
+
+## Current resource constraint and Issue-first plan
+
+**No GPU is currently available (confirmed by learner on 2026-11-04).** Do not assume access to GB10 or any other GPU, and do not make paid GPU rental a prerequisite. Existing real GPU deployment experience remains valid but is separate from the current resources.
+
+**Current trunk:** Scheduler → KV Cache / BlockPool → Model Runner state/interfaces. Prefer real upstream bugs, bounded CPU-only regression tests, and precise source traces. Do not claim throughput or GPU latency gains from CPU tests.
+
+**Issue candidates to inspect, not claimed or assigned:** [#40004 priority preemption](https://github.com/vllm-project/vllm/issues/40004) (P0 relevance, larger scope), [#64460 admission backoff](https://github.com/vllm-project/vllm/issues/64460) (P0 relevance, CPU policy tests possible; original hardware speedup cannot be proven without GPU), and [#60044 prefix-cache miss attribution](https://github.com/vllm-project/vllm/issues/60044) (P0/P1, may need maintainer design agreement). Recheck current main, linked PRs, ownership and CPU coverage **before** choosing any one.
+
+**Pause deeper 2Q / ARC and EAGLE lookahead work.** Understand the idea, keep a short recap, and return only if a job-relevant main-path issue needs them.
 
 ## Job-target gap: summary (2026-11-04)
 
@@ -17,7 +27,7 @@
 
 **Engineering evidence:** Personal upstream [#61801](https://github.com/vllm-project/vllm/pull/61801) (docs, open), [#64281](https://github.com/vllm-project/vllm/pull/64281) (BlockPool CPU regression, open draft), [#65366](https://github.com/vllm-project/vllm/pull/65366) (tokenizer/API CPU regression, open). See [contributions](contributions/README.md) and [chat-reported experiments](experiments/CHAT_REPORTED_RESULTS.md). None are merged as checked today. Local tests stated in PR descriptions are reported tests, not independent evidence of personal mastery.
 
-**Immediate plan:** Keep tomorrow's brief blind review. Then move to a public-safe GPU benchmark and vertical code tracing. Build on prior vLLM/SGLang deployment, rather than repeating beginner deployment lessons. Do not spend another full session on specialized EAGLE rules unless an actual bug remains.
+**Immediate plan:** Keep tomorrow's brief blind review. Then do vertical code tracing and a CPU-verifiable main-path Issue. Defer the public-safe GPU benchmark until hardware is available. Build on prior vLLM/SGLang deployment rather than repeating beginner lessons. Do not spend another full session on specialized EAGLE rules unless they unlock core work.
 
 ## Knowledge checkpoints
 
