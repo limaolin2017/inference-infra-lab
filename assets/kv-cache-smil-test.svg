@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="240" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">SMIL SVG animation test: KV cache transfer</title>
+  <desc id="desc">A green KV cache block repeatedly travels from CPU RAM to GPU VRAM. This is a rendering test, not a simulation of real transfer speed.</desc>
+  <rect width="720" height="240" rx="18" fill="#101827"/>
+  <text x="30" y="35" font-size="18" fill="#f8fafc" font-family="Arial, sans-serif" font-weight="bold">SVG animation test: CPU to GPU</text>
+  <rect x="30" y="63" width="190" height="132" rx="14" fill="#123c38" stroke="#34d399" stroke-width="2"/>
+  <rect x="500" y="63" width="190" height="132" rx="14" fill="#1e3353" stroke="#60a5fa" stroke-width="2"/>
+  <text x="125" y="91" text-anchor="middle" fill="#d1fae5" font-size="18" font-family="Arial, sans-serif">CPU RAM</text>
+  <text x="595" y="91" text-anchor="middle" fill="#dbeafe" font-size="18" font-family="Arial, sans-serif">GPU VRAM</text>
+  <path d="M235 146 H485" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="9 8"/>
+  <path d="M471 136 L489 146 L471 156" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="76" y="121" width="98" height="48" rx="9" fill="#059669"/>
+  <text x="125" y="150" fill="white" text-anchor="middle" font-size="17" font-family="Arial, sans-serif">Block 4</text>
+  <rect x="548" y="121" width="94" height="48" rx="9" fill="#2563eb" opacity=".45" stroke="#93c5fd" stroke-dasharray="5 4"/>
+  <rect x="246" y="132" width="32" height="28" rx="6" fill="#fbbf24">
+    <animate attributeName="x" values="246;441;246" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <text x="360" y="213" fill="#cbd5e1" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">If the yellow block moves, SMIL animation is playing.</text>
+</svg>
