@@ -2,12 +2,17 @@
 
 A public engineering notebook for learning, testing, and contributing to **LLM inference systems**.
 
-**Focus:** vLLM internals, KV cache, scheduling, speculative decoding, performance analysis, and eventually CUDA / GPU kernels.
+**Focus:** job-ready LLM inference engineering: serving, Scheduler/KV/Model Runner, NVIDIA GPU profiling, performance analysis, and reliable deployment. Specialized topics such as EAGLE/ARC are optional branches.
 
 This repository is not a collection of copied explanations. Each topic should move from **understanding** to **independent explanation**, then to **code and measurement**.
 
 ## Start here
 
+**Learn the trunk before the branches.** Aim for a deployable, measurable inference service, not a complete tour of every issue.
+
+![Job-focused inference architecture and knowledge map](assets/inference-skill-map.svg)
+
+- **[SKILL_MAP.md](SKILL_MAP.md)** — full knowledge audit, evidence levels, job-gap ranking, and an 8-week practical plan. **Read this for job focus.**
 - **[CURRENT.md](CURRENT.md)** — current learning state, open questions, and the next session. **Read this first.**
 - **[ROADMAP.md](ROADMAP.md)** — skills and engineering gaps.
 - **[LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md)** — the repeatable issue-to-learning workflow and Target → Current → Gap → Action → Feedback loop.
@@ -15,7 +20,7 @@ This repository is not a collection of copied explanations. Each topic should mo
 - **[Next review quiz](reviews/2026-11-05.md)** — closed-book questions first, no answers in the quiz.
 - **[Concepts](concepts/)** — short, testable explanations.
 - **[Issues](issues/)** — issue investigations and source references.
-- **[Experiments](experiments/)** — reproducible tests and benchmarks.
+- **[Experiments](experiments/)** — reproducible tests and benchmarks. Separate [chat-reported work](experiments/CHAT_REPORTED_RESULTS.md) from rerunnable evidence.
 - **[Journal](journal/)** — compact learning history.
 - **[Contributions](contributions/)** — verified upstream work and status.
 
