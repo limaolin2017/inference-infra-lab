@@ -10,10 +10,10 @@ This is the **plan**, not a log of everything studied. For current status use [C
 | 2 | P0 | Scheduler + KV Manager + BlockPool | Follow a request, reproduce a cache/scheduling case on CPU |
 | 3 | P0 | Model Runner state / input path | Trace Scheduler output into runner state; test suitable interfaces |
 | 4 | P0 | Debugging, tests, CI, code reviews | Failing test → small fix → passing tests → explain limits |
-| 5 | P1 (blocked by hardware) | NVIDIA profiling and inference benchmarks | Reproducible TTFT, TPOT, throughput, memory, and profiler traces |
+| 5 | P1 (opportunistic Colab) | NVIDIA profiling and inference benchmarks | Short in-notebook benchmark when a suitable Colab GPU is assigned; otherwise defer |
 | 6 | P1 | Serving/observability | Logs, queues, metrics, deployment and failure handling |
 
-**No GPU available (2026-11-04).** Items 1–4 can progress now. Do not pretend CPU evidence proves GPU speedups. Previous real single-GPU deployment is experience, not current hardware access.
+**No personal GPU available (2026-11-04).** A free Google Colab runtime may occasionally provide an NVIDIA GPU, but availability, models and session length are not guaranteed. Items 1–4 can progress without GPU. Previous real single-GPU deployment is experience, not current hardware access.
 
 ## Issue-selection filter
 
@@ -44,7 +44,9 @@ Examples worth checking, **not yet assigned**:
 | 3. Extend | A second core issue or a focused observability test, after checking overlap |
 | 4. Present | One readable case study with root cause, code, tests, limits, and upstream review |
 
-When hardware becomes available, add a **public-safe NVIDIA** benchmark and profiling case. Hardware is a future requirement for GPU performance work, **not a blocker** for current code contributions.
+**Colab option:** Use a notebook GPU for short, public-safe vLLM correctness tests or small TTFT/TPOT/throughput measurements when assigned. Inspect `nvidia-smi`, available VRAM, CUDA/Python compatibility and model size first. Keep setup and results in the notebook. Free Colab is not suitable as a persistent inference service. Follow [Google Colab's FAQ](https://research.google.com/colaboratory/faq.html): resources are not guaranteed, sessions are limited, and bypassing the notebook UI/remote control is restricted. Do not claim representative production performance from a single short shared GPU run.
+
+GPU access is **optional for the current CPU-first core contributions**, not a blocker. Add stronger public-safe NVIDIA benchmarks when stable hardware access becomes possible.
 
 ## Study less deeply, on purpose
 
