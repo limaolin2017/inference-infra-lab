@@ -14,7 +14,8 @@ A public learning and contribution log for **LLM inference engineering**.
 | --- | --- |
 | What should I do next? | **[CURRENT.md](CURRENT.md)** — one active learning focus and the next steps |
 | What should I learn, and what can wait? | **[ROADMAP.md](ROADMAP.md)** — priorities, Issue filter, and no-GPU plan |
-| What do I already know? | **[SKILL_MAP.md](SKILL_MAP.md)** — knowledge map and evidence by skill |
+| What have I studied? | **[SKILL_MAP.md](SKILL_MAP.md)** — knowledge inventory |
+| What have I verified myself? | **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** — L1–L4 and A/H evidence |
 | How do we study and test? | [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md) — repeatable workflow |
 
 ## Current main path
