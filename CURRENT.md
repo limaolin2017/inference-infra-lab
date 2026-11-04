@@ -12,7 +12,7 @@ We have studied Scheduler and KV-cache concepts separately. The missing proof is
 
 ### Next session
 
-1. Start with the short [2026-11-05 blind review](reviews/2026-11-05.md). Do not show answers before the attempt.
+1. Start with the short [2026-11-05 blind review](reviews/2026-11-05.md). Do not show answers before the attempt; log evidence in [SKILL_VALIDATION.md](SKILL_VALIDATION.md), without pre-grading.
 2. Trace a prefill/decode request across the three core modules. Record exact source links and where CPU-only tests are possible.
 3. Check current code and overlapping PRs for a **bounded** open core Issue. Write the expected invariant and a failing CPU test before suggesting a fix.
 
@@ -36,7 +36,7 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 | NVIDIA performance / CUDA | Prior professional serving work reported; no public profiler artifacts | Optional short Colab GPU run when available; benchmark evidence still pending |
 | EAGLE / Lookahead / 2Q / ARC | Basic concepts; some guided checks | **Park deeper study** unless needed for core work |
 
-Full inventory and evidence levels: [SKILL_MAP.md](SKILL_MAP.md). Reported experiments: [CHAT_REPORTED_RESULTS.md](experiments/CHAT_REPORTED_RESULTS.md).
+Knowledge inventory: [SKILL_MAP.md](SKILL_MAP.md). **Formal verification (L1–L4, A/H): [SKILL_VALIDATION.md](SKILL_VALIDATION.md).** Reported experiments: [CHAT_REPORTED_RESULTS.md](experiments/CHAT_REPORTED_RESULTS.md).
 
 ## Contribution status
 
