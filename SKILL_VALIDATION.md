@@ -9,9 +9,9 @@
 | **L1 Explain** | Explain what happens, why, and one limit without hints |
 | **L2 Apply** | Solve an unseen case; predict what changes with different conditions |
 | **L3 Trace** | Locate current source code, name key functions, explain two state transitions, predict a changed path |
-| **L4 Engineer** | Define an invariant, design a failing test, interpret output, and explain a minimal safe fix and limits |
+| **L4 Engineer** | Define an invariant, design a meaningful test, judge its outcome, and explain a safe fix and limits — **regardless of who runs the test** |
 
-L1–L4 measure **depth**. A and H measure **who designs and performs the verification**. Neither is a fifth or sixth skill level.
+**L1–L4 = what you can do. A/H = how your work was verified.** In both A and H, *you* design the key check and the pass/fail criteria. In **A**, an Agent performs the execution under your direction; in **H**, you do the work hands-on. Neither tag is an extra level. The same L4 skill can be recorded as **L4-A** and/or **L4-H**.
 
 ## Verification method A — User-directed Agent verification
 
@@ -35,7 +35,7 @@ For **L1/L2**, answer three *unseen* prompts: explain, apply, predict a changed 
 
 For **L3**, independently locate the relevant functions on a pinned commit, explain two state changes, and predict the effect of a new input before checking. Confirm on a different case later.
 
-For **L4**, personally invent or modify a new CPU test, state the expected outcome *before running it*, execute it, inspect the failure/pass, and explain why. A later changed-case repeat is needed for **H-confirmed**. Clicking Run on an Agent-designed test is not sufficient.
+For **L4-H**, apply the **same L4 engineering standard** as L4-A, but independently execute or change the test and investigate the result yourself instead of delegating execution. State the expected result before running it. A later changed-case repeat is needed for **H-confirmed**. Clicking Run on an Agent-designed test is not sufficient.
 
 **H verifies your demonstrated ability on sampled cases, not a universal job-readiness percentage.**
 
