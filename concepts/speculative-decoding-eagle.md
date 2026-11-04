@@ -1,6 +1,6 @@
 # Speculative Decoding and EAGLE
 
-**Level:** Explained. Independent understanding check pending.
+**Level:** EAGLE trailing-block drop **Verified (concept only)** on 2026-11-04. General speculative decoding and implementation details remain at **Explained**.
 
 ## Basic idea
 
@@ -34,6 +34,14 @@ A legacy hash of `ABCD` matches both requests. But the cached **draft** KV may d
 The conservative legacy approach drops the trailing cache-hit unit and recomputes it. This does **not** necessarily erase the physical block.
 
 **Lookahead hashes** include the relevant following token(s) in the cache key. This can make safe reuse possible without an automatic trailing-block drop.
+
+## Understanding evidence — 2026-11-04
+
+The learner independently explained: with block size 4, a cached block ending in H can have different **EAGLE draft KV at H** when the following token is X in one request and Y in another. Therefore matching EFGH alone does not prove the trailing draft KV is reusable. This is the correct reason for the *legacy* conservative block drop.
+
+Important distinction: the **target model's KV for EFGH** remains reusable when its preceding context is identical; it is the **draft-side boundary state** that may differ. Dropping a cache hit does not mean its physical memory was corrupted or erased.
+
+**Verification limit:** The explanation was checked in conversation, not against a user-written source trace or a running test. Do not mark code-level proficiency as verified.
 
 ## Understanding checks
 
