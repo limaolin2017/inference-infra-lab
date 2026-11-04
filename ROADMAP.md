@@ -34,14 +34,18 @@ Learn **GPU profiling, CUDA/Triton basics, memory bandwidth, batching, attention
 - Advanced MoE, NCCL/RDMA, multi-node serving, NPU/Huawei and unusual hardware — do later if a target role explicitly requires them.
 - Small unrelated parser/API PRs — useful for OSS practice, but not evidence that can substitute for a GPU inference case.
 
-## Suggested 8-week sequence
+## Current 8-week sequence — no GPU available
+
+**GPU access = zero as of 2026-11-04.** Do not make NVIDIA rental a hidden prerequisite. The goal remains GPU inference engineering, but progress now comes from core-code learning and CPU verification.
 
 | Window | Most valuable deliverable | Pass condition |
 | --- | --- | --- |
-| Weeks 1–2 | Public-safe NVIDIA baseline (build on prior deployment) | Reproducible setup + TTFT/TPOT/throughput/memory tables with raw data |
-| Weeks 3–4 | Vertical source trace + scheduler/KV tests | Explain and instrument a request from API to Model Runner |
-| Weeks 5–6 | Profiling diagnosis | Profiling trace + testable bottleneck hypothesis + controlled A/B |
-| Weeks 7–8 | One job-shaped portfolio case | Serving deployment **or** measured vLLM core improvement with limitations |
+| Weeks 1–2 | Request-path source trace: Scheduler → KV manager → Model Runner | Independently explain one prefill/decode state transition with source links and a small CPU test |
+| Weeks 3–4 | One bounded Scheduler or BlockPool bug | Failing CPU reproducer, smallest fix, passing regression tests; explain invariants |
+| Weeks 5–6 | Second main-path task, preferably scheduling observability or prefix-cache correctness | Reproducible CPU tests, clear failure cases, compare current source/PRs |
+| Weeks 7–8 | One portfolio case study of real upstream work | Explain problem, code, tests, trade-offs, GPU-validation limits, and review outcome |
+
+**When GPU access returns:** add a public-safe serving workload and measure TTFT, TPOT, throughput, and profiler traces. Do not claim those results before then.
 
 **Existing real-world experience:** the learner reports having deployed and delivered a single-NVIDIA-GPU local LLM service, chosen between vLLM and SGLang using TTFT/TPOT/throughput, and separately benchmarked a PyTorch-to-ONNX conversion. Private customer details and results are not published here. The immediate gap is safe, inspectable evidence and engine-level profiling, **not** learning to launch a model from scratch.
 
@@ -49,7 +53,25 @@ This is a learning plan, not a guaranteed hiring timeline. Adjust based on actua
 
 ## Issue admission filter
 
-**Start an issue only if** it supports the current P0/P1 proof, has a reproducible setup, can be measured or tested, and has a clear stop condition. Timebox an exploratory issue to one session; move deep research branches into the parking lot. Aim for **70% practical work and 30% just-in-time theory**.
+**An Issue is a practice problem, not the syllabus.** Prefer the main path (Scheduler / KV Cache / BlockPool / Model Runner) and aim for **70% hands-on tests/source tracing, 30% just-in-time concepts**.
+
+Select candidate Issues using four explicit questions:
+
+1. **Role relevance (0–5):** Does it teach or prove core inference engineering?
+2. **CPU reproducibility (0–5):** Can it have a meaningful failing/passing test without a GPU?
+3. **New trunk skill (0–5):** Will it close a gap we actually need for a job?
+4. **Time/complexity (0–5):** How much deep, unrelated research will it consume?
+
+For comparison only, an optional heuristic is `4 × relevance + 3 × CPU feasibility + 2 × skill gain − 2 × complexity`. **This is a prioritization aid, not an objective metric or a job-readiness score.**
+
+**Gate:** Look for an open upstream problem, no overlapping fix, small test surface, clear invariant, and a stop condition. Timebox investigation to one session, then proceed, narrow scope, or park it. CPU unit tests can prove code correctness; they do **not** prove GPU performance changes.
+
+Current examples to review (not claimed / not yet selected):
+- [#40004](https://github.com/vllm-project/vllm/issues/40004) — priority preemption; central Scheduler skill, but broad semantics and more difficult implementation.
+- [#64460](https://github.com/vllm-project/vllm/issues/64460) — KV-saturation admission; central Scheduler skill, feasible CPU policy study, but hardware TPOT claim is untestable now.
+- [#60044](https://github.com/vllm-project/vllm/issues/60044) — prefix-cache miss attribution; useful cache observability, may need design agreement and careful semantics.
+
+**Depth limit:** LRU = know the rule and basic tests; 2Q/ARC = understand motivation, no deep policy implementation for now; EAGLE = know draft/verify, do not expand lookahead/offload corner cases unless a core issue needs them.
 
 ## Audit sources
 
