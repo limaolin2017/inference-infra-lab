@@ -13,7 +13,8 @@ This repository is not a collection of copied explanations. Each topic should mo
 ![Job-focused inference architecture and knowledge map](assets/inference-skill-map.svg)
 
 - **[SKILL_MAP.md](SKILL_MAP.md)** — full knowledge audit, evidence levels, job-gap ranking, and an 8-week practical plan. **Read this for job focus.**
-- **[CURRENT.md](CURRENT.md)** — current learning state, open questions, and the next session. **Read this first.**
+- **[SKILL_MAP.md](SKILL_MAP.md)** — **start here: visual knowledge map**, evidence levels, P0 trunk, job gaps, and what to skip.
+- **[CURRENT.md](CURRENT.md)** — current learning state, open questions, and the next session.
 - **[ROADMAP.md](ROADMAP.md)** — skills and engineering gaps.
 - **[LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md)** — the repeatable issue-to-learning workflow and Target → Current → Gap → Action → Feedback loop.
 - **[REVIEW_QUEUE.md](REVIEW_QUEUE.md)** — unclear points to retest before new lessons.
@@ -23,6 +24,12 @@ This repository is not a collection of copied explanations. Each topic should mo
 - **[Experiments](experiments/)** — reproducible tests and benchmarks. Separate [chat-reported work](experiments/CHAT_REPORTED_RESULTS.md) from rerunnable evidence.
 - **[Journal](journal/)** — compact learning history.
 - **[Contributions](contributions/)** — verified upstream work and status.
+
+## Job-focused architecture and skill map
+
+![Inference engineer core knowledge map](assets/inference-skill-map.svg)
+
+Read [SKILL_MAP.md](SKILL_MAP.md) for evidence grades and the two job tracks. We prioritize an end-to-end inference path before rare edge cases.
 
 ## SVG animation rendering
 
