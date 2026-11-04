@@ -29,12 +29,16 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 
 ## 3. Explain, then test understanding
 
-- Explain the behavior with a small example or ASCII diagram.
+- Explain the behavior with a small example or **SVG diagram / animation**, when a visual helps. Prefer SVG over ASCII.
 - Ask one unfamiliar question **without hints**.
 - Record learning difficulties in [REVIEW_QUEUE.md](REVIEW_QUEUE.md). Record **formal scores and A/H proof in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**.
-- **A — User-directed Agent:** the learner designs the claim, test cases and pass/fail criteria **before** Codex runs them, then checks the actual logs. If the Agent designed the whole test, A is still pending.
+- **A — Human-led, Agent-verified:** the learner defines **what to verify, what to compare, and the acceptance criteria** before execution. Codex may **propose experiment designs, choose supporting test cases, write tests, run them, and collect evidence**. The learner reviews the plan, approves or changes it, and independently judges the results. Merely accepting an Agent verdict without understanding the comparison is not an A pass.
 - **H — Hands-on:** the learner independently predicts, traces, runs or changes a test, and explains the outcome. An unseen follow-up check helps confirm retention.
 - L1–L4 describe **skill depth**, while A/H describe the **verification method**.
+
+### Evening review — P0 from any previous day
+
+Choose **3–5 closed-book questions** from **all previously studied P0 concepts**, not just the current day's work. Prioritize: (1) previously wrong or partial answers; (2) topics not reviewed for a while; (3) topics understood but not yet applied independently; (4) occasional checks of well-understood concepts. Use the existing [REVIEW_QUEUE.md](REVIEW_QUEUE.md) and daily logs; avoid introducing new concepts at night. Record evidence and gaps without awarding unearned formal grades.
 
 ## 4. Produce engineering evidence
 
@@ -74,7 +78,7 @@ Use **one `journal/YYYY-MM-DD.md` per study day**, not an extra root `LOG.md`. K
 | **Checks** | Exact questions, learner predictions, result (**Correct / Partial / Miss**), hints, and evidence link |
 | **Next** | **One P0 main-path skill** to study, plus the exact missing proof |
 
-**Level rule:** Reuse the existing **L1 Explain, L2 Apply, L3 Trace source, L4 Engineer**. A daily entry like **"L2 practice (guided)"** means an L2-type exercise was attempted; it is **not a skill certification**. Only write **L2-H**, **L3-A**, etc. when its independent / user-directed evidence meets the rules in [SKILL_VALIDATION.md](SKILL_VALIDATION.md). **A** means the learner designed and directed the Agent verification; **H** means hands-on independent verification. Do not mark either from a helpful explanation or an Agent-designed test.
+**Level rule:** Reuse the existing **L1 Explain, L2 Apply, L3 Trace source, L4 Engineer**. A daily entry like **"L2 practice (guided)"** means an L2-type exercise was attempted; it is **not a skill certification**. Only write **L2-H**, **L3-A**, etc. when its independent / user-directed evidence meets the rules in [SKILL_VALIDATION.md](SKILL_VALIDATION.md). **A** means the learner set the verification goal, comparison, and acceptance criteria, critically reviewed the Agent's suggested experiment, and assessed its evidence; **H** means hands-on independent verification. Do not award A from an unreviewed Agent-designed test or Agent-only verdict.
 
 **Keep formal grades only in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**, the next focus only in [CURRENT.md](CURRENT.md), and detailed explanations in [concepts/](concepts/). Daily logs stay brief, link to evidence, and do not duplicate complete skill registers.
 
@@ -82,6 +86,6 @@ Use **one `journal/YYYY-MM-DD.md` per study day**, not an extra root `LOG.md`. K
 
 ## 7. Visuals
 
-Use ASCII for simple structures. Use **SVG with SMIL animation** when movement helps. Prefer SVG over GIF. Mark animations as *concept examples*, never as traces or measured experiments.
+Prefer **SVG diagrams** over ASCII, and **SVG animation** where movement helps. Prefer SVG over GIF. Ensure GitHub Markdown rendering works. Mark animations as *concept examples*, never as traces or measured experiments.
 
 **Loop:** Target → Current → Gap → Issue → Explanation → Test → Feedback.
