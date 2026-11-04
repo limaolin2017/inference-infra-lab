@@ -10,7 +10,19 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 | Lookahead Hash: what is "ahead"? | Identify the first token after a full block | 2026-11-04 | Corrected and explained | 2026-11-05 |
 | Lookahead Hash: hash vs. KV | Is the next token's **ID** included, or is its Draft KV compared? | 2026-11-04 | Corrected with guidance; high-priority retest | 2026-11-05 |
 | Target KV vs. EAGLE Draft KV | Which is changed by a different token after a shared prefix? | 2026-11-04 | Explained; retention untested | 2026-11-05 |
-| CPU OffloadingConnector reload | Why could a cache layer load data another layer excluded from local hits? | 2026-11-04 | **Not yet learned** | After next lesson |
+| CPU OffloadingConnector reload | Why could a cache layer load data another layer excluded from local hits? | 2026-11-04 | **Not yet learned; P2 side quest** | Only if current-main issue persists |
+
+## Job-readiness review queue (after the 2026-11-05 blind quiz)
+
+These are *future* proof tasks, not scored questions yet.
+
+1. Explain one prefill and one decode path through `Scheduler → KVCacheManager → ModelRunner` without prompts.
+2. Given a model and batch shape, derive approximate K/V memory and identify the memory limit.
+3. Set up repeatable single NVIDIA GPU serving with TTFT, TPOT and throughput.
+4. Explain an actual GPU profile before choosing an optimization.
+5. If targeting serving/platform work, demonstrate Linux/Docker/K8s and service metrics.
+
+Keep new material out of tomorrow's existing closed-book quiz. See [SKILL_MAP.md](SKILL_MAP.md).
 
 ## Review outcome rules
 
