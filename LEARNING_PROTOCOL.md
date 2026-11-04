@@ -23,8 +23,10 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 
 - Explain the behavior with a small example or ASCII diagram.
 - Ask one unfamiliar question **without hints**.
-- Record **Pass / Partial / Miss** in [REVIEW_QUEUE.md](REVIEW_QUEUE.md).
-- Distinguish guided understanding from independent explanation.
+- Record learning difficulties in [REVIEW_QUEUE.md](REVIEW_QUEUE.md). Record **formal scores and A/H proof in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**.
+- **A — User-directed Agent:** the learner designs the claim, test cases and pass/fail criteria **before** Codex runs them, then checks the actual logs. If the Agent designed the whole test, A is still pending.
+- **H — Hands-on:** the learner independently predicts, traces, runs or changes a test, and explains the outcome. An unseen follow-up check helps confirm retention.
+- L1–L4 describe **skill depth**, while A/H describe the **verification method**.
 
 ## 4. Produce engineering evidence
 
@@ -42,7 +44,8 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 | --- | --- |
 | Next action / short status | [CURRENT.md](CURRENT.md) |
 | Priority and Issue choices | [ROADMAP.md](ROADMAP.md) |
-| Concept maturity and gap | [SKILL_MAP.md](SKILL_MAP.md) |
+| Knowledge inventory and gap | [SKILL_MAP.md](SKILL_MAP.md) |
+| Formal skill checks, test authorship and A/H verdicts | [SKILL_VALIDATION.md](SKILL_VALIDATION.md) |
 | Misunderstanding to review | [REVIEW_QUEUE.md](REVIEW_QUEUE.md) |
 | Explanation | [concepts/](concepts/) |
 | Root cause, code and decision | [issues/](issues/) |
