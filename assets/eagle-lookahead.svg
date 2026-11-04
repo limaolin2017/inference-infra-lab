@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-labelledby="title desc">
+  <title id="title">EAGLE boundary: legacy hash versus lookahead hash</title>
+  <desc id="desc">Side-by-side animated teaching diagram. Legacy prefix match without the next token can drop a trailing draft KV cache match, causing a possible CPU load. A lookahead-aware key including next token E can permit safe reuse when supported.</desc>
+  <rect width="960" height="430" rx="20" fill="#101827"/>
+  <text x="28" y="36" fill="#f8fafc" font-size="23" font-weight="bold" font-family="Arial, sans-serif">EAGLE: why a lookahead hash can save a reload</text>
+  <text x="28" y="61" fill="#cbd5e1" font-size="14" font-family="Arial, sans-serif">Illustration only — not a measured vLLM trace. Blue = block token, gold = next token.</text>
+  <rect x="25" y="79" width="443" height="307" rx="15" fill="#1c293c" stroke="#475569" stroke-width="2"/>
+  <rect x="491" y="79" width="443" height="307" rx="15" fill="#17332e" stroke="#34d399" stroke-width="2"/>
+  <text x="46" y="111" fill="#fca5a5" font-size="19" font-weight="bold" font-family="Arial, sans-serif">Legacy: hash ABCD only</text>
+  <text x="512" y="111" fill="#a7f3d0" font-size="19" font-weight="bold" font-family="Arial, sans-serif">Lookahead: hash ABCD + E</text>
+  <text x="46" y="136" fill="#cbd5e1" font-size="15" font-family="monospace">H(context, ABCD)</text>
+  <text x="512" y="136" fill="#cbd5e1" font-size="15" font-family="monospace">H(context, ABCD, E)</text>
+  <g font-family="Arial, sans-serif" font-size="19" font-weight="bold" text-anchor="middle">
+    <rect x="46" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="116" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="186" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="256" y="160" width="62" height="53" rx="8" fill="#2563eb">
+      <animate attributeName="fill" values="#2563eb;#2563eb;#dc2626;#dc2626;#2563eb" keyTimes="0;0.25;0.38;0.76;1" dur="5s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="326" y="160" width="62" height="53" rx="8" fill="#d97706"/>
+    <text x="77" y="192" fill="white">A</text><text x="147" y="192" fill="white">B</text>
+    <text x="217" y="192" fill="white">C</text><text x="287" y="192" fill="white">D</text>
+    <text x="357" y="192" fill="white">E</text>
+    <rect x="512" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="582" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="652" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="722" y="160" width="62" height="53" rx="8" fill="#2563eb"/>
+    <rect x="792" y="160" width="62" height="53" rx="8" fill="#059669" stroke="#6ee7b7" stroke-width="2">
+      <animate attributeName="fill" values="#d97706;#059669;#059669;#d97706" keyTimes="0;0.3;0.75;1" dur="5s" repeatCount="indefinite"/>
+    </rect>
+    <text x="543" y="192" fill="white">A</text><text x="613" y="192" fill="white">B</text>
+    <text x="683" y="192" fill="white">C</text><text x="753" y="192" fill="white">D</text>
+    <text x="823" y="192" fill="white">E</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15">
+    <text x="46" y="243" fill="#fecaca">Next token may be E or F.</text>
+    <text x="46" y="265" fill="#fecaca">Trailing draft KV hit may be dropped.</text>
+    <text x="512" y="243" fill="#a7f3d0">Key includes next token E.</text>
+    <text x="512" y="265" fill="#a7f3d0">Matching context + E permits safe reuse.</text>
+  </g>
+  <rect x="48" y="293" width="99" height="46" rx="8" fill="#475569"/>
+  <text x="97" y="321" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">CPU KV</text>
+  <path d="M158 316 H351" stroke="#fb7185" stroke-width="3" stroke-dasharray="7 7"/>
+  <path d="M337 307 L352 316 L337 325" stroke="#fb7185" stroke-width="3" fill="none"/>
+  <rect x="181" y="302" width="23" height="28" rx="4" fill="#fbbf24">
+    <animate attributeName="x" values="181;325;325;181" keyTimes="0;0.42;0.72;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.72;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="357" y="321" fill="#fecaca" font-size="15" font-family="Arial, sans-serif">GPU</text>
+  <rect x="514" y="293" width="173" height="46" rx="8" fill="#065f46" stroke="#34d399"/>
+  <text x="600" y="321" text-anchor="middle" fill="#ecfdf5" font-size="16" font-family="Arial, sans-serif">GPU KV reuse</text>
+  <circle cx="707" cy="316" r="10" fill="#34d399">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="730" y="321" fill="#a7f3d0" font-size="15" font-family="Arial, sans-serif">no extra load*</text>
+  <text x="46" y="364" fill="#cbd5e1" font-size="13" font-family="Arial, sans-serif">Possible CPU to GPU reload, not guaranteed.</text>
+  <text x="512" y="364" fill="#cbd5e1" font-size="13" font-family="Arial, sans-serif">* Only when connector and cache state allow.</text>
+  <text x="480" y="412" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Arial, sans-serif">If D turns red and a yellow block moves, SVG SMIL animation is working.</text>
+</svg>
