@@ -1,20 +1,16 @@
-# Experiments
+# Experiments — Evidence, Not Claims
 
-No benchmark artifacts have been added yet.
+This folder is for **reproducible results**. No raw, independently rerunnable benchmark dataset has been published here yet.
 
-Do not describe a proposed test as a completed test.
+Earlier conversation results are kept in [CHAT_REPORTED_RESULTS.md](CHAT_REPORTED_RESULTS.md). They are **reported observations**, not verified GPU wins.
 
-For every experiment, create a folder or document with:
+## Checklist for any new experiment
 
-1. **Question** — what behavior is being tested?
-2. **Environment** — vLLM commit, model/draft, GPU/CPU, relevant flags.
-3. **Inputs** — workload size, prompts, concurrency, seeds.
-4. **Baseline** — unmodified behavior.
-5. **Variant** — one change at a time.
-6. **Metrics** — TTFT (median/p95), output speed, cache hits, CPU loads, memory.
-7. **Results** — raw data and command lines.
-8. **Limits** — what the results cannot prove.
+1. Question, expected invariant, and hypothesis.
+2. Environment: exact vLLM commit, hardware, model, flags, dependencies.
+3. Inputs: workload, concurrency, seeds, data generation.
+4. Baseline and one controlled change.
+5. Commands, raw results, repeats and correctness checks.
+6. Limits: what does this *not* establish?
 
-Use separate tests for correctness and performance.
-
-For current priority, see [vLLM #65161](../issues/vllm-65161.md).
+**CPU-only** tests can prove control logic, cache state and regressions. They cannot establish NVIDIA speedups. The current learning plan is [ROADMAP.md](../ROADMAP.md).

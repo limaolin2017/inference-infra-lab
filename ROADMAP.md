@@ -1,81 +1,65 @@
 # Roadmap — Job-Ready Inference Engineer
 
-**Updated: 2026-11-04.** Work backward from jobs, not forward from a random issue. See the [animated architecture / knowledge map](SKILL_MAP.md) and [current evidence](CURRENT.md).
+This is the **plan**, not a log of everything studied. For current status use [CURRENT.md](CURRENT.md); for a full knowledge audit use [SKILL_MAP.md](SKILL_MAP.md).
 
-![Inference Engineer skill map](assets/inference-skill-map.svg)
+## Learn the main path first
 
-## The essential trunk: P0
-
-| Order | Skill to demonstrate | Concrete pass test | Current evidence |
+| Order | Priority | Skill | Proof to build |
 | --- | --- | --- | --- |
-| 1 | Basic Transformer/attention, prefill vs decode | Derive K/V size and explain compute-vs-bandwidth with one real model | Explained; independent technical check pending |
-| 2 | vLLM request lifecycle: API, Scheduler, KV manager, Model Runner | Trace one prefill and one decode request in current source | Pieces discussed; full trace missing |
-| 3 | KV blocks, prefix cache, scheduling, admission/preemption | Reproduce hit/miss, KV shortage, and a scheduler action | Guided concepts; some chat-reported CPU simulations and an open draft core PR |
-| 4 | Reproducible NVIDIA inference benchmark | Re-run a public model; publish raw TTFT, TPOT, throughput, GPU memory over varied load | **Prior real deployment and vLLM/SGLang comparison reported; public artifacts missing** |
-| 5 | Profiling and reasoning | Explain a measured slowdown and an A/B comparison; include caveats | **Public GPU kernel/CPU profiler trace missing** |
-| 6 | Tests, CI, reproducibility | Write regression tests and show commands and failure-before/pass-after | Some reported CPU PR tests; core performance case not yet complete |
+| 1 | P0 | Prefill/decode, Attention, GQA | Explain the trade-off; derive approximate KV bytes |
+| 2 | P0 | Scheduler + KV Manager + BlockPool | Follow a request, reproduce a cache/scheduling case on CPU |
+| 3 | P0 | Model Runner state / input path | Trace Scheduler output into runner state; test suitable interfaces |
+| 4 | P0 | Debugging, tests, CI, code reviews | Failing test → small fix → passing tests → explain limits |
+| 5 | P1 (blocked by hardware) | NVIDIA profiling and inference benchmarks | Reproducible TTFT, TPOT, throughput, memory, and profiler traces |
+| 6 | P1 | Serving/observability | Logs, queues, metrics, deployment and failure handling |
 
-**P0 completion is not reading a chapter:** explain independently + source trace + test/measurement artifact. Scores are skill-specific and do not prove overall job readiness.
+**No GPU available (2026-11-04).** Items 1–4 can progress now. Do not pretend CPU evidence proves GPU speedups. Previous real single-GPU deployment is experience, not current hardware access.
 
-## Choose a branch after the trunk
+## Issue-selection filter
 
-### Track A — Serving / platform (e.g., [Luma Remote EU](https://jobs.ashbyhq.com/lumaai/d0f68f86-1ec2-4443-a730-0d8f68842545))
+**Issues are practice problems, not the syllabus.** Before choosing one, assess:
 
-Learn **Linux, Docker, Kubernetes, queues, deployment, observability, reliability and GPU fleet cost**. Build a small deployed inference service and load-test it. These employers expect production systems, not just vLLM issue familiarity.
+| Question | Scale |
+| --- | --- |
+| Does it build a job-relevant core skill? | 0–5 (higher = better) |
+| Can the behavior be checked with a CPU test? | 0–5 (higher = better) |
+| Does it close a missing main-path skill? | 0–5 (higher = better) |
+| How deep and costly is the required investigation? | 0–5 (higher = worse) |
 
-### Track B — Inference optimization (e.g., [Featherless Remote World](https://jobs.ashbyhq.com/featherlessai/1762b15b-9c0b-4a20-a2b3-ed12c8222156/))
+Optional comparison: `4 × relevance + 3 × CPU testability + 2 × skill gain − 2 × cost`. **This is only a heuristic.** It is not a measured job-readiness score.
 
-Learn **GPU profiling, CUDA/Triton basics, memory bandwidth, batching, attention/quantization trade-offs**. Build a baseline → profiling → minimal improvement → benchmark case study. This is the deeper GPU track.
+**Go** only if: the issue is still real on current main; there is no duplicate fix; the invariant is clear; a test is practical; the scope fits roughly 1–2 focused sessions. **Park** broad research or GPU-only claims.
 
-## Defer the side quests (P2/P3)
+Examples worth checking, **not yet assigned**:
+- [#40004 — high-priority waiting requests](https://github.com/vllm-project/vllm/issues/40004): strong Scheduler topic; potentially large change.
+- [#64460 — KV saturation / admission](https://github.com/vllm-project/vllm/issues/64460): strong Scheduler topic; cannot verify GPU TPOT gain now.
+- [#60044 — prefix-cache miss attribution](https://github.com/vllm-project/vllm/issues/60044): useful observability; design agreement may be needed.
 
-- Full 2Q/ARC implementation or formal policy analysis — know the LRU/2Q/ARC idea, skip full algorithms unless profiling shows eviction is the bottleneck.
-- EAGLE lookahead hash, connector corner cases — know how draft/target verification works, then park #65161 if merged fixes remove the original symptom.
-- Advanced MoE, NCCL/RDMA, multi-node serving, NPU/Huawei and unusual hardware — do later if a target role explicitly requires them.
-- Small unrelated parser/API PRs — useful for OSS practice, but not evidence that can substitute for a GPU inference case.
+## No-GPU learning sequence (adjust as needed)
 
-## Current 8-week sequence — no GPU available
+| Stage | Deliverable |
+| --- | --- |
+| 1. Understand | One independent request-path walkthrough: Scheduler → KV → Model Runner |
+| 2. Verify | One bounded, CPU-reproducible Scheduler / BlockPool regression |
+| 3. Extend | A second core issue or a focused observability test, after checking overlap |
+| 4. Present | One readable case study with root cause, code, tests, limits, and upstream review |
 
-**GPU access = zero as of 2026-11-04.** Do not make NVIDIA rental a hidden prerequisite. The goal remains GPU inference engineering, but progress now comes from core-code learning and CPU verification.
+When hardware becomes available, add a **public-safe NVIDIA** benchmark and profiling case. Hardware is a future requirement for GPU performance work, **not a blocker** for current code contributions.
 
-| Window | Most valuable deliverable | Pass condition |
-| --- | --- | --- |
-| Weeks 1–2 | Request-path source trace: Scheduler → KV manager → Model Runner | Independently explain one prefill/decode state transition with source links and a small CPU test |
-| Weeks 3–4 | One bounded Scheduler or BlockPool bug | Failing CPU reproducer, smallest fix, passing regression tests; explain invariants |
-| Weeks 5–6 | Second main-path task, preferably scheduling observability or prefix-cache correctness | Reproducible CPU tests, clear failure cases, compare current source/PRs |
-| Weeks 7–8 | One portfolio case study of real upstream work | Explain problem, code, tests, trade-offs, GPU-validation limits, and review outcome |
+## Study less deeply, on purpose
 
-**When GPU access returns:** add a public-safe serving workload and measure TTFT, TPOT, throughput, and profiler traces. Do not claim those results before then.
+| Learn the core idea | Defer for now |
+| --- | --- |
+| LRU, prefix-cache reuse, basic eviction | Full 2Q/ARC implementation or research comparison |
+| Draft/target speculative decoding | EAGLE lookahead and connector corner cases |
+| What offloading and TP mean | RDMA/NCCL, large multi-node designs, exotic accelerators |
+| Basic attention and GPU memory costs | CUDA kernel optimization before we can profile on NVIDIA |
 
-**Existing real-world experience:** the learner reports having deployed and delivered a single-NVIDIA-GPU local LLM service, chosen between vLLM and SGLang using TTFT/TPOT/throughput, and separately benchmarked a PyTorch-to-ONNX conversion. Private customer details and results are not published here. The immediate gap is safe, inspectable evidence and engine-level profiling, **not** learning to launch a model from scratch.
+A job can ask for deeper skill later. Reopen a branch only when a role or main-path test requires it.
 
-This is a learning plan, not a guaranteed hiring timeline. Adjust based on actual workload and access to GPU resources.
+## Two directions after the shared core
 
-## Issue admission filter
+- **Serving/platform:** Docker, Linux, Kubernetes, queues, autoscaling, monitoring and reliability.
+- **Inference optimization:** GPU profiling, batching, memory bandwidth, kernel work, CUDA/Triton.
 
-**An Issue is a practice problem, not the syllabus.** Prefer the main path (Scheduler / KV Cache / BlockPool / Model Runner) and aim for **70% hands-on tests/source tracing, 30% just-in-time concepts**.
-
-Select candidate Issues using four explicit questions:
-
-1. **Role relevance (0–5):** Does it teach or prove core inference engineering?
-2. **CPU reproducibility (0–5):** Can it have a meaningful failing/passing test without a GPU?
-3. **New trunk skill (0–5):** Will it close a gap we actually need for a job?
-4. **Time/complexity (0–5):** How much deep, unrelated research will it consume?
-
-For comparison only, an optional heuristic is `4 × relevance + 3 × CPU feasibility + 2 × skill gain − 2 × complexity`. **This is a prioritization aid, not an objective metric or a job-readiness score.**
-
-**Gate:** Look for an open upstream problem, no overlapping fix, small test surface, clear invariant, and a stop condition. Timebox investigation to one session, then proceed, narrow scope, or park it. CPU unit tests can prove code correctness; they do **not** prove GPU performance changes.
-
-Current examples to review (not claimed / not yet selected):
-- [#40004](https://github.com/vllm-project/vllm/issues/40004) — priority preemption; central Scheduler skill, but broad semantics and more difficult implementation.
-- [#64460](https://github.com/vllm-project/vllm/issues/64460) — KV-saturation admission; central Scheduler skill, feasible CPU policy study, but hardware TPOT claim is untestable now.
-- [#60044](https://github.com/vllm-project/vllm/issues/60044) — prefix-cache miss attribution; useful cache observability, may need design agreement and careful semantics.
-
-**Depth limit:** LRU = know the rule and basic tests; 2Q/ARC = understand motivation, no deep policy implementation for now; EAGLE = know draft/verify, do not expand lookahead/offload corner cases unless a core issue needs them.
-
-## Audit sources
-
-- [Learning inventory, maturity and evidence gaps](SKILL_MAP.md)
-- [Chat-reported tests vs. reproducible artifacts](experiments/CHAT_REPORTED_RESULTS.md)
-- [Current knowledge levels and tomorrow's quiz](CURRENT.md)
-- [Open personal PRs](contributions/README.md)
+The immediate goal is **one strong, independently explained core contribution**, not the number of open PRs. Use the [learning protocol](LEARNING_PROTOCOL.md) and keep evidence separate from claims.

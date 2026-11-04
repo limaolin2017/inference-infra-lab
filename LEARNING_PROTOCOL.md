@@ -1,99 +1,59 @@
-# Learning Protocol — From Issue to Evidence
+# Learning Protocol — Issue to Evidence
 
-Use this process for each vLLM / inference-infrastructure issue.
+This file defines **how we work**. For priorities see [ROADMAP.md](ROADMAP.md). For current work see [CURRENT.md](CURRENT.md).
 
-## 1. Inspect the issue first
+## 1. Start with the skill gap
 
-Record the original report, exact version, expected and actual behavior, hardware, reproduction steps, current status, and any existing fixes.
+- Which main-path skill are we missing?
+- Is this Issue useful for **Scheduler, KV, BlockPool, Model Runner, or serving**?
+- Is there a smaller problem that teaches the same skill?
+- Can we verify correctness with CPU tests? There is **no GPU currently available**.
 
-Never assume the issue is still present on current main.
+Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not confuse a difficult Issue with a valuable Issue.**
 
-## 2. Extract the knowledge map
+## 2. Inspect before coding
 
-Make a small glossary:
-- **Known:** can explain independently.
-- **Partly known:** can follow an explanation, but not yet explain a new example.
-- **Unknown:** must learn before editing code.
+1. Read the latest Issue, comments and related PRs.
+2. Inspect current upstream source and existing tests.
+3. Check for a fix or duplicate work.
+4. State expected versus actual behavior and the invariant.
+5. Timebox exploration; park work that has become a deep side branch.
 
-Explain one concept with a concrete example and connect it to what is already known.
+## 3. Explain, then test understanding
 
-## 3. Check understanding
+- Explain the behavior with a small example or ASCII diagram.
+- Ask one unfamiliar question **without hints**.
+- Record **Pass / Partial / Miss** in [REVIEW_QUEUE.md](REVIEW_QUEUE.md).
+- Distinguish guided understanding from independent explanation.
 
-Ask a short, unfamiliar scenario. Require:
-- a clear reason for the behavior,
-- the important condition or invariant,
-- one situation where the rule changes.
+## 4. Produce engineering evidence
 
-Correct misconceptions. Do not mark **Verified** just because an answer sounds familiar.
+1. Reproduce a real failure if possible.
+2. Write a failing regression test.
+3. Make the smallest safe change.
+4. Run related tests and report commands, versions and limits.
+5. Review the diff and request upstream feedback only if there is still a gap.
 
-## 4. Map the goal and the gap
+**CPU correctness is valid evidence. CPU timing is not proof of NVIDIA TTFT, TPOT or throughput.** No claim of merged work without checking the PR.
 
-For each issue, distinguish:
-- **Knowledge gap:** What concept or data flow is not understood?
-- **Engineering gap:** What test, trace, design, or benchmark cannot yet be done without help?
-- **Relevance:** Does it develop vLLM core, scheduler, KV cache, or GPU performance skill?
+## 5. Record once, in the right place
 
-## Job-driven issue selection (2026-11-04)
+| What changed? | Where? |
+| --- | --- |
+| Next action / short status | [CURRENT.md](CURRENT.md) |
+| Priority and Issue choices | [ROADMAP.md](ROADMAP.md) |
+| Concept maturity and gap | [SKILL_MAP.md](SKILL_MAP.md) |
+| Misunderstanding to review | [REVIEW_QUEUE.md](REVIEW_QUEUE.md) |
+| Explanation | [concepts/](concepts/) |
+| Root cause, code and decision | [issues/](issues/) |
+| Test setup and measurements | [experiments/](experiments/) |
+| Open PR / upstream status | [contributions/](contributions/) |
+| What happened on a date | [journal/](journal/) |
 
-**Resource limit:** the learner currently has **no GPU**. Use CPU-only source tracing, unit tests, mocks and deterministic simulations where they prove the requested behavior. GPU-only bugs and throughput claims should be explicitly deferred.
+**One fact should have one main home.** Other files should link to it rather than copy full explanations.
 
-Before opening a new issue, check:
-- Is it in the core learning path: Scheduler, KV manager, BlockPool, Model Runner, or important serving contracts?
-- Can we reproduce or test the invariant without a GPU? If not, is the work still worth limited source analysis?
-- Does it teach a skill required by target jobs rather than a rare edge case?
-- Is it small enough to finish or decisively stop in one or two sessions?
-- Is someone already fixing it? Check live code, discussions and PRs.
+## 6. Visuals
 
-An Issue is a **learning vehicle**, not the curriculum. Park 2Q/ARC and EAGLE-specific deep dives after conceptual understanding, unless they support a main-path fix. See [ROADMAP.md](ROADMAP.md) for the selection rubric.
+Use ASCII for simple structures. Use **SVG with SMIL animation** when movement helps. Prefer SVG over GIF. Mark animations as *concept examples*, never as traces or measured experiments.
 
-## 5. Engineer in small steps
-
-1. Inspect source and existing tests.
-2. Write a failing test or benchmark that reproduces the reported behavior.
-3. State the expected invariant.
-4. Propose the smallest change.
-5. Run correctness tests before performance tests.
-6. Record test commands, environment, numbers, and known limits.
-7. Search for overlapping PRs before contributing.
-
-## 6. The optimization loop
-
-Treat learning as an iterative, feedback-driven process:
-
-- **Target:** independently understand, test, and improve inference-engine internals.
-- **Current:** evidence-backed understanding and engineering skills.
-- **Gap:** the smallest important missing skill, not a vague percentage.
-- **Action:** one explanation check, source trace, reproduction, or benchmark.
-- **Feedback:** evaluate the result and update Current.
-
-This is an **analogy to loss minimization**, not literal gradient descent. There is no computed derivative of an individual's skills. Avoid proxy targets such as PR count alone; prefer reproducible evidence and independent understanding.
-
-## 7. Start with a blind review
-
-At the start of a review session, read [REVIEW_QUEUE.md](REVIEW_QUEUE.md) and the dated quiz. Ask the learner the **questions only**. Do not expose hints, explanations, reference links, or the answer key until the learner has attempted the questions.
-
-After each answer, mark **Pass / Partial / Miss**, explain exactly what was wrong, and add a corrected explanation to the topic note. Retest missed points on a later day with a changed example.
-
-Review scores measure retention for those specific concepts, not job readiness. Keep old misconceptions as learning history; never present them as the learner's current belief after correction.
-
-## 8. Update state
-
-At each session end, change only what the evidence supports:
-
-- `CURRENT.md`: current state and immediate next action.
-- `REVIEW_QUEUE.md`: misconceptions and unanswered review questions; do not put answers before the blind attempt.
-- `reviews/YYYY-MM-DD.md`: closed-book questions and results after the attempt.
-- `issues/<issue>.md`: hypothesis, source links, reproductions, decision.
-- `concepts/<topic>.md`: corrected, concise explanation.
-- `journal/YYYY-MM-DD.md`: what changed today.
-- `experiments/`: executable method and measured result, once available.
-
-**Rule:** no fabricated tests, benchmarks, approvals, or merge status.
-
-## Diagram and animation preference
-
-Use short ASCII diagrams for simple relationships. For motion, use **SMIL SVG animations embedded directly in GitHub Markdown**. Prefer SVG to GIF. Avoid standalone HTML or GitHub Pages unless a task needs real interaction. Keep animations accurate and label concept demos separately from measured traces.
-
-## Suggested issue-note headings
-
-`Problem | Why it matters | Terms | Root-cause hypothesis | Code path | Tests | Measurements | Upstream status | Next decision`
+**Loop:** Target → Current → Gap → Issue → Explanation → Test → Feedback.
