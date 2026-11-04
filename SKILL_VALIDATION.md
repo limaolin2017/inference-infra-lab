@@ -86,6 +86,18 @@ Second unseen test ≥24 hours later for H-confirmed:
 Next gap:
 ```
 
+## 2026-11-04 evening practice checkpoint — no formal pass
+
+The learner answered four short review prompts ([daily log](journal/2026-11-04.md#evening-review--four-question-check-2026-11-04)). Result: **2 Pass, 1 Partial, 1 Miss**.
+
+- **Scheduler limits:** Q1 gave `4,2` where the asked order was requests, then tokens. The correct values are **2 requests**, **4 tokens total**. Partial. **Independent L2 Apply not demonstrated**.
+- **KV full with free token budget:** Q2 correct basic reason (“KV cache is full”). Pass at concept level; no code-path proof.
+- **Speculative draft/verify:** Q3 correct basic explanation; **L1 Explain shown on this question**, not an L2 unseen-case pass.
+- **EAGLE hidden states vs KV:** Q4 “不知道”; **L1 recall gap**, despite earlier guided practice.
+- **`Scheduler.schedule()`:** remains **L1 practice (guided)**; no independent trace.
+
+This was not the prescribed 3-prompt (explain/apply/predict), reasoned 5/6 blind H check; hint status is unknown and there is no delayed repeat. **Do not mark any L1-H, L2-H, A-PASS, or H-confirmed** based on it. Prior practice labels stay historical practice depth, not mastery certification.
+
 ## How to update
 
 **Keep this lightweight.** The validation system supports learning; it must not become a second full-time project. Use one real main-path task and record evidence that naturally comes from it. Do not create tests merely to fill cells in this table.
