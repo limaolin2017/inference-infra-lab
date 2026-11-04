@@ -77,6 +77,10 @@ At each session end, change only what the evidence supports:
 
 **Rule:** no fabricated tests, benchmarks, approvals, or merge status.
 
+## Diagram and animation preference
+
+Use short ASCII diagrams for simple relationships. For motion, use **SMIL SVG animations embedded directly in GitHub Markdown**. Prefer SVG to GIF. Avoid standalone HTML or GitHub Pages unless a task needs real interaction. Keep animations accurate and label concept demos separately from measured traces.
+
 ## Suggested issue-note headings
 
 `Problem | Why it matters | Terms | Root-cause hypothesis | Code path | Tests | Measurements | Upstream status | Next decision`
