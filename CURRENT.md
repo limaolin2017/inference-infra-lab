@@ -12,9 +12,11 @@ We have studied Scheduler and KV-cache concepts separately. The missing proof is
 
 ### Next session
 
-1. Start with the short [2026-11-05 blind review](reviews/2026-11-05.md). Do not show answers before the attempt; log evidence in [SKILL_VALIDATION.md](SKILL_VALIDATION.md), without pre-grading.
-2. Trace a prefill/decode request across the three core modules. Record exact source links and where CPU-only tests are possible.
-3. Check current code and overlapping PRs for a **bounded** open core Issue. Write the expected invariant and a failing CPU test before suggesting a fix.
+1. **Main task:** trace one prefill/decode request through Scheduler → KV Manager / BlockPool → Model Runner, with exact source links. Explain the request state and cache changes in your own words.
+2. **Small proof:** predict one changed input/queue case, then verify it with an available CPU unit test or a clear source-level check. Record what did and did not pass.
+3. **Real Issue:** inspect current source, existing tests and overlapping PRs for one bounded Scheduler/KV/Model Runner problem. Only then decide whether a fix is worth a PR.
+
+**Optional review:** [2026-11-05 EAGLE quiz](reviews/2026-11-05.md) remains saved for later, but it is **not a prerequisite** to the main-path task. Record formal verification in [SKILL_VALIDATION.md](SKILL_VALIDATION.md) only when actual evidence exists.
 
 **Optional GPU checkpoint:** If Colab provides a suitable NVIDIA GPU, run a small model and a short notebook benchmark. Record GPU type, vLLM version, model, commands and timings. Do not rely on a persistent server or assume the GPU will be available next time.
 

@@ -34,7 +34,7 @@ Request → Scheduler → KV Cache / BlockPool → Model Runner → GPU
 
 - [Contributions](contributions/README.md) — PR links and upstream status.
 - [Experiments](experiments/README.md) — what counts as proof; [chat-reported results](experiments/CHAT_REPORTED_RESULTS.md) are marked separately.
-- [Review queue](REVIEW_QUEUE.md) and [next blind quiz](reviews/2026-11-05.md) — check understanding without hints.
+- [Review queue](REVIEW_QUEUE.md) — core skills first; the [earlier EAGLE blind quiz](reviews/2026-11-05.md) remains an optional specialist review.
 - [Concept notes](concepts/) and [Issue notes](issues/) — detailed explanations and investigations.
 - [Journal](journal/) — dated learning history, not the current task list.
 - [SVG learning demo](visualizations/eagle-lookahead.md) — specialist material remains available, but does not dominate the home page.

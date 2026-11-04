@@ -22,4 +22,4 @@
 4. **Issue author's benchmark** ≠ our benchmark.
 5. **Open PR** ≠ merged change.
 
-Keep client names, model endpoints, private weights, credentials, and internal benchmark datasets out of this public repository. When importing a safe experiment, capture: commit, hardware, vLLM version, model, commands, request mix, repeat count, raw output, correctness checks, and known confounders. Only then consider Level 5 for that specific measured skill.
+Keep client names, model endpoints, private weights, credentials, and internal benchmark datasets out of this public repository. When importing a safe experiment, capture: commit, hardware, vLLM version, model, commands, request mix, repeat count, raw output, correctness checks, and known confounders. Only then describe a result as a reproducible performance measurement. L1–L4 capability and A/H evidence are tracked separately in [SKILL_VALIDATION.md](../SKILL_VALIDATION.md); a benchmark does not automatically establish independent skill.

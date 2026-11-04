@@ -88,6 +88,8 @@ Next gap:
 
 ## How to update
 
+**Keep this lightweight.** The validation system supports learning; it must not become a second full-time project. Use one real main-path task and record evidence that naturally comes from it. Do not create tests merely to fill cells in this table.
+
 1. Select one **P0 core skill**.
 2. Write and preserve the test plan or unseen answers **before** feedback or execution.
 3. Run the test; inspect actual output and version.
