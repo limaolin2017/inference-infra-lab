@@ -2,7 +2,7 @@
 
 **Last reviewed:** 2026-11-04  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
-**Hardware:** **No GPU currently available.** Do not require NVIDIA rental to continue.
+**Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
 ## One active learning focus
 
@@ -15,6 +15,8 @@ We have studied Scheduler and KV-cache concepts separately. The missing proof is
 1. Start with the short [2026-11-05 blind review](reviews/2026-11-05.md). Do not show answers before the attempt.
 2. Trace a prefill/decode request across the three core modules. Record exact source links and where CPU-only tests are possible.
 3. Check current code and overlapping PRs for a **bounded** open core Issue. Write the expected invariant and a failing CPU test before suggesting a fix.
+
+**Optional GPU checkpoint:** If Colab provides a suitable NVIDIA GPU, run a small model and a short notebook benchmark. Record GPU type, vLLM version, model, commands and timings. Do not rely on a persistent server or assume the GPU will be available next time.
 
 **Candidate Issues (not selected or claimed):**
 - [#40004 — priority preemption](https://github.com/vllm-project/vllm/issues/40004): excellent Scheduler relevance, but broad.
@@ -31,7 +33,7 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 | Scheduler / admission / preemption | Guided explanations and chat-reported CPU simulations | Independent source trace + focused CPU regression |
 | KV Cache / BlockPool / prefix cache | Concepts studied; [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests (open draft) | Trace full block life cycle and rerun tests |
 | Model Runner | Pieces discussed | Follow real input/state preparation; CPU-mock test where possible |
-| NVIDIA performance / CUDA | Prior professional serving work reported; no public profiler artifacts | Deferred until GPU access returns |
+| NVIDIA performance / CUDA | Prior professional serving work reported; no public profiler artifacts | Optional short Colab GPU run when available; benchmark evidence still pending |
 | EAGLE / Lookahead / 2Q / ARC | Basic concepts; some guided checks | **Park deeper study** unless needed for core work |
 
 Full inventory and evidence levels: [SKILL_MAP.md](SKILL_MAP.md). Reported experiments: [CHAT_REPORTED_RESULTS.md](experiments/CHAT_REPORTED_RESULTS.md).
