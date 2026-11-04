@@ -1,23 +1,23 @@
 # Current State
 
 **Updated:** 2026-11-04  
-**Primary topic:** [vLLM #65161](issues/vllm-65161.md) — EAGLE, prefix caching, and CPU KV offloading  
-**Next action:** On 2026-11-05, do the brief [closed-book review quiz](reviews/2026-11-05.md) (no hints before the attempt). Then prioritize a one-request Scheduler → KV → Model Runner trace and plan a real NVIDIA GPU serving benchmark. OffloadingConnector details are optional if #65161 is already fixed.
+**Primary learning track:** job-ready inference engineering; follow [SKILL_MAP.md](SKILL_MAP.md). [vLLM #65161](issues/vllm-65161.md) stays a lower-priority research branch.  
+**Next action:** On 2026-11-05, do the brief [closed-book review quiz](reviews/2026-11-05.md) (no hints before the attempt). Then trace one request through Scheduler → KV → Model Runner and build a **public-safe reproducible benchmark** on NVIDIA. OffloadingConnector details are optional if #65161 is already fixed.
 
 ## Job-target gap: summary (2026-11-04)
 
 **Read [SKILL_MAP.md](SKILL_MAP.md) before diving into another issue.** We have studied much of the KV/cache/scheduling vocabulary. The biggest remaining job-ready proofs are:
 
-1. **One real NVIDIA GPU inference server + repeatable performance baseline** (TTFT, TPOT, throughput, workloads, cost). No durable benchmark in this repository yet.
+1. **A public-safe NVIDIA performance baseline** (TTFT, TPOT, throughput, workload settings). The user reports **prior successful single-GPU LLM deployment** and **vLLM/SGLang comparison** in real professional work, but no shareable raw data or reproducible benchmark is stored in this repo.
 2. **One end-to-end code trace: request → Scheduler → KV manager → Model Runner → GPU**. Specific internals have been discussed, but not independently traced end-to-end.
 3. **A profile-based diagnosis and controlled fix**. No reproducible GPU kernel trace or A/B performance case study here.
-4. **For serving/platform roles:** Linux/Docker/Kubernetes serving, metrics, queue and reliability evidence. AI app deployments do not alone demonstrate inference fleet skills.
+4. **For serving/platform roles:** Linux/Docker/Kubernetes, metrics, queue and reliability evidence. Prior single-GPU inference deployment counts as real experience, but does not yet demonstrate a monitored multi-node fleet.
 
 **Do not equate issue difficulty with job value.** Cache-eviction policy research (2Q/ARC), EAGLE lookahead edge cases, multi-node networking, or accelerator-specific backends can wait unless they unlock one of these proofs.
 
 **Engineering evidence:** Personal upstream [#61801](https://github.com/vllm-project/vllm/pull/61801) (docs, open), [#64281](https://github.com/vllm-project/vllm/pull/64281) (BlockPool CPU regression, open draft), [#65366](https://github.com/vllm-project/vllm/pull/65366) (tokenizer/API CPU regression, open). See [contributions](contributions/README.md) and [chat-reported experiments](experiments/CHAT_REPORTED_RESULTS.md). None are merged as checked today. Local tests stated in PR descriptions are reported tests, not independent evidence of personal mastery.
 
-**Immediate plan:** Keep tomorrow's brief blind review. Then move to GPU baseline and vertical code tracing; do not spend another full session on specialized EAGLE rules unless an actual bug remains.
+**Immediate plan:** Keep tomorrow's brief blind review. Then move to a public-safe GPU benchmark and vertical code tracing. Build on prior vLLM/SGLang deployment, rather than repeating beginner deployment lessons. Do not spend another full session on specialized EAGLE rules unless an actual bug remains.
 
 ## Knowledge checkpoints
 
@@ -36,7 +36,7 @@ These are conservative self-assessments from the current learning discussion. Th
 | Scheduler: load vs. recompute | 0–1 · Not verified | Cost decision is an open question | Design A/B test with TTFT and load counts |
 | LRU / 2Q / ARC | 2 · Explained (earlier sessions) | Basic cache-eviction intuition | Compare behavior using a test trace |
 | Preemption / admission control | 2 · Explained (earlier sessions) | Basic scheduling trade-offs | Independently reason through a constrained KV budget |
-| CUDA / kernel profiling | 0 · Not started here | No demonstrated experiment in this repo | Pick a scoped profiling exercise |
+| CUDA / kernel profiling | 0 · Not evidenced in repo | Real NVIDIA serving is reported, but no public kernel profile or CUDA test | Pick a scoped profiling exercise |
 
 ## The three original concept questions
 
