@@ -1,27 +1,14 @@
-# EAGLE Lookahead Hash — Animation and HTML Rendering Test
+# EAGLE Lookahead Hash — SVG Animation
 
-## Animated GIF in GitHub Markdown
+The **SMIL SVG animation** below plays directly in supported GitHub Markdown views.
 
-<img src="../assets/eagle-lookahead.gif" alt="Legacy EAGLE trailing-block drop versus lookahead hash" width="480">
+![EAGLE legacy versus lookahead hash animation](../assets/eagle-lookahead.svg)
 
-<details>
-<summary>Expand the explanation (GitHub HTML test)</summary>
+## What the animation means
 
-- A legacy key `H(context, ABCD)` can match two requests that have different next tokens.
-- EAGLE draft KV at the boundary may depend on next token `E` or `F`.
-- The old path may exclude the trailing GPU hit. CPU offloading can then load that block.
-- Lookahead uses a combined key such as `H(context, ABCD, E)`. When the context and E match, reuse is safer.
-- This is a **simplified example**. It does not show that every CPU reload disappears.
-
-</details>
-
-## Full HTML animation
-
-See [eagle-lookahead.html](eagle-lookahead.html). It is a self-contained HTML/CSS file. GitHub's normal file viewer displays its **source**, not a live animated webpage. Open it locally in a browser or publish through GitHub Pages to run CSS animations.
-
-## GitHub display support
-
-GitHub supports GIF images in Markdown. It also supports a limited set of HTML elements, including expandable `<details>` and images. GitHub's official [file documentation](https://docs.github.com/en/repositories/working-with-files/using-files/working-with-non-code-files) says SVG animation is not supported in its normal SVG viewer. The repo also has a [separate SVG compatibility test](../assets/kv-cache-smil-test.svg) so we can see what this client renders.
+- Legacy: a key such as `H(context, ABCD)` does not distinguish a following `E` from `F`. The **EAGLE draft-side** boundary state can differ, so a trailing match may be excluded. CPU offloading may then need to reload data.
+- Lookahead: a key such as `H(context, ABCD, E)` includes the next token ID. A matching context and next token can allow safe GPU cache reuse when the connector supports it.
+- This is **a simplified concept**, not a source trace or benchmark. It does not claim that all CPU loads disappear. The target model's prefix KV and EAGLE draft-side boundary state are different things.
 
 ## Research status
 
