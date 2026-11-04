@@ -61,7 +61,7 @@ See [chat-reported experiment inventory](experiments/CHAT_REPORTED_RESULTS.md). 
 
 ## Which job are we preparing for?
 
-**Shared job-ready trunk (do this first):** Python/PyTorch → vLLM request path → Scheduler/KV/Model Runner → NVIDIA GPU serving → TTFT/TPOT/throughput profiling → reproducible tests and explanation.
+**Shared job-ready trunk (do this first):** Python/PyTorch → vLLM request path → Scheduler/KV/Model Runner → reproducible CPU correctness tests → GPU serving/profiling when hardware becomes available → measured optimization. Current GPU access is **none**; never present unavailable GPU work as an immediate required step.
 
 Two relevant job directions:
 
@@ -78,18 +78,24 @@ Only start a new issue when it has: (1) direct P0/P1 relevance; (2) a reproducib
 
 **Time allocation:** ~70% hands-on source tracing, deployment, tests, and profiling; ~30% just-in-time concepts. PR count is not the goal.
 
-## Next 8-week *learning sequence*, not a job guarantee
+## Current learning sequence: Issue-first, no GPU
 
-1. **Weeks 1–2: Publish a safe NVIDIA baseline.** Do not re-learn first deployment. Rebuild a small public test using a public model on a rented NVIDIA GPU. Capture reproducible TTFT/TPOT/tokens/s across batch sizes and input/output lengths. Do not copy client code or data.
-2. **Weeks 3–4: Full request trace.** Draw a request path through Scheduler, KV allocation/prefix cache, Model Runner and attention. Reproduce one CPU-side scheduling/KV behavior, then connect it to GPU traces. Explain it independently.
-3. **Weeks 5–6: Measure bottlenecks.** Use torch profiler / Nsight on NVIDIA to compare prefill vs decode and two controlled settings. Separate kernel cost, transfer, waiting, and recomputation. Publish raw tables and commands.
-4. **Weeks 7–8: Job-shaped proof.** Either build a small Docker/K8s serving stack with queue, dashboards and reliability checks (platform route), **or** contribute one measured vLLM core improvement with regression + benchmark (optimization route). Prefer one finished case study over five unrelated PRs.
+**As of 2026-11-04, the learner has no accessible GPU.** Previous real NVIDIA deployment is still part of their experience, but no active GPU, including GB10, may be assumed. Hardware rental is optional, not a prerequisite.
+
+1. **Weeks 1–2:** Read and explain one `Scheduler → KV manager → Model Runner` request path. Build one CPU unit test or isolated source trace.
+2. **Weeks 3–4:** Choose one bounded real core Issue, confirm that it is still open and not already fixed, and write failing/passing CPU regression tests.
+3. **Weeks 5–6:** Choose a second high-value main-path issue, ideally scheduling, KV correctness, or observability. Record conditions, limitations and review feedback.
+4. **Weeks 7–8:** Publish a job-shaped code case study: scenario → source path → regression → fix → limits. Mark GPU profiling / performance validation as pending until hardware returns.
+
+**Example candidates, not claims:** [#40004](https://github.com/vllm-project/vllm/issues/40004) (priority preemption; wide scope), [#64460](https://github.com/vllm-project/vllm/issues/64460) (KV admission; CPU policy tests but no GPU TPOT proof), [#60044](https://github.com/vllm-project/vllm/issues/60044) (prefix-cache miss diagnostics; design complexity). Re-check latest main, overlap, and CPU feasibility before assigning one.
+
+**Do not confuse code correctness with GPU performance.** A CPU-passing patch can still be valuable OSS evidence; it cannot validate TTFT/TPOT improvements on NVIDIA.
 
 **Definition of done for a P0 skill:** can explain it without hints, point to the exact source path, run a small test/trace, and state its limits. For performance claims also attach the raw benchmark setup and repeat results.
 
 ## Practical resources and scope
 
-The learner has previously mentioned access to an **NVIDIA GB10** and an **Apple M1 Pro**. Current ownership/access has not been rechecked. Prefer accessible NVIDIA GB10 for profiling if CUDA tooling and model support permit; otherwise use a rented NVIDIA GPU. Do **not** use Metal-only benchmarks to claim NVIDIA GPU gains. Keep the main path centered on NVIDIA/CUDA instead of NPU/Huawei.
+**Hardware update:** the learner explicitly reports **no GPU available** on 2026-11-04. Earlier mentions of NVIDIA GB10 and Apple hardware are historical and must not be treated as current available devices. Do not prescribe renting a GPU to begin. Retain NVIDIA/CUDA as a future skill track, and do **not** use Metal-only or CPU-only results to claim NVIDIA GPU gains.
 
 Earlier chats also discussed nano-vLLM as a compact teaching engine and alternative runtime comparisons (SGLang, DeepInfer/DSpark, vLLM-Metal). These are **background**, not mandatory prerequisites. The job proof must use actual serving, measurements, and the real target code path.
 
@@ -97,4 +103,4 @@ Earlier chats also discussed nano-vLLM as a compact teaching engine and alternat
 
 - Keep the existing [2026-11-05 blind quiz](reviews/2026-11-05.md) unchanged.
 - After the quiz, spend the next session on the **Scheduler → KV manager → Model Runner** vertical trace, not more cache replacement policy theory.
-- Highest-value public proof is **sanitized serving benchmark + NVIDIA profiler evidence**, building on existing real deployment rather than pretending it never happened.
+- Current highest-value proof is a **bounded upstream CPU-tested core fix + independent source trace**. When GPU access returns, add sanitized NVIDIA serving/profiling evidence, building on prior real deployment.
