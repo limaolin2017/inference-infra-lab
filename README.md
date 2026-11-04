@@ -36,7 +36,7 @@ Request → Scheduler → KV Cache / BlockPool → Model Runner → GPU
 - [Experiments](experiments/README.md) — what counts as proof; [chat-reported results](experiments/CHAT_REPORTED_RESULTS.md) are marked separately.
 - [Review queue](REVIEW_QUEUE.md) — core skills first; the [earlier EAGLE blind quiz](reviews/2026-11-05.md) remains an optional specialist review.
 - [Concept notes](concepts/) and [Issue notes](issues/) — detailed explanations and investigations.
-- [Journal](journal/) — dated learning history, not the current task list.
+- [Daily learning log](journal/2026-11-04.md) — new concepts, reviewed concepts, actual checks and the next gap; [archive](journal/) for older days.
 - [SVG learning demo](visualizations/eagle-lookahead.md) — specialist material remains available, but does not dominate the home page.
 
 **Evidence rule:** A passing CPU test proves only what that test covers. An open PR is not a merged contribution. A CPU microbenchmark is not a GPU performance result. Keep private customer work and data out of this repository.

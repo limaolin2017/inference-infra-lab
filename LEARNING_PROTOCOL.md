@@ -55,7 +55,22 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 
 **One fact should have one main home.** Other files should link to it rather than copy full explanations.
 
-## 6. Visuals
+## 6. Daily learning log (short and factual)
+
+Use **one `journal/YYYY-MM-DD.md` per study day**, not an extra root `LOG.md`. Keep the current-day page easy to scan:
+
+| Field | Record |
+| --- | --- |
+| **New** | Concepts first learned today |
+| **Reviewed** | Older concepts revisited or connected to new examples |
+| **Checks** | Actual questions, learner predictions, result (**Correct / Partial / Miss**), and whether guidance was used |
+| **Next** | **One P0 main-path skill** to study, plus the exact missing proof |
+
+**Rules:** A concept may be studied without being independently verified. No retroactive A/H level upgrade from guided chat. Keep formal grades only in [SKILL_VALIDATION.md](SKILL_VALIDATION.md), current focus only in [CURRENT.md](CURRENT.md), and detailed explanations in [concepts/](concepts/). The daily log is a brief event record. Add evidence links rather than copying full notes.
+
+**Example:** [2026-11-04 daily log](journal/2026-11-04.md).
+
+## 7. Visuals
 
 Use ASCII for simple structures. Use **SVG with SMIL animation** when movement helps. Prefer SVG over GIF. Mark animations as *concept examples*, never as traces or measured experiments.
 
