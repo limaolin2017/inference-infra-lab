@@ -62,11 +62,13 @@ In the legacy path, the trailing EAGLE draft KV hit may be dropped because the n
 
 **A status applies to one specific skill, not to all of vLLM.** Listening to an explanation is not the same as passing a test.
 
-## Current investigation
+## Optional research investigation
 
 [vLLM #65161 — EAGLE + CPU KV offloading](issues/vllm-65161.md)
 
 The first task is to confirm whether its original behavior still reproduces on current vLLM. Related changes [#61589](https://github.com/vllm-project/vllm/pull/61589) and [#64096](https://github.com/vllm-project/vllm/pull/64096) have already merged. No fix is claimed here.
+
+**Current job-focused priority:** build a public-safe NVIDIA inference benchmark, trace Scheduler → KV Manager → Model Runner, and profile one measured bottleneck. Previous professional single-GPU deployment experience is acknowledged in [SKILL_MAP.md](SKILL_MAP.md); no private client data belongs here.
 
 ## Working rules
 
