@@ -1,49 +1,57 @@
-# Roadmap — LLM Inference Systems
+# Roadmap — Job-Ready Inference Engineer
 
-Goal: move from using inference frameworks to **reading, testing, modifying, and measuring their internals**.
+**Updated: 2026-11-04.** Work backward from jobs, not forward from a random issue. See the [animated architecture / knowledge map](SKILL_MAP.md) and [current evidence](CURRENT.md).
 
-This is a skill roadmap, **not** a promise about dates or job readiness.
+![Inference Engineer skill map](assets/inference-skill-map.svg)
 
-## Track A — Core engine (highest current priority)
+## The essential trunk: P0
 
-| Skill | Practical proof | Status |
+| Order | Skill to demonstrate | Concrete pass test | Current evidence |
+| --- | --- | --- | --- |
+| 1 | Basic Transformer/attention, prefill vs decode | Derive K/V size and explain compute-vs-bandwidth with one real model | Explained; independent technical check pending |
+| 2 | vLLM request lifecycle: API, Scheduler, KV manager, Model Runner | Trace one prefill and one decode request in current source | Pieces discussed; full trace missing |
+| 3 | KV blocks, prefix cache, scheduling, admission/preemption | Reproduce hit/miss, KV shortage, and a scheduler action | Guided concepts; some chat-reported CPU simulations and an open draft core PR |
+| 4 | Real NVIDIA inference benchmark | Serve model; collect raw TTFT, TPOT, throughput, GPU memory over varied load | **Missing** |
+| 5 | Profiling and reasoning | Explain a measured slowdown and an A/B comparison; include caveats | **Missing** |
+| 6 | Tests, CI, reproducibility | Write regression tests and show commands and failure-before/pass-after | Some reported CPU PR tests; core performance case not yet complete |
+
+**P0 completion is not reading a chapter:** explain independently + source trace + test/measurement artifact. Scores are skill-specific and do not prove overall job readiness.
+
+## Choose a branch after the trunk
+
+### Track A — Serving / platform (e.g., [Luma Remote EU](https://jobs.ashbyhq.com/lumaai/d0f68f86-1ec2-4443-a730-0d8f68842545))
+
+Learn **Linux, Docker, Kubernetes, queues, deployment, observability, reliability and GPU fleet cost**. Build a small deployed inference service and load-test it. These employers expect production systems, not just vLLM issue familiarity.
+
+### Track B — Inference optimization (e.g., [Featherless Remote World](https://jobs.ashbyhq.com/featherlessai/1762b15b-9c0b-4a20-a2b3-ed12c8222156/))
+
+Learn **GPU profiling, CUDA/Triton basics, memory bandwidth, batching, attention/quantization trade-offs**. Build a baseline → profiling → minimal improvement → benchmark case study. This is the deeper GPU track.
+
+## Defer the side quests (P2/P3)
+
+- Full 2Q/ARC implementation or formal policy analysis — know the LRU/2Q/ARC idea, skip full algorithms unless profiling shows eviction is the bottleneck.
+- EAGLE lookahead hash, connector corner cases — know how draft/target verification works, then park #65161 if merged fixes remove the original symptom.
+- Advanced MoE, NCCL/RDMA, multi-node serving, NPU/Huawei and unusual hardware — do later if a target role explicitly requires them.
+- Small unrelated parser/API PRs — useful for OSS practice, but not evidence that can substitute for a GPU inference case.
+
+## Suggested 8-week sequence
+
+| Window | Most valuable deliverable | Pass condition |
 | --- | --- | --- |
-| Prefill vs. decode | Explain latency and compute/memory trade-offs | Explained, revisit |
-| Attention and GQA | Trace K/V dimensions and memory cost | Studied earlier; not verified here |
-| PagedAttention / BlockPool | Trace allocation, reference counts, and eviction | Studied earlier; code proof pending |
-| Prefix caching | Reproduce cache hits and invalidation | Explained |
-| Scheduler | Follow one waiting request through admission and preemption | Studied earlier; trace pending |
-| KV offloading | Trace GPU/CPU lookup and async load | Current gap |
-| Speculative decoding / EAGLE | Explain draft verification and draft-KV boundary | Current topic |
+| Weeks 1–2 | Single NVIDIA GPU inference baseline | Reproducible setup + TTFT/TPOT/throughput/memory tables with raw data |
+| Weeks 3–4 | Vertical source trace + scheduler/KV tests | Explain and instrument a request from API to Model Runner |
+| Weeks 5–6 | Profiling diagnosis | Profiling trace + testable bottleneck hypothesis + controlled A/B |
+| Weeks 7–8 | One job-shaped portfolio case | Serving deployment **or** measured vLLM core improvement with limitations |
 
-## Track B — Performance engineering
+This is a learning plan, not a guaranteed hiring timeline. Adjust based on actual workload and access to GPU resources.
 
-- Reproduce with controlled model, hardware, versions, and inputs.
-- Measure TTFT, inter-token latency, throughput, GPU memory, and cache-hit rate.
-- Separate **correctness tests** from **performance claims**.
-- Compare load, recompute, and scheduling strategies under varying request lengths.
-- Report regressions and failure cases.
+## Issue admission filter
 
-## Track C — GPU / ML systems
+**Start an issue only if** it supports the current P0/P1 proof, has a reproducible setup, can be measured or tested, and has a clear stop condition. Timebox an exploratory issue to one session; move deep research branches into the parking lot. Aim for **70% practical work and 30% just-in-time theory**.
 
-- PyTorch execution and profiling.
-- CUDA basics: threads, memory hierarchy, synchronization.
-- Kernel profiling and bottleneck identification.
-- Batching, kernel launches, memory bandwidth, and occupancy.
-- Distributed inference and serving trade-offs.
+## Audit sources
 
-## Evidence ladder
-
-1. Explain a concept in your own words.
-2. Trace the actual code path.
-3. Write a regression test.
-4. Make a minimal change and pass tests.
-5. Measure the effect on a controlled workload.
-6. Submit a clear upstream PR, if a real gap remains.
-
-## Portfolio quality bar
-
-An issue note is valuable only when it distinguishes:
-**reported behavior**, **observed evidence**, **hypothesis**, and **result**.
-
-A merged PR is strong evidence, but an independently designed test and a careful negative result also count as engineering work.
+- [Learning inventory, maturity and evidence gaps](SKILL_MAP.md)
+- [Chat-reported tests vs. reproducible artifacts](experiments/CHAT_REPORTED_RESULTS.md)
+- [Current knowledge levels and tomorrow's quiz](CURRENT.md)
+- [Open personal PRs](contributions/README.md)
