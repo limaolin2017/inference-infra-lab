@@ -34,6 +34,8 @@
 | Speculative decode | Drafter/target verification, EAGLE, hidden states, trailing-block drop | Basic acceptance independently answered; EAGLE-specific boundary understood conceptually; code unverified | Review after a delay; resume only if issue supports main-path work | P2 |
 | Lookahead/offloading | Lookahead block hash, CPU OffloadingConnector, load vs recompute | Guided explanation; CPU reload path and cost choice not independently traced | Source trace only if it serves P0 profiling goal | P2 |
 | Specialized systems | MoE, disaggregated P/D, NCCL, RDMA, multi-node, elaborate quantization, compiler internals | Some terms encountered; no independent operational proof | Add after one single-GPU serving + profiling project | P2–P3 |
+| Small engine code studies | nano-vLLM components (`sequence`, `scheduler`, `block_manager`, `model_runner`), CUDA graphs, basic TP | Discussed as a way to read the architecture; no end-to-end independent trace recorded | Use nano-vLLM briefly to understand a vertical path, then verify against current vLLM | P1 tool |
+| Alternative engines / hardware | SGLang, DeepInfer/DSpark, vLLM-Metal GQA, MLX/llama.cpp | Compared or researched; Metal experiments or claims from chat not rerun here | Do not make them the main learning plan; focus on NVIDIA/vLLM first | P2 |
 
 **P0 = needed for first credible inference-engineer portfolio. P1 = needed next. P2/P3 = defer until a role or experiment demands it.** A higher priority does not mean a concept is harder.
 
@@ -84,6 +86,12 @@ Only start a new issue when it has: (1) direct P0/P1 relevance; (2) a reproducib
 4. **Weeks 7–8: Job-shaped proof.** Either build a small Docker/K8s serving stack with queue, dashboards and reliability checks (platform route), **or** contribute one measured vLLM core improvement with regression + benchmark (optimization route). Prefer one finished case study over five unrelated PRs.
 
 **Definition of done for a P0 skill:** can explain it without hints, point to the exact source path, run a small test/trace, and state its limits. For performance claims also attach the raw benchmark setup and repeat results.
+
+## Practical resources and scope
+
+The learner has previously mentioned access to an **NVIDIA GB10** and an **Apple M1 Pro**. Current ownership/access has not been rechecked. Prefer accessible NVIDIA GB10 for profiling if CUDA tooling and model support permit; otherwise use a rented NVIDIA GPU. Do **not** use Metal-only benchmarks to claim NVIDIA GPU gains. Keep the main path centered on NVIDIA/CUDA instead of NPU/Huawei.
+
+Earlier chats also discussed nano-vLLM as a compact teaching engine and alternative runtime comparisons (SGLang, DeepInfer/DSpark, vLLM-Metal). These are **background**, not mandatory prerequisites. The job proof must use actual serving, measurements, and the real target code path.
 
 ## Next review
 
