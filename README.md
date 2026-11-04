@@ -4,7 +4,7 @@ A public learning and contribution log for **LLM inference engineering**.
 
 **Goal:** Understand, test, and improve the core path of an inference engine. Use real vLLM Issues as practice. Do not study every interesting edge case.
 
-**Current constraint (2026-11-04):** No GPU is available. Prior single-GPU inference deployment experience is acknowledged, but new GPU benchmarks are deferred. We can still make useful progress through CPU tests and source tracing.
+**Current constraint (2026-11-04):** No personal GPU is available. A free Colab GPU may be used for short optional tests, but availability is not guaranteed. Main-path source tracing and CPU tests remain the priority. Prior single-GPU inference deployment experience is acknowledged.
 
 ![Inference Engineer knowledge map](assets/inference-skill-map.svg)
 

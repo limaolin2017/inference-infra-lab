@@ -18,8 +18,8 @@ These are *future* proof tasks, not scored questions yet.
 
 1. Explain one prefill and one decode path through `Scheduler → KVCacheManager → ModelRunner` without prompts.
 2. Given a model and batch shape, derive approximate K/V memory and identify the memory limit.
-3. Set up repeatable single NVIDIA GPU serving with TTFT, TPOT and throughput.
-4. Explain an actual GPU profile before choosing an optimization.
+3. **Deferred until suitable GPU access:** repeatable single NVIDIA GPU serving with TTFT, TPOT and throughput.
+4. **Deferred until suitable GPU access:** explain an actual GPU profile before choosing an optimization.
 5. If targeting serving/platform work, demonstrate Linux/Docker/K8s and service metrics.
 
 Keep new material out of tomorrow's existing closed-book quiz. See [SKILL_MAP.md](SKILL_MAP.md).

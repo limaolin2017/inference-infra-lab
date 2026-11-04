@@ -38,13 +38,9 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 
 Full inventory and evidence levels: [SKILL_MAP.md](SKILL_MAP.md). Reported experiments: [CHAT_REPORTED_RESULTS.md](experiments/CHAT_REPORTED_RESULTS.md).
 
-## Contribution status (checked 2026-11-04)
+## Contribution status
 
-- [#61801](https://github.com/vllm-project/vllm/pull/61801): open docs PR.
-- [#64281](https://github.com/vllm-project/vllm/pull/64281): open **draft**, BlockPool guards.
-- [#65366](https://github.com/vllm-project/vllm/pull/65366): open, DeepSeek V4.1 error handling.
-
-None were confirmed merged at the last check. See [contributions](contributions/README.md) for details.
+See [contributions/README.md](contributions/README.md) for the **single maintained list** of upstream PRs, reported tests, and last-checked statuses. Do not copy status lists into this file.
 
 ## Parked investigation
 

@@ -30,12 +30,9 @@ Optional comparison: `4 × relevance + 3 × CPU testability + 2 × skill gain �
 
 **Go** only if: the issue is still real on current main; there is no duplicate fix; the invariant is clear; a test is practical; the scope fits roughly 1–2 focused sessions. **Park** broad research or GPU-only claims.
 
-Examples worth checking, **not yet assigned**:
-- [#40004 — high-priority waiting requests](https://github.com/vllm-project/vllm/issues/40004): strong Scheduler topic; potentially large change.
-- [#64460 — KV saturation / admission](https://github.com/vllm-project/vllm/issues/64460): strong Scheduler topic; cannot verify GPU TPOT gain now.
-- [#60044 — prefix-cache miss attribution](https://github.com/vllm-project/vllm/issues/60044): useful observability; design agreement may be needed.
+Live examples under consideration are listed only in [CURRENT.md](CURRENT.md). Recheck their upstream status, overlapping PRs, and CPU-test scope before starting.
 
-## No-GPU learning sequence (adjust as needed)
+## CPU-first learning sequence (adjust as needed)
 
 | Stage | Deliverable |
 | --- | --- |
