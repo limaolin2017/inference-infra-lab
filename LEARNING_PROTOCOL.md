@@ -61,12 +61,14 @@ Use **one `journal/YYYY-MM-DD.md` per study day**, not an extra root `LOG.md`. K
 
 | Field | Record |
 | --- | --- |
-| **New** | Concepts first learned today |
-| **Reviewed** | Older concepts revisited or connected to new examples |
-| **Checks** | Actual questions, learner predictions, result (**Correct / Partial / Miss**), and whether guidance was used |
+| **New** | Concepts first learned today; mark **L1/L2/L3/L4 practice depth**, not a pass |
+| **Reviewed** | Older concepts revisited; mark **L1–L4 practice depth** and whether help was used |
+| **Checks** | Exact questions, learner predictions, result (**Correct / Partial / Miss**), hints, and evidence link |
 | **Next** | **One P0 main-path skill** to study, plus the exact missing proof |
 
-**Rules:** A concept may be studied without being independently verified. No retroactive A/H level upgrade from guided chat. Keep formal grades only in [SKILL_VALIDATION.md](SKILL_VALIDATION.md), current focus only in [CURRENT.md](CURRENT.md), and detailed explanations in [concepts/](concepts/). The daily log is a brief event record. Add evidence links rather than copying full notes.
+**Level rule:** Reuse the existing **L1 Explain, L2 Apply, L3 Trace source, L4 Engineer**. A daily entry like **"L2 practice (guided)"** means an L2-type exercise was attempted; it is **not a skill certification**. Only write **L2-H**, **L3-A**, etc. when its independent / user-directed evidence meets the rules in [SKILL_VALIDATION.md](SKILL_VALIDATION.md). **A** means the learner designed and directed the Agent verification; **H** means hands-on independent verification. Do not mark either from a helpful explanation or an Agent-designed test.
+
+**Keep formal grades only in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**, the next focus only in [CURRENT.md](CURRENT.md), and detailed explanations in [concepts/](concepts/). Daily logs stay brief, link to evidence, and do not duplicate complete skill registers.
 
 **Example:** [2026-11-04 daily log](journal/2026-11-04.md).
 
