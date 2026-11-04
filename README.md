@@ -19,24 +19,23 @@ This repository is not a collection of copied explanations. Each topic should mo
 - **[Journal](journal/)** — compact learning history.
 - **[Contributions](contributions/)** — verified upstream work and status.
 
-## SVG animation rendering test
+## SVG animation rendering
 
-Does the **yellow block move** between CPU and GPU below? This is a small **SMIL SVG** compatibility test for GitHub README rendering (not an actual vLLM benchmark).
+We use **animated SVG (SMIL)** for visual learning notes. SVG motion works in this README in our tested browser. Prefer SVG over GIF and keep diagrams directly in Markdown. No GitHub Pages needed.
 
-![Animated KV cache transfer test](assets/kv-cache-smil-test.svg)
+### KV cache transfer — rendering test
 
-[Open the SVG file](assets/kv-cache-smil-test.svg) · If the image is static, GitHub's renderer or your client may not play the animation. The diagram is illustrative.
+The yellow block moves between CPU and GPU. This is a compatibility test, **not a real transfer-speed trace**.
 
-### GIF and HTML comparison
+![Animated KV cache transfer](assets/kv-cache-smil-test.svg)
 
-The GIF below is a **concept animation** of the EAGLE tail-block drop and lookahead-aware reuse:
+### EAGLE lookahead hash — concept animation
 
-![EAGLE block hash animation](assets/eagle-lookahead.gif)
+In the legacy path, the trailing EAGLE draft KV hit may be dropped because the next token is not part of the hash. A lookahead-aware key includes the next token, which can allow safe reuse when supported.
 
-[Full visual explanation](visualizations/eagle-lookahead.md) · [HTML/CSS animation source](visualizations/eagle-lookahead.html)
+![EAGLE lookahead hash animation](assets/eagle-lookahead.svg)
 
-GitHub usually shows GIF motion directly. Normal `.html` file pages display source code instead of running it. The HTML demo can be opened locally or hosted with GitHub Pages. Neither diagram is a measured vLLM execution.
-
+[Read the explanation](visualizations/eagle-lookahead.md). This is a teaching example, not a benchmark.
 
 ## Progress means evidence
 
