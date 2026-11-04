@@ -10,10 +10,10 @@
 
 ## Reported engineering work outside these PRs
 
-Previous conversations cover [2Q/ARC cache-hit promotion](https://github.com/vllm-project/vllm/pull/40270), preemption/admission simulations, BlockPool lookup microbenchmarks and GQA comparisons. These are **learning and experiment history**. See [CHAT_REPORTED_RESULTS](../experiments/CHAT_REPORTED_RESULTS.md); avoid claiming upstream merged wins, independently designed GPU benchmarks or full production experience.
+Previous conversations cover [2Q/ARC cache-hit promotion](https://github.com/vllm-project/vllm/pull/40270), preemption/admission simulations, BlockPool lookup microbenchmarks and GQA comparisons. These are **learning and experiment history**. See [CHAT_REPORTED_RESULTS](../experiments/CHAT_REPORTED_RESULTS.md); avoid claiming upstream merged wins or public, independently reproducible GPU benchmarks. The learner **does report real professional single-GPU inference deployment**, though private evidence is not published.
 
 ## Why this matters for interviews
 
-The existing PRs show an ability to navigate a large codebase and construct targeted tests with AI assistance. The **main missing evidence** for inference-specific jobs is a production-like, reproducible **GPU serving / profiling** case and an independently explained request-path trace. See [SKILL_MAP](../SKILL_MAP.md).
+The existing PRs show an ability to navigate a large codebase and construct targeted tests with AI assistance. The **main missing public evidence** for inference-specific jobs is a reproducible **GPU profiling / benchmark** case and an independently explained request-path trace. Prior professional deployment and vLLM/SGLang measurement should be credited separately, not erased. See [SKILL_MAP](../SKILL_MAP.md).
 
 Track review, acceptance, test artifacts and any future merge separately. Do not inflate a contribution just because a PR is open.
