@@ -19,6 +19,14 @@ This repository is not a collection of copied explanations. Each topic should mo
 - **[Journal](journal/)** — compact learning history.
 - **[Contributions](contributions/)** — verified upstream work and status.
 
+## SVG animation rendering test
+
+Does the **yellow block move** between CPU and GPU below? This is a small **SMIL SVG** compatibility test for GitHub README rendering (not an actual vLLM benchmark).
+
+![Animated KV cache transfer test](assets/kv-cache-smil-test.svg)
+
+[Open the SVG file](assets/kv-cache-smil-test.svg) · If the image is static, GitHub's renderer or your client may not play the animation. The diagram is illustrative.
+
 ## Progress means evidence
 
 | Level | Meaning | Evidence |
