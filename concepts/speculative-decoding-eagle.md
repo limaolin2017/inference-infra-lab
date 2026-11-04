@@ -37,11 +37,11 @@ The conservative legacy approach drops the trailing cache-hit unit and recompute
 
 ## Animated teaching example
 
-![Lookahead hash animation](../assets/eagle-lookahead.gif)
+![Lookahead hash animation](../assets/eagle-lookahead.svg)
 
 The comparison shows why `H(context, ABCD)` is not enough for the EAGLE draft boundary when `E` or `F` follows. A supported lookahead key includes the next token ID. It does **not** compare draft KV values directly.
 
-See the [step-by-step visual](../visualizations/eagle-lookahead.md) and [HTML/CSS demo source](../visualizations/eagle-lookahead.html). This is not a runtime test.
+See the [step-by-step SVG visual](../visualizations/eagle-lookahead.md). This is not a runtime test.
 
 ## Understanding evidence — 2026-11-04
 
