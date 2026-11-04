@@ -1,6 +1,6 @@
 # Speculative Decoding and EAGLE
 
-**Level:** EAGLE trailing-block drop **Verified (concept only)** on 2026-11-04. General speculative decoding and implementation details remain at **Explained**.
+**Level:** EAGLE trailing-block drop **Verified (concept only)** on 2026-11-04. Lookahead Hash **Explained (guided)**; independent next-day recall pending. General speculative decoding and code-level implementation remain at **Explained**.
 
 ## Basic idea
 
@@ -42,6 +42,14 @@ The learner independently explained: with block size 4, a cached block ending in
 Important distinction: the **target model's KV for EFGH** remains reusable when its preceding context is identical; it is the **draft-side boundary state** that may differ. Dropping a cache hit does not mean its physical memory was corrupted or erased.
 
 **Verification limit:** The explanation was checked in conversation, not against a user-written source trace or a running test. Do not mark code-level proficiency as verified.
+
+## Lookahead Hash learning evidence — 2026-11-04
+
+For block size 4 and lookahead 1, the learner identified the fifth Token (T5) as the known next token after the four-token block. After correction, they recognized that the cache lookup compares a **single combined hash** (illustrated as `Hash(ABCDE)`), not a separate hash for E and not E's Draft KV.
+
+**Initial confusion worth reviewing:** At first the learner described matching the next token's *draft KV*. The correct condition is that the next token **ID** participates in the combined cache key; matching the token and context helps establish that the draft-side boundary state is reusable.
+
+**Evidence limit:** This was guided learning with multiple checks. A new independent, closed-book example is scheduled for 2026-11-05. Not code-verified.
 
 ## Understanding checks
 

@@ -2,7 +2,7 @@
 
 **Updated:** 2026-11-04  
 **Primary topic:** [vLLM #65161](issues/vllm-65161.md) — EAGLE, prefix caching, and CPU KV offloading  
-**Next action:** Learn lookahead block hashes, then trace the Scheduler and OffloadingConnector path before attempting reproduction.
+**Next action:** On 2026-11-05, start with a [closed-book review quiz](reviews/2026-11-05.md) (no answers shown before the attempt). Then learn OffloadingConnector and trace its Scheduler path.
 
 ## Knowledge checkpoints
 
@@ -16,12 +16,24 @@ These are conservative self-assessments from the current learning discussion. Th
 | Speculative decoding | 2 · Explained | A drafter proposes tokens and a target verifies them | Explain acceptance and speed trade-offs |
 | EAGLE draft model | 2 · Explained | Drafting uses target-model features | Explain why draft KV depends on lookahead |
 | EAGLE trailing-block drop | 3 · Verified (concept) | Explained that the last token's draft KV may depend on the next token (X vs Y), even when the block's own tokens match | Read code and verify exact cache-hit boundary and conditions |
-| Lookahead block hashes | 1 · Seen | Hashes can include later tokens to prove reuse | Read implementation and build a small example |
-| CPU KV offloading connector | 1 · Seen | External tier can report more cached tokens than local GPU tier | Trace connector lookup and load steps |
+| Lookahead block hashes | 2 · Explained (guided) | Identified T5 after a 4-token block; understood combined Hash(ABCDE), not separate hashes or comparison of draft KV | Answer a new no-hints review question, then read implementation |
+| CPU KV offloading connector | 1 · Seen | External tier may report more cached tokens than local GPU; learner has not explained this path independently | Learn an intuitive load scenario, then trace connector lookup and load steps |
 | Scheduler: load vs. recompute | 0–1 · Not verified | Cost decision is an open question | Design A/B test with TTFT and load counts |
 | LRU / 2Q / ARC | 2 · Explained (earlier sessions) | Basic cache-eviction intuition | Compare behavior using a test trace |
 | Preemption / admission control | 2 · Explained (earlier sessions) | Basic scheduling trade-offs | Independently reason through a constrained KV budget |
 | CUDA / kernel profiling | 0 · Not started here | No demonstrated experiment in this repo | Pick a scoped profiling exercise |
+
+## The three original concept questions
+
+1. **KV cache vs. hidden states:** understood at a basic level; code-level explanation still pending.
+2. **Why EAGLE may drop the trailing block:** concept verified, based on the next-token dependence of draft KV.
+3. **Why the CPU offload tier may reload that block:** not yet verified; next engineering lesson.
+
+**Extra progress:** Lookahead Hash is now explained with guidance. The learner correctly stated that the combined hash covers the block and known next token, and corrected the initial confusion between token IDs and draft-KV values. A new closed-book example is needed before marking it independently verified.
+
+## Our optimization loop
+
+**Target → Current → Gap → Action → Feedback → Updated Current.** See [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md) and [ROADMAP.md](ROADMAP.md). A high number of small PRs is not a substitute for demonstrated core-system skill.
 
 ## Current upstream facts
 
@@ -34,7 +46,10 @@ These are conservative self-assessments from the current learning discussion. Th
 ## Next session — exact steps
 
 - [x] Explained why EAGLE draft KV at the trailing block boundary can depend on a following token (X vs Y). Verified conceptually in discussion; not yet traced in source.
-- [ ] Learn lookahead block hashes with a new example, then read `FullAttentionManager.find_longest_cache_hit`.
+- [x] Learn basic Lookahead Hash with an example (guided understanding).
+- [ ] Pass the closed-book [2026-11-05 review](reviews/2026-11-05.md) without hints.
+- [ ] Understand why CPU OffloadingConnector may reload a dropped trailing block.
+- [ ] Read `FullAttentionManager.find_longest_cache_hit` and inspect exact drop rules.
 - [ ] Trace `Scheduler -> OffloadingConnector.get_num_new_matched_tokens -> load`.
 - [ ] Check when `num_hash_lookahead_tokens` is nonzero and when the trailing-block drop is disabled.
 - [ ] Build a CPU-only regression test or source-level scenario first.

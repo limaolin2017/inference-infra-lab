@@ -10,7 +10,9 @@ This repository is not a collection of copied explanations. Each topic should mo
 
 - **[CURRENT.md](CURRENT.md)** — current learning state, open questions, and the next session. **Read this first.**
 - **[ROADMAP.md](ROADMAP.md)** — skills and engineering gaps.
-- **[LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md)** — the repeatable issue-to-learning workflow.
+- **[LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md)** — the repeatable issue-to-learning workflow and Target → Current → Gap → Action → Feedback loop.
+- **[REVIEW_QUEUE.md](REVIEW_QUEUE.md)** — unclear points to retest before new lessons.
+- **[Next review quiz](reviews/2026-11-05.md)** — closed-book questions first, no answers in the quiz.
 - **[Concepts](concepts/)** — short, testable explanations.
 - **[Issues](issues/)** — issue investigations and source references.
 - **[Experiments](experiments/)** — reproducible tests and benchmarks.

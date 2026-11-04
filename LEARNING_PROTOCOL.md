@@ -43,11 +43,33 @@ For each issue, distinguish:
 6. Record test commands, environment, numbers, and known limits.
 7. Search for overlapping PRs before contributing.
 
-## 6. Update state
+## 6. The optimization loop
+
+Treat learning as an iterative, feedback-driven process:
+
+- **Target:** independently understand, test, and improve inference-engine internals.
+- **Current:** evidence-backed understanding and engineering skills.
+- **Gap:** the smallest important missing skill, not a vague percentage.
+- **Action:** one explanation check, source trace, reproduction, or benchmark.
+- **Feedback:** evaluate the result and update Current.
+
+This is an **analogy to loss minimization**, not literal gradient descent. There is no computed derivative of an individual's skills. Avoid proxy targets such as PR count alone; prefer reproducible evidence and independent understanding.
+
+## 7. Start with a blind review
+
+At the start of a review session, read [REVIEW_QUEUE.md](REVIEW_QUEUE.md) and the dated quiz. Ask the learner the **questions only**. Do not expose hints, explanations, reference links, or the answer key until the learner has attempted the questions.
+
+After each answer, mark **Pass / Partial / Miss**, explain exactly what was wrong, and add a corrected explanation to the topic note. Retest missed points on a later day with a changed example.
+
+Review scores measure retention for those specific concepts, not job readiness. Keep old misconceptions as learning history; never present them as the learner's current belief after correction.
+
+## 8. Update state
 
 At each session end, change only what the evidence supports:
 
 - `CURRENT.md`: current state and immediate next action.
+- `REVIEW_QUEUE.md`: misconceptions and unanswered review questions; do not put answers before the blind attempt.
+- `reviews/YYYY-MM-DD.md`: closed-book questions and results after the attempt.
 - `issues/<issue>.md`: hypothesis, source links, reproductions, decision.
 - `concepts/<topic>.md`: corrected, concise explanation.
 - `journal/YYYY-MM-DD.md`: what changed today.
