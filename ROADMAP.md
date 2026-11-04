@@ -11,8 +11,8 @@
 | 1 | Basic Transformer/attention, prefill vs decode | Derive K/V size and explain compute-vs-bandwidth with one real model | Explained; independent technical check pending |
 | 2 | vLLM request lifecycle: API, Scheduler, KV manager, Model Runner | Trace one prefill and one decode request in current source | Pieces discussed; full trace missing |
 | 3 | KV blocks, prefix cache, scheduling, admission/preemption | Reproduce hit/miss, KV shortage, and a scheduler action | Guided concepts; some chat-reported CPU simulations and an open draft core PR |
-| 4 | Real NVIDIA inference benchmark | Serve model; collect raw TTFT, TPOT, throughput, GPU memory over varied load | **Missing** |
-| 5 | Profiling and reasoning | Explain a measured slowdown and an A/B comparison; include caveats | **Missing** |
+| 4 | Reproducible NVIDIA inference benchmark | Re-run a public model; publish raw TTFT, TPOT, throughput, GPU memory over varied load | **Prior real deployment and vLLM/SGLang comparison reported; public artifacts missing** |
+| 5 | Profiling and reasoning | Explain a measured slowdown and an A/B comparison; include caveats | **Public GPU kernel/CPU profiler trace missing** |
 | 6 | Tests, CI, reproducibility | Write regression tests and show commands and failure-before/pass-after | Some reported CPU PR tests; core performance case not yet complete |
 
 **P0 completion is not reading a chapter:** explain independently + source trace + test/measurement artifact. Scores are skill-specific and do not prove overall job readiness.
@@ -38,10 +38,12 @@ Learn **GPU profiling, CUDA/Triton basics, memory bandwidth, batching, attention
 
 | Window | Most valuable deliverable | Pass condition |
 | --- | --- | --- |
-| Weeks 1–2 | Single NVIDIA GPU inference baseline | Reproducible setup + TTFT/TPOT/throughput/memory tables with raw data |
+| Weeks 1–2 | Public-safe NVIDIA baseline (build on prior deployment) | Reproducible setup + TTFT/TPOT/throughput/memory tables with raw data |
 | Weeks 3–4 | Vertical source trace + scheduler/KV tests | Explain and instrument a request from API to Model Runner |
 | Weeks 5–6 | Profiling diagnosis | Profiling trace + testable bottleneck hypothesis + controlled A/B |
 | Weeks 7–8 | One job-shaped portfolio case | Serving deployment **or** measured vLLM core improvement with limitations |
+
+**Existing real-world experience:** the learner reports having deployed and delivered a single-NVIDIA-GPU local LLM service, chosen between vLLM and SGLang using TTFT/TPOT/throughput, and separately benchmarked a PyTorch-to-ONNX conversion. Private customer details and results are not published here. The immediate gap is safe, inspectable evidence and engine-level profiling, **not** learning to launch a model from scratch.
 
 This is a learning plan, not a guaranteed hiring timeline. Adjust based on actual workload and access to GPU resources.
 
