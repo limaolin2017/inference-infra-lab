@@ -1,8 +1,12 @@
 # Knowledge Map and Evidence
 
-**Audit date:** 2026-11-04. **Purpose:** show what has been studied, what is proven, and what to learn next. The task plan lives in [ROADMAP.md](ROADMAP.md); the next action lives in [CURRENT.md](CURRENT.md).
+**Audit date:** 2026-11-04. **Purpose:** show the knowledge inventory and gaps, not formal exam results. See **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** for L1–L4 validation. **A** means you design and direct Agent tests; **H** means hands-on, independent validation. The plan lives in [ROADMAP.md](ROADMAP.md); the next action in [CURRENT.md](CURRENT.md).
 
 ![Inference engine knowledge map](assets/inference-skill-map.svg)
+
+## Formal validation
+
+**Studied does not mean verified.** [SKILL_VALIDATION.md](SKILL_VALIDATION.md) records formal L1–L4 skill checks and verification methods. **A requires a user-authored test plan and pass criteria before Agent execution**; an Agent-designed test is not automatically A. **H** requires independent reasoning and hands-on evidence. No past tests are retroactively marked as passes.
 
 ## What the statuses mean
 
