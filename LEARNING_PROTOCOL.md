@@ -33,6 +33,19 @@ For each issue, distinguish:
 - **Engineering gap:** What test, trace, design, or benchmark cannot yet be done without help?
 - **Relevance:** Does it develop vLLM core, scheduler, KV cache, or GPU performance skill?
 
+## Job-driven issue selection (2026-11-04)
+
+**Resource limit:** the learner currently has **no GPU**. Use CPU-only source tracing, unit tests, mocks and deterministic simulations where they prove the requested behavior. GPU-only bugs and throughput claims should be explicitly deferred.
+
+Before opening a new issue, check:
+- Is it in the core learning path: Scheduler, KV manager, BlockPool, Model Runner, or important serving contracts?
+- Can we reproduce or test the invariant without a GPU? If not, is the work still worth limited source analysis?
+- Does it teach a skill required by target jobs rather than a rare edge case?
+- Is it small enough to finish or decisively stop in one or two sessions?
+- Is someone already fixing it? Check live code, discussions and PRs.
+
+An Issue is a **learning vehicle**, not the curriculum. Park 2Q/ARC and EAGLE-specific deep dives after conceptual understanding, unless they support a main-path fix. See [ROADMAP.md](ROADMAP.md) for the selection rubric.
+
 ## 5. Engineer in small steps
 
 1. Inspect source and existing tests.
