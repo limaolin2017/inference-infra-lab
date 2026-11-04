@@ -26,7 +26,7 @@
 | Weights vs hidden states | Basic concept check | Connect projections to K/V and draft states | P0 |
 | PagedAttention and BlockPool | Concept studied; open draft [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests | Independently trace allocation, `ref_cnt`, release | P0 |
 | Prefix caching / block hashes | Explained | CPU test for hit/miss and cache limits | P0 |
-| Scheduler, batching, token budgets | Explained; CPU simulations reported | Trace admission, reschedule, preemption with tests | P0 |
+| Scheduler, batching, token budgets | **Basic Token Budget explained and answered correctly in guided follow-up examples (2026-11-04)**; request-count and KV-space distinctions checked; older CPU simulations reported | Independently trace real `schedule()` control flow, allocation failures, and preemption; then verify via CPU test | P0 |
 | Model Runner | Mentioned in prior code discussions | End-to-end input/state source trace | P0 |
 | Performance experiments | Prior real serving comparisons reported; recent CPU experiments are chat-reported | Reproducible public experiments, clear confounders | P0 |
 | Open-source testing | [#61801](https://github.com/vllm-project/vllm/pull/61801), [#64281](https://github.com/vllm-project/vllm/pull/64281), [#65366](https://github.com/vllm-project/vllm/pull/65366) exist (all open at audit) | Upstream review and independent understanding | P1 |

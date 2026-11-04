@@ -8,11 +8,13 @@
 
 **Trace one request through `Scheduler → KV Cache Manager / BlockPool → Model Runner`.**
 
-We have studied Scheduler and KV-cache concepts separately. The missing proof is an **independent end-to-end code explanation** and a targeted CPU test.
+**New concept checkpoint (2026-11-04):** Token Budget basics understood. The learner answered budget subtraction and split-allocation cases correctly and distinguished token budget, `max_num_seqs`, and KV space. This is a guided session checkpoint, **not a formal H-confirmed pass**. See [Scheduler concept note](concepts/scheduler-and-cache-policy.md) for examples.
+
+**Still missing:** an independent end-to-end `schedule()` source trace and one focused CPU check. Do not repeat basic budget arithmetic unless it causes a real mistake.
 
 ### Next session
 
-1. **Main task:** trace one prefill/decode request through Scheduler → KV Manager / BlockPool → Model Runner, with exact source links. Explain the request state and cache changes in your own words.
+1. **Main task:** trace `Scheduler.schedule()` using a small scenario: how Running requests consume token budget, how remaining budget reaches Waiting requests, and when KV allocation blocks progress. Then follow the selected work into KV Manager / BlockPool → Model Runner.
 2. **Small proof:** predict one changed input/queue case, then verify it with an available CPU unit test or a clear source-level check. Record what did and did not pass.
 3. **Real Issue:** inspect current source, existing tests and overlapping PRs for one bounded Scheduler/KV/Model Runner problem. Only then decide whether a fix is worth a PR.
 

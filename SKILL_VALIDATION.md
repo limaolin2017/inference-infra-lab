@@ -60,7 +60,7 @@ For **L4-H**, apply the **same L4 engineering standard** as L4-A, but independen
 | Weights vs hidden states | Previous basic concept check | — | Pending formal check | New case and delayed repeat |
 | KV Cache / Prefix caching | Guided reasoning | — | Pending | CPU hit/miss prediction |
 | BlockPool / `ref_cnt` | [#64281](https://github.com/vllm-project/vllm/pull/64281) reports passing CPU tests | **Pending plan-authorship evidence** | Pending | You design CPU edge-case test, Agent runs it |
-| Scheduler / admission / preemption | Chat-reported CPU simulation | **Pending plan-authorship evidence** | Pending | You set policy test and pass rules |
+| Scheduler / token budget / admission / preemption | Token Budget basics checked in guided 2026-11-04 Q&A; prior CPU simulations reported | **Pending plan-authorship evidence** | Formal H pending; simple guided concept checks passed | Independently predict one unfamiliar `schedule()` branch; trace source and test |
 | Model Runner | Discussed, no independent trace | — | Pending | Trace source, predict state changes |
 | EAGLE / speculative decoding | Concept checks, guided lookahead | — | Pending formal check (P2) | Optional future blind quiz |
 | NVIDIA profiling | Prior professional serving reported | — | GPU access limited | Optional controlled GPU test later |

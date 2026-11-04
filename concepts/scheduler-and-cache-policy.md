@@ -2,6 +2,30 @@
 
 **Level:** Mixed. Prior study completed, but independent code-level verification remains.
 
+## Token Budget — basic concept checked (2026-11-04)
+
+**Mental model:** each request is a vehicle. The Scheduler has a per-step budget for how many token positions to compute **across all requests**, not how many people fit in one vehicle and not how many total output tokens a model can generate.
+
+- **Token Budget** = upper bound on token computation scheduled in this step. A request can receive only part of its remaining work when chunking is allowed.
+- **`max_num_seqs`** = cap on concurrently running requests (a different limit).
+- **KV capacity** = memory available for new KV state (a third, independent limit).
+- **Preemption** is one possible response to KV pressure; an unused, evictable cache block may be reclaimed without preempting a running request.
+- **Unused budget is possible**: another constraint can stop scheduling before token budget is fully consumed.
+
+Examples answered correctly in guided discussion:
+
+| Scenario | Learner response | Evaluation |
+| --- | --- | --- |
+| Budget 10, A uses 6 | 4 remain | Correct |
+| Budget 10, A uses 6, B needs 8, chunked prefill | B can use 4 this step | Correct under stated assumptions |
+| `max_num_seqs=2`; A and B running | C cannot join while both slots remain occupied | Correct |
+| KV full despite spare token budget/slots | New computation needs KV capacity; preemption may be relevant | Correct basic intuition |
+| Ten unused/evictable old cache blocks | Reclaim blocks without preemption | Correct |
+
+**Scope:** These were short, guided concept checks. An earlier three-request allocation answer was incorrect and corrected in discussion. This is **not** an independent delayed H pass, source trace, Agent-designed test, or CPU benchmark. Next: read a real `schedule()` branch with a fresh case.
+
+**Source:** [Scheduler.schedule(), pinned vLLM commit 6ba1050](https://github.com/vllm-project/vllm/blob/6ba10507e11c012d40051548c07c10c9bc5971d6/vllm/v1/core/sched/scheduler.py#L737-L760). In this revision, `max_num_scheduled_tokens` and `max_num_batched_tokens` can be separate scheduling constraints. The simple examples ignore async and speculative details.
+
 ## Core ideas
 
 - **Admission control:** decide whether a waiting request can start using limited execution slots and memory.
