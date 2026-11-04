@@ -2,6 +2,22 @@
 
 This is the **plan**, not a log of everything studied. For current status use [CURRENT.md](CURRENT.md); for a full knowledge audit use [SKILL_MAP.md](SKILL_MAP.md).
 
+## Trunk-first rule (2026-11-04)
+
+**Optimize for a job-ready inference-core skill, not the number or depth of interesting concepts.** The trunk is **Request → Scheduler → KV Manager / BlockPool → Model Runner → GPU execution/performance**. Learn the whole path before digging into specialist edge cases.
+
+Before starting a topic or Issue, ask:
+
+1. **Which part of this trunk does it advance?** Name the exact code path or behavior.
+2. **What current P0 skill gap will it close?** Prefer a missing foundational link over a deeper branch.
+3. **What proof will result?** Aim for a source trace, changed-case prediction, CPU test or a bounded upstream fix.
+
+**Decision:** If it does not materially improve a P0 skill or the next job-relevant proof, **park it at P2**. A fascinating, difficult bug is not automatically valuable. Exceptions: an actual target-job requirement or a blocking dependency on the trunk. Record the reason to reopen it.
+
+**Session discipline:** work on **one P0 trunk question at a time**. Review related fundamentals briefly, then return to the code path. Do not allow EAGLE/lookahead, 2Q/ARC research, connector corner cases or exotic hardware to displace Scheduler/KV/Model Runner progress. Learn their high-level purpose when useful, not their internals by default.
+
+**Current concrete gap:** independently trace one request through `Scheduler.schedule()` → KV allocation → `SchedulerOutput` → Model Runner. Token Budget basics were practised successfully; now move from guided math to code and a CPU-checkable case.
+
 ## Learn the main path first
 
 | Order | Priority | Skill | Proof to build |

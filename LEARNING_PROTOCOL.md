@@ -2,6 +2,14 @@
 
 This file defines **how we work**. For priorities see [ROADMAP.md](ROADMAP.md). For current work see [CURRENT.md](CURRENT.md).
 
+## Non-negotiable learning filter: trunk before leaves
+
+Before introducing a new term, deep Issue or experiment, locate it on the **Request → Scheduler → KV Cache Manager / BlockPool → Model Runner → GPU** path. Ask what job-relevant P0 gap it closes and what check or code trace it will produce. If no clear answer, **park it as P2** instead of opening a research detour.
+
+**One session = one core-path question and one observable outcome.** Prefer a complete understanding of a common case over an exhaustive explanation of a rare edge case. If a side branch blocks the core path, learn only the minimum needed to unblock it. Keep EAGLE/lookahead, full 2Q/ARC research and obscure offloading details optional unless needed for an actual target role or core bug.
+
+See [ROADMAP.md](ROADMAP.md#trunk-first-rule-2026-11-04) for the stable priority gate. Do not create another syllabus or log for this rule.
+
 ## 1. Start with the skill gap
 
 - Which main-path skill are we missing?
