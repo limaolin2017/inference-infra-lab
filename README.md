@@ -27,6 +27,17 @@ Does the **yellow block move** between CPU and GPU below? This is a small **SMIL
 
 [Open the SVG file](assets/kv-cache-smil-test.svg) · If the image is static, GitHub's renderer or your client may not play the animation. The diagram is illustrative.
 
+### GIF and HTML comparison
+
+The GIF below is a **concept animation** of the EAGLE tail-block drop and lookahead-aware reuse:
+
+![EAGLE block hash animation](assets/eagle-lookahead.gif)
+
+[Full visual explanation](visualizations/eagle-lookahead.md) · [HTML/CSS animation source](visualizations/eagle-lookahead.html)
+
+GitHub usually shows GIF motion directly. Normal `.html` file pages display source code instead of running it. The HTML demo can be opened locally or hosted with GitHub Pages. Neither diagram is a measured vLLM execution.
+
+
 ## Progress means evidence
 
 | Level | Meaning | Evidence |
