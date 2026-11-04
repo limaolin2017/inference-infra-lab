@@ -2,7 +2,7 @@
 
 **Updated:** 2026-11-04  
 **Primary topic:** [vLLM #65161](issues/vllm-65161.md) — EAGLE, prefix caching, and CPU KV offloading  
-**Next action:** Verify the EAGLE cache-boundary explanation, then inspect current code and reproduce the issue.
+**Next action:** Learn lookahead block hashes, then trace the Scheduler and OffloadingConnector path before attempting reproduction.
 
 ## Knowledge checkpoints
 
@@ -15,7 +15,7 @@ These are conservative self-assessments from the current learning discussion. Th
 | Prefix caching / block hashes | 2 · Explained | Matching prefix blocks can save recomputation | Explain chained hashes and boundary limits |
 | Speculative decoding | 2 · Explained | A drafter proposes tokens and a target verifies them | Explain acceptance and speed trade-offs |
 | EAGLE draft model | 2 · Explained | Drafting uses target-model features | Explain why draft KV depends on lookahead |
-| EAGLE trailing-block drop | 2 · Explained | Legacy prefix matching cannot prove draft KV compatibility | Pass an unseen ABCD+E vs ABCD+F example |
+| EAGLE trailing-block drop | 3 · Verified (concept) | Explained that the last token's draft KV may depend on the next token (X vs Y), even when the block's own tokens match | Read code and verify exact cache-hit boundary and conditions |
 | Lookahead block hashes | 1 · Seen | Hashes can include later tokens to prove reuse | Read implementation and build a small example |
 | CPU KV offloading connector | 1 · Seen | External tier can report more cached tokens than local GPU tier | Trace connector lookup and load steps |
 | Scheduler: load vs. recompute | 0–1 · Not verified | Cost decision is an open question | Design A/B test with TTFT and load counts |
@@ -33,8 +33,8 @@ These are conservative self-assessments from the current learning discussion. Th
 
 ## Next session — exact steps
 
-- [ ] Without notes, explain why the EAGLE draft KV for a cached block can depend on a token after the block.
-- [ ] Read `FullAttentionManager.find_longest_cache_hit`.
+- [x] Explained why EAGLE draft KV at the trailing block boundary can depend on a following token (X vs Y). Verified conceptually in discussion; not yet traced in source.
+- [ ] Learn lookahead block hashes with a new example, then read `FullAttentionManager.find_longest_cache_hit`.
 - [ ] Trace `Scheduler -> OffloadingConnector.get_num_new_matched_tokens -> load`.
 - [ ] Check when `num_hash_lookahead_tokens` is nonzero and when the trailing-block drop is disabled.
 - [ ] Build a CPU-only regression test or source-level scenario first.
