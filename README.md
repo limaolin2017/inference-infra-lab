@@ -12,8 +12,7 @@ This repository is not a collection of copied explanations. Each topic should mo
 
 ![Job-focused inference architecture and knowledge map](assets/inference-skill-map.svg)
 
-- **[SKILL_MAP.md](SKILL_MAP.md)** — full knowledge audit, evidence levels, job-gap ranking, and an 8-week practical plan. **Read this for job focus.**
-- **[SKILL_MAP.md](SKILL_MAP.md)** — **start here: visual knowledge map**, evidence levels, P0 trunk, job gaps, and what to skip.
+- **[SKILL_MAP.md](SKILL_MAP.md)** — **start here:** visual knowledge map, evidence levels, P0 trunk, job gaps and what to skip.
 - **[CURRENT.md](CURRENT.md)** — current learning state, open questions, and the next session.
 - **[ROADMAP.md](ROADMAP.md)** — skills and engineering gaps.
 - **[LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md)** — the repeatable issue-to-learning workflow and Target → Current → Gap → Action → Feedback loop.
@@ -68,7 +67,7 @@ In the legacy path, the trailing EAGLE draft KV hit may be dropped because the n
 
 The first task is to confirm whether its original behavior still reproduces on current vLLM. Related changes [#61589](https://github.com/vllm-project/vllm/pull/61589) and [#64096](https://github.com/vllm-project/vllm/pull/64096) have already merged. No fix is claimed here.
 
-**Current job-focused priority:** build a public-safe NVIDIA inference benchmark, trace Scheduler → KV Manager → Model Runner, and profile one measured bottleneck. Previous professional single-GPU deployment experience is acknowledged in [SKILL_MAP.md](SKILL_MAP.md); no private client data belongs here.
+**Current job-focused priority (no GPU available):** trace Scheduler → KV manager → Model Runner; work on bounded, CPU-testable upstream core Issues. Keep GPU profiling as a future step, not a blocker. Previous professional GPU serving experience remains acknowledged in [SKILL_MAP.md](SKILL_MAP.md); no private client data belongs here.
 
 ## Working rules
 
