@@ -36,9 +36,13 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 - **H — Hands-on:** the learner independently predicts, traces, runs or changes a test, and explains the outcome. An unseen follow-up check helps confirm retention.
 - L1–L4 describe **skill depth**, while A/H describe the **verification method**.
 
-### Evening review — P0 from any previous day
+### Review split — short mornings, deeper evenings (2026-11-05)
 
-Choose **3–5 closed-book questions** from **all previously studied P0 concepts**, not just the current day's work. Prioritize: (1) previously wrong or partial answers; (2) topics not reviewed for a while; (3) topics understood but not yet applied independently; (4) occasional checks of well-understood concepts. Use the existing [REVIEW_QUEUE.md](REVIEW_QUEUE.md) and daily logs; avoid introducing new concepts at night. Record evidence and gaps without awarding unearned formal grades.
+- **Morning:** max **20 minutes or 3 closed-book P0 questions**, whichever comes first. Review roughly half the due topics, then **stop and use high-energy time for new trunk learning and source/tests**.
+- **Evening:** **20–30 minutes**, review the remaining due P0 questions, including weak points from **any earlier day**. Prefer 3–5 short questions if they fit. Avoid new concepts at night.
+- When a learner interrupts a question to clarify a concept, **answer the clarification, then repeat the original unanswered question** so they never need to scroll back. After one short explanation and one check, park deeper confusion in [REVIEW_QUEUE.md](REVIEW_QUEUE.md) for evening instead of starting an endless question chain.
+- **Hard stop:** never keep morning review going just because a new gap appeared. Mark it for evening and return to the core path. Use guided scores only as practice feedback, not formal A/H passes.
+- Priority order: (1) previously wrong or partial P0; (2) P0 not reviewed recently; (3) understood but not independently applied; (4) occasional maintenance checks. The optional EAGLE/P2 quiz does not block P0 progress.
 
 ## 4. Produce engineering evidence
 
