@@ -12,6 +12,16 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 | Target KV vs. EAGLE Draft KV | Which is changed by a different token after a shared prefix? | 2026-11-04 | Explained; retention untested | 2026-11-05 |
 | CPU OffloadingConnector reload | Why could a cache layer load data another layer excluded from local hits? | 2026-11-04 | **Not yet learned; P2 side quest** | Only if current-main issue persists |
 
+## Morning 2026-11-05 follow-up — park for evening
+
+| Topic | Next unseen check | Morning evidence | State |
+| --- | --- | --- | --- |
+| Eviction vs preemption | Given live refs and reusable cached blocks, predict whether to evict, wait, or preempt, and **which request** is stopped | Initially confused eviction/preemption and thought a single block was preempted; later correctly chose unreferenced Block 2 and preempting running C in a guided A/C case | **L2 practice (guided); delayed independent check pending** |
+| Scheduler token budget vs KV space | New case with token budget still free but no allocatable KV blocks; predict which requests are scheduled, not merely arithmetic | Correctly allocated budget 4 as A=2, B=2; understood waiting vs preempt after explanation | **L2 practice (guided); source/CPU trace pending** |
+| Hidden states / QKV / attention | Explain why current Q is **not a user Request**, why each Transformer layer creates K/V from its hidden states, and why historical K/V suffice for next-step attention | Good explanation of K/V reuse; corrected Q=Request and “hidden states do not enter attention” | **L1–L2 practice (guided); fresh case later** |
+
+**Timebox:** morning review already ended. Do **not** start these now. Take only a small sample in the 20–30 minute evening session; carry unfinished items forward.
+
 ## Main-path review queue (P0, next)
 
 These are *future* proof tasks, not scored questions yet. Start with items 1 and 2, rather than studying more EAGLE edge cases.
