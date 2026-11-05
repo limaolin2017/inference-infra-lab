@@ -26,6 +26,16 @@ Examples answered correctly in guided discussion:
 
 **Source:** [Scheduler.schedule(), pinned vLLM commit 6ba1050](https://github.com/vllm-project/vllm/blob/6ba10507e11c012d40051548c07c10c9bc5971d6/vllm/v1/core/sched/scheduler.py#L737-L760). In this revision, `max_num_scheduled_tokens` and `max_num_batched_tokens` can be separate scheduling constraints. The simple examples ignore async and speculative details.
 
+## Eviction vs. request preemption — clarified 2026-11-05
+
+- **Eviction:** reclaim a **reusable, unreferenced cached KV block** (for example `ref_cnt=0`). The block may still hold valid prefix data even though no active request uses it. The cache contents may be overwritten for a new allocation. No running request needs to stop.
+- **Preemption:** pause a **running Request**, not an individual KV block. Its active KV allocations are released. The request keeps its token sequence and can be scheduled again later; missing KV must be recomputed unless some cached prefix can be reused.
+- **Waiting is not preemption.** A new waiting Request short of KV space can remain queued. A running Request that cannot allocate more KV can trigger the scheduler's preemption path, often selecting another running request. Which request is selected depends on the scheduler policy.
+- **Key pitfall:** a full KV block is not a finished unit of work. Its values can still be needed by later tokens. Also, preempting the **only** running request does not magically make a too-long request fit in memory.
+- **Example (illustrative, not measured):** A holds 3 blocks, C holds 2, GPU capacity 5. A needs one more. Preempting C can release room for A, but C may later need recomputation. If A completes, its blocks become unreferenced and may be reused without preempting A.
+
+These are **guided concept examples**, not an independent trace of a particular vLLM revision. For source proof, follow [CURRENT.md](../CURRENT.md).
+
 ## Core ideas
 
 - **Admission control:** decide whether a waiting request can start using limited execution slots and memory.
