@@ -36,13 +36,17 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 - **H — Hands-on:** the learner independently predicts, traces, runs or changes a test, and explains the outcome. An unseen follow-up check helps confirm retention.
 - L1–L4 describe **skill depth**, while A/H describe the **verification method**.
 
-### Review split — short mornings, deeper evenings (2026-11-05)
+### Review split — short mornings, deeper evenings (2026-11-05; refined 2026-11-09)
 
-- **Morning:** max **20 minutes or 3 closed-book P0 questions**, whichever comes first. Review roughly half the due topics, then **stop and use high-energy time for new trunk learning and source/tests**.
-- **Evening:** **20–30 minutes**, review the remaining due P0 questions, including weak points from **any earlier day**. Prefer 3–5 short questions if they fit. Avoid new concepts at night.
-- When a learner interrupts a question to clarify a concept, **answer the clarification, then repeat the original unanswered question** so they never need to scroll back. After one short explanation and one check, park deeper confusion in [REVIEW_QUEUE.md](REVIEW_QUEUE.md) for evening instead of starting an endless question chain.
-- **Hard stop:** never keep morning review going just because a new gap appeared. Mark it for evening and return to the core path. Use guided scores only as practice feedback, not formal A/H passes.
-- Priority order: (1) previously wrong or partial P0; (2) P0 not reviewed recently; (3) understood but not independently applied; (4) occasional maintenance checks. The optional EAGLE/P2 quiz does not block P0 progress.
+**Core principle:** Review is for **finding knowledge gaps**, not for solving every gap immediately. Some ideas need time to settle. Protect the main study session for new P0 learning, source tracing, and experiments; aim for roughly **20% review / 80% new work**, not a strict time ledger.
+
+- **Morning:** hard cap **15 minutes or 3 closed-book P0 questions**, whichever comes first. Stop sooner if the highest-priority gaps are identified.
+- **Evening:** optional **10–15 minutes** for remaining due P0 questions. Use fresh, short cases from any earlier day. No new deep topics at night.
+- **If independently correct with clear reasoning:** mark the sampled case Pass and move on; avoid repeating the same arithmetic or example. Formal H/A validation still follows [SKILL_VALIDATION.md](SKILL_VALIDATION.md).
+- **If incorrect or unsure:** give one brief explanation and, if useful, one quick check. Mark Partial/Miss if the understanding still needs guidance. Record the precise confusion in [REVIEW_QUEUE.md](REVIEW_QUEUE.md) for a fresh check **next day or later**, instead of extending the session.
+- When a learner interrupts a question for clarification, answer briefly and return to the **same unanswered question**. If still unclear, park it without requiring an immediate correct answer.
+- **Hard stop:** do not let review crowd out the day's main path. Priority: (1) previously wrong/partial P0, (2) not recently checked P0, (3) independently untested P0. EAGLE/P2 remains optional.
+- **GitHub timing:** keep notes for an **after-17:30** update by default. An explicit user request may override this for that day.
 
 ## 4. Produce engineering evidence
 
