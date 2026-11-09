@@ -31,6 +31,8 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 
 - Explain the behavior with a small example or **SVG diagram / animation**, when a visual helps. Prefer SVG over ASCII.
 - Ask one unfamiliar question **without hints**.
+- **When stuck (2026-11-09):** draw one picture, shrink the numbers to the smallest case that still shows the idea (e.g. `block_size = 4`), then ask one more question of the same type. Do not add more text first.
+- **Learner locates source (2026-11-09):** for source questions, the assistant gives only the file and function name. The learner finds the lines and explains them; the assistant only confirms or corrects. At least once per session. Source the assistant reads and shows counts as **assistant-shown**, never as an independent trace.
 - Record learning difficulties in [REVIEW_QUEUE.md](REVIEW_QUEUE.md). Record **formal scores and A/H proof in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**.
 - **A — Human-led, Agent-verified:** the learner defines **what to verify, what to compare, and the acceptance criteria** before execution. Codex may **propose experiment designs, choose supporting test cases, write tests, run them, and collect evidence**. The learner reviews the plan, approves or changes it, and independently judges the results. Merely accepting an Agent verdict without understanding the comparison is not an A pass.
 - **H — Hands-on:** the learner independently predicts, traces, runs or changes a test, and explains the outcome. An unseen follow-up check helps confirm retention.
@@ -74,6 +76,8 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 | What happened on a date | [journal/](journal/) |
 
 **One fact should have one main home.** Other files should link to it rather than copy full explanations.
+
+**Batch updates (2026-11-09):** during a session, keep notes in one local draft only. Write to GitHub **once, when the learner says the session is done**, not after every question. In that update, record details only for **Partial / Miss** items (journal + REVIEW_QUEUE); a **Correct** check gets one line in the journal.
 
 ## 6. Daily learning log (short and factual)
 
