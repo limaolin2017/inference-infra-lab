@@ -33,7 +33,8 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 
 - **New fact (assistant-shown, not an independent L3 trace):** `ModelRunner.prepare_attn()` → `BlockTables.compute_slot_mappings()` computes `slot_id = block_table[req][position // block_size] * block_size + position % block_size`. See [Block Table and slot mapping](concepts/block-table-and-slot-mapping.md).
 - **Gap:** no independent source trace yet; "who allocates blocks vs who computes the slot" needs a blind retest ([REVIEW_QUEUE.md](REVIEW_QUEUE.md)).
-- **Next action:** trace `Scheduler.schedule()` (main task above).
+- **Progress:** `schedule()` skeleton seen with assistant-shown line numbers; one prediction (WAITING skipped after a preemption) was Partial.
+- **Next action:** follow RUNNING work into `KVCacheManager.allocate_slots()` → BlockPool: how many new blocks a step needs and what happens when the free queue is short.
 
 ## Skills snapshot
 
