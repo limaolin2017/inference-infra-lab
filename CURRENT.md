@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-04  
+**Last reviewed:** 2026-11-09  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -28,6 +28,12 @@
 - [#60044 — explain prefix-cache misses](https://github.com/vllm-project/vllm/issues/60044): useful KV observability, likely needs design discussion.
 
 Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filter). Recheck status and ownership before work.
+
+**Session close (2026-11-09):**
+
+- **New fact (assistant-shown, not an independent L3 trace):** `ModelRunner.prepare_attn()` → `BlockTables.compute_slot_mappings()` computes `slot_id = block_table[req][position // block_size] * block_size + position % block_size`. See [Block Table and slot mapping](concepts/block-table-and-slot-mapping.md).
+- **Gap:** no independent source trace yet; "who allocates blocks vs who computes the slot" needs a blind retest ([REVIEW_QUEUE.md](REVIEW_QUEUE.md)).
+- **Next action:** trace `Scheduler.schedule()` (main task above).
 
 ## Skills snapshot
 
