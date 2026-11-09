@@ -4,6 +4,15 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-09 — next P0 reviews (no formal pass)
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Scheduler: existing Running requests vs `max_num_seqs` | Q1: with A and C already Running (`max_num_seqs=2`), B Waiting, token budget 6 and one reclaimable `ref_cnt=0` cache block, learner first predicted A continues, then incorrectly changed to A cannot continue. Guided correction: A and C can remain Running, B cannot be admitted to the already-full running set. | **Partial · L2 practice; no source/test verification** | **2026-11-10 or later**: fresh case where running slots and token budget give different limits; state who computes and why |
+| KV: eviction vs preempting a Running request | Q2: when all KV blocks are referenced, learner initially proposed waiting and forgot the meaning of eviction. After a short explanation, understood that unreferenced reusable cache can be evicted, but a referenced active block cannot simply be reclaimed. In an illustrative A/C case, preempting C *may* free space for A, depending on Scheduler policy; learner understood this after guidance. | **Partial · guided; request-selection policy unverified** | **2026-11-10 or later**: new example with live refs and A/C state; choose eviction, wait or preemption, and explain why the selected request can be stopped |
+
+**Review method:** No more than one brief correction now; revisit with a different unseen case after time to digest. Do not award an L1/L2-H or A pass for guided answers. Do not start a deep preemption-policy detour during morning review.
+
 | Topic / source of confusion | Review question focus | Last session | State | Next review |
 | --- | --- | --- | --- | --- |
 | EAGLE trailing-block drop | Why identical block tokens may not prove identical draft KV | 2026-11-04 | Understood conceptually; retention untested | 2026-11-05 |
@@ -43,4 +52,4 @@ Keep the earlier [2026-11-05 EAGLE quiz](reviews/2026-11-05.md) unchanged as an 
 
 Do **not** pre-fill answers in any blind quiz, including the [optional EAGLE quiz](reviews/2026-11-05.md). Record explanations **after** a learner response.
 
-Limit the review to about five focused questions. If a topic passes twice on different days, move it to a less frequent review.
+Use at most **3 P0 questions / 15 minutes in the morning** and optional **10–15 minutes in the evening**. If a topic passes twice on different days, move it to a less frequent review.
