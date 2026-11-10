@@ -41,7 +41,7 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 
 - **New fact (concept, guided):** decode is memory-bound — each step reads all weights + each request's KV cache from HBM; batching shares the weight read, not the KV read. See [memory-bound note](concepts/memory-bound-and-batching.md).
 - **Gap:** throughput vs per-user TPOT were mixed up; memory path first placed at CPU → GPU ([REVIEW_QUEUE.md](REVIEW_QUEUE.md)). The 2026-11-09 P0 reviews were **not** done and are still due.
-- **Next action:** unchanged from 2026-11-09 — KV Manager / BlockPool code check, then `SchedulerOutput` → Model Runner. Morning review: pick from the 2026-11-09 rows first.
+- **Next action:** unchanged from 2026-11-09 — KV Manager / BlockPool code check, then `SchedulerOutput` → Model Runner. Review done later on 2026-11-10 (3 questions): WAITING gate after preemption missed a 3rd time; preempt field confused (`num_computed_tokens`, not `ref_cnt`). Next review: those two first.
 
 ## Skills snapshot
 

@@ -15,6 +15,8 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 | Throughput vs per-user speed (TPOT) | Picked the right batch side for chat, but reason was "throughput up → user sees text faster". | **Partial · guided** | 2026-11-11 or later: throughput doubles, TPOT unchanged — did each user get faster? |
 | Decode reads weights too | Listed only KV cache. | **Partial · guided** | Fold into the first row's check. |
 
+**2026-11-10 review of 2026-11-09 rows:** WAITING gate after preemption → **Miss again (3rd)**, keep top priority with a fresh case 2026-11-12+. Block life cycle → `ref_cnt` 0 / free queue / reuse **Correct**, evict case **Partial**. Preempt freed vs reset → **Partial** (named `ref_cnt` instead of `num_computed_tokens`; mixed block count with `ref_cnt`). Not yet re-tested: `max_num_seqs` vs Running, eviction vs preemption choice, worker-state vs KV reuse, Block Table slot.
+
 ## 2026-11-09 — next P0 reviews (no formal pass)
 
 | Topic | Observed answer / uncertainty | State | Next check |
