@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-09  
+**Last reviewed:** 2026-11-10  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -36,6 +36,12 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 - **Progress:** `schedule()` skeleton seen with assistant-shown line numbers; one prediction (WAITING skipped after a preemption) was Partial.
 - **Done today (concepts, guided):** `schedule()` skeleton; `allocate_slots()` new-block count; preemption frees a whole request and resets progress; block life cycle (`ref_cnt`, free queue, reuse vs evict). First learner-located source line (`_preempt_request()`).
 - **Next action:** (1) ~15-minute code check for the KV Manager / BlockPool stage: learner finds where `ref_cnt` goes up, goes down, and where a block returns to the free queue. (2) Then the next stage: `SchedulerOutput` → Model Runner.
+
+**Session close (2026-11-10):**
+
+- **New fact (concept, guided):** decode is memory-bound — each step reads all weights + each request's KV cache from HBM; batching shares the weight read, not the KV read. See [memory-bound note](concepts/memory-bound-and-batching.md).
+- **Gap:** throughput vs per-user TPOT were mixed up; memory path first placed at CPU → GPU ([REVIEW_QUEUE.md](REVIEW_QUEUE.md)). The 2026-11-09 P0 reviews were **not** done and are still due.
+- **Next action:** unchanged from 2026-11-09 — KV Manager / BlockPool code check, then `SchedulerOutput` → Model Runner. Morning review: pick from the 2026-11-09 rows first.
 
 ## Skills snapshot
 

@@ -4,6 +4,17 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-10 — memory-bound / batching (no formal pass)
+
+**Note:** the 2026-11-09 rows below were **not** reviewed on 2026-11-10; they are still due.
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Where the memory-bound data path is | Said data moves CPU → GPU. Correct: HBM → SRAM/compute cores inside the GPU; CPU ↔ GPU is PCIe (KV offload). | **Partial · guided** | 2026-11-11 or later: "During decode, what moves, from where to where?" |
+| Batching: what is shared | Said weights **and** KV are loaded once. Correct: weights shared; KV per request. | **Partial · guided** | 2026-11-11 or later: batch 8 — how many weight reads vs KV-cache reads per step? |
+| Throughput vs per-user speed (TPOT) | Picked the right batch side for chat, but reason was "throughput up → user sees text faster". | **Partial · guided** | 2026-11-11 or later: throughput doubles, TPOT unchanged — did each user get faster? |
+| Decode reads weights too | Listed only KV cache. | **Partial · guided** | Fold into the first row's check. |
+
 ## 2026-11-09 — next P0 reviews (no formal pass)
 
 | Topic | Observed answer / uncertainty | State | Next check |

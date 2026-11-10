@@ -21,7 +21,7 @@
 
 | Main-path skill | Current evidence | Main gap | Priority |
 | --- | --- | --- | --- |
-| Prefill vs decode; compute vs bandwidth | Explained in earlier chats | Explain and diagnose with an independent example | P0 |
+| Prefill vs decode; compute vs bandwidth | Explained in earlier chats; **memory-bound decode, batching and turning point practised (guided, 2026-11-10)** — [note](concepts/memory-bound-and-batching.md) | Explain and diagnose with an independent example | P0 |
 | MHA / MQA / GQA and K/V sizes | Guided explanations | Calculate KV bytes from model config | P0 |
 | Weights vs hidden states | Basic concept check | Connect projections to K/V and draft states | P0 |
 | PagedAttention and BlockPool | Concept studied; open draft [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests | Independently trace allocation, `ref_cnt`, release | P0 |
