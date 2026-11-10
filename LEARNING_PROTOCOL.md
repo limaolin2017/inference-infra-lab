@@ -35,6 +35,8 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 - **New concept format (2026-11-09):** one picture + at most 3 short lines + 1 question. Learn a main-path stage as concepts first, then do **one** ~15-minute code check at the end of that stage (not one per concept).
 - **Reviews and recaps too (2026-11-09 evening):** same format — pictures first, very little text. Chinese mixed with English is fine; terms stay in English.
 - **English practice (2026-11-09 evening):** end each reply with 2–3 simple, reusable English sentences (Chinese gloss in brackets).
+- **Start of session (2026-11-10):** read [CURRENT.md](CURRENT.md) first and plan review from [REVIEW_QUEUE.md](REVIEW_QUEUE.md), not from chat memory.
+- **Job-relevant first (2026-11-10):** say why a concept matters at work before quizzing; never ask about terms not yet taught; prefer questions an infra engineer meets on the job (e.g. which knob to turn for a complaint).
 - **Learner locates source (2026-11-09):** for source questions, the assistant gives only the file and function name. The learner finds the lines and explains them; the assistant only confirms or corrects. At least once per session. Source the assistant reads and shows counts as **assistant-shown**, never as an independent trace.
 - Record learning difficulties in [REVIEW_QUEUE.md](REVIEW_QUEUE.md). Record **formal scores and A/H proof in [SKILL_VALIDATION.md](SKILL_VALIDATION.md)**.
 - **A — Human-led, Agent-verified:** the learner defines **what to verify, what to compare, and the acceptance criteria** before execution. Codex may **propose experiment designs, choose supporting test cases, write tests, run them, and collect evidence**. The learner reviews the plan, approves or changes it, and independently judges the results. Merely accepting an Agent verdict without understanding the comparison is not an A pass.
@@ -80,7 +82,7 @@ Use the [Issue-selection filter](ROADMAP.md#issue-selection-filter). **Do not co
 
 **One fact should have one main home.** Other files should link to it rather than copy full explanations.
 
-**Batch updates (2026-11-09):** during a session, keep notes in one local draft only. Write to GitHub **once, when the learner says the session is done**, not after every question. In that update, record details only for **Partial / Miss** items (journal + REVIEW_QUEUE); a **Correct** check gets one line in the journal.
+**Batch updates (2026-11-09):** during a session, keep notes in one local draft only. Write to GitHub **once, when the learner says the session is done**, not after every question. The update must cover **the whole session from start to end** (2026-11-10), not only the last part. In that update, record details only for **Partial / Miss** items (journal + REVIEW_QUEUE); a **Correct** check gets one line in the journal.
 
 ## 6. Daily learning log (short and factual)
 

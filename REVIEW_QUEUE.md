@@ -14,6 +14,9 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 | Batching: what is shared | Said weights **and** KV are loaded once. Correct: weights shared; KV per request. | **Partial · guided** | 2026-11-11 or later: batch 8 — how many weight reads vs KV-cache reads per step? |
 | Throughput vs per-user speed (TPOT) | Picked the right batch side for chat, but reason was "throughput up → user sees text faster". | **Partial · guided** | 2026-11-11 or later: throughput doubles, TPOT unchanged — did each user get faster? |
 | Decode reads weights too | Listed only KV cache. | **Partial · guided** | Fold into the first row's check. |
+| `input_ids` vs `positions` | Thought `input_ids` are 1, 2, 3 numbering. Correct: vocabulary IDs (which token); `positions` = place in its own request (from 0). | **Partial · guided** | 2026-11-11 or later: A has 6 computed, decodes 1; B prefills 3 — write both arrays. |
+| `max_num_batched_tokens` direction (TTFT vs TPOT) | Said lower it to fix slow first token; mixed it with batch size and memory-bound. Correct: raise it → fewer steps to first token; cost: TPOT spikes for running users. | **Miss · guided** | 2026-11-11 or later: two complaints (slow first token vs stutter mid-answer) — which way for each, and why? |
+| Chunked prefill: how chunks combine | Said chunk results are "summed at the end". Correct: each chunk writes K/V; next chunk attends to earlier K/V. | **Partial · guided** | Fold into the row above. |
 
 **2026-11-10 review of 2026-11-09 rows:** WAITING gate after preemption → **Miss again (3rd)**, keep top priority with a fresh case 2026-11-12+. Block life cycle → `ref_cnt` 0 / free queue / reuse **Correct**, evict case **Partial**. Preempt freed vs reset → **Partial** (named `ref_cnt` instead of `num_computed_tokens`; mixed block count with `ref_cnt`). Not yet re-tested: `max_num_seqs` vs Running, eviction vs preemption choice, worker-state vs KV reuse, Block Table slot.
 

@@ -43,6 +43,12 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 - **Gap:** throughput vs per-user TPOT were mixed up; memory path first placed at CPU → GPU ([REVIEW_QUEUE.md](REVIEW_QUEUE.md)). The 2026-11-09 P0 reviews were **not** done and are still due.
 - **Next action:** unchanged from 2026-11-09 — KV Manager / BlockPool code check, then `SchedulerOutput` → Model Runner. Review done later on 2026-11-10 (3 questions): WAITING gate after preemption missed a 3rd time; preempt field confused (`num_computed_tokens`, not `ref_cnt`). Next review: those two first.
 
+**Session close (2026-11-10, afternoon):**
+
+- **New concept (guided):** Model Runner flattens all scheduled tokens into one forward pass (`input_ids` = vocab IDs, `positions`, `slot_mapping`); chunked prefill splits long prompts by `max_num_batched_tokens`. See [concept note](concepts/model-runner-inputs-and-chunked-prefill.md).
+- **Gap:** `max_num_batched_tokens` direction missed (TTFT → raise it); `input_ids` vs `positions` confused.
+- **Next action:** morning review — 11-10 misses first (WAITING gate, preempt field, `max_num_batched_tokens`). Main path: KV Manager / BlockPool code check is still pending; then learner locates where the Model Runner builds `input_ids` / `positions`.
+
 ## Skills snapshot
 
 | Area | Evidence now | Next missing proof |
