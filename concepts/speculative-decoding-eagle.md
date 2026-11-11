@@ -41,7 +41,7 @@ The conservative legacy approach drops the trailing cache-hit unit and recompute
 
 The comparison shows why `H(context, ABCD)` is not enough for the EAGLE draft boundary when `E` or `F` follows. A supported lookahead key includes the next token ID. It does **not** compare draft KV values directly.
 
-See the [step-by-step SVG visual](../visualizations/eagle-lookahead.md). This is not a runtime test.
+This is a simplified concept, not a runtime test or benchmark. Research status (2026-11-04): PRs [#61589](https://github.com/vllm-project/vllm/pull/61589) and [#64096](https://github.com/vllm-project/vllm/pull/64096) are merged; [Issue #65161](https://github.com/vllm-project/vllm/issues/65161) still needs current-main verification (see [issue note](../issues/vllm-65161.md)).
 
 ## Understanding evidence — 2026-11-04
 

@@ -16,7 +16,7 @@ Before starting a topic or Issue, ask:
 
 **Session discipline:** work on **one P0 trunk question at a time**. Review related fundamentals briefly, then return to the code path. Do not allow EAGLE/lookahead, 2Q/ARC research, connector corner cases or exotic hardware to displace Scheduler/KV/Model Runner progress. Learn their high-level purpose when useful, not their internals by default.
 
-**Current concrete gap:** independently trace one request through `Scheduler.schedule()` → KV allocation → `SchedulerOutput` → Model Runner. Token Budget basics were practised successfully; now move from guided math to code and a CPU-checkable case.
+**Current concrete gap:** independently trace one request through `Scheduler.schedule()` → KV allocation → `SchedulerOutput` → Model Runner. Concepts for all three stages have been practised with guidance (status in [CURRENT.md](CURRENT.md)); now move from guided concepts to learner-located code and a CPU-checkable case.
 
 ## Learn the main path first
 
