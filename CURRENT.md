@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-10  
+**Last reviewed:** 2026-11-11  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -49,13 +49,20 @@ Compare them using the [Issue-selection filter](ROADMAP.md#issue-selection-filte
 - **Gap:** `max_num_batched_tokens` direction missed (TTFT → raise it); `input_ids` vs `positions` confused.
 - **Next action:** morning review — 11-10 misses first (WAITING gate, preempt field, `max_num_batched_tokens`). Main path: KV Manager / BlockPool code check is still pending; then learner locates where the Model Runner builds `input_ids` / `positions`.
 
+**Session close (2026-11-11):**
+
+- **New fact (concept, guided; source assistant-shown):** BlockPool block life cycle — `get_new_blocks()` takes from the free-queue **front** (0 → 1, old hash evicted first); `touch()` +1 on a prefix hit and removes the block from **any** queue position; `free_blocks()` −1, and at 0 a block **without** a hash goes to the front, a block **with** a hash goes to the end (LRU, lives longest). K/V is not erased when freed. See [BlockPool concept note](concepts/blockpool-block-life-cycle.md) · [journal](journal/2026-11-11.md).
+- **Gap:** Waiting-gate reason wrong a 4th time (said "D is ahead of B"); preempt field answered `ref_cnt` again (correct: `num_computed_tokens`); front/end position not given until explained. `max_num_batched_tokens` correct only after explanation.
+- **Next action:** morning review of those four with fresh cases; then BlockPool **code check** (learner finds the `ref_cnt` line in the 3 functions + `_maybe_evict_cached_block` bonus); then `SchedulerOutput` → Model Runner source.
+- **Process:** concept animation first → learner confirms → one clearly stated question → code last. Show the big picture before a stage.
+
 ## Skills snapshot
 
 | Area | Evidence now | Next missing proof |
 | --- | --- | --- |
 | Prefill / decode; Attention / GQA | Concepts studied | Explain with fresh examples and derive KV memory |
 | Scheduler / admission / preemption | Guided explanations and chat-reported CPU simulations | Independent source trace + focused CPU regression |
-| KV Cache / BlockPool / prefix cache | Concepts studied; [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests (open draft) | Trace full block life cycle and rerun tests |
+| KV Cache / BlockPool / prefix cache | Concepts studied; block life cycle (3 functions, front/end) guided 2026-11-11; [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests (open draft) | Learner-located code check of the 3 functions; rerun tests |
 | Model Runner | Pieces discussed | Follow real input/state preparation; CPU-mock test where possible |
 | NVIDIA performance / CUDA | Prior professional serving work reported; no public profiler artifacts | Optional short Colab GPU run when available; benchmark evidence still pending |
 | EAGLE / Lookahead / 2Q / ARC | Basic concepts; some guided checks | **Park deeper study** unless needed for core work |

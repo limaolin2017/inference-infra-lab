@@ -4,6 +4,16 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-11 — review results + BlockPool (no formal pass)
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| WAITING gate after preemption (**recurring, 4th**) | Case 2: B not admitted (right) "because D is in front of B" (wrong — D does not run either). Restated after gate animation: preemption → Waiting skipped. | **Partial · guided** | 2026-11-12+: fresh case where the Waiting head is *not* the preempted request; ask why nobody is admitted and point to `if not preempted_reqs`. |
+| Preempt: request field vs block field (**recurring, 2nd**) | Answered `ref_cnt` as D's reset field; said "D goes to Waiting" when asked where the blocks go. Restated: progress (`num_computed_tokens`) belongs to the request, `ref_cnt` to the block. | **Miss → restated** | 2026-11-12+: "after preempt, list one request field and one block field that change, with old → new values." |
+| `max_num_batched_tokens` direction | Forgot; correct only after slider animation + Chinese explanation. | **Correct · guided** | 2026-11-12+: independent two-complaint case, no hint. |
+| Free queue: front vs end | Did not give a position for a hashed block; then asked "at the front it can't come out?". Correct: `touch()` takes from any position; the end protects the block from `get_new_blocks()` (front only). Restated correctly. | **Partial · guided** | 2026-11-12+: two freed blocks, one with hash, one without; then one new request and one same-prefix request arrive — which block does each take? |
+| Block life cycle: `ref_cnt` 0, hit reuse, K/V kept | Correct (`ref_cnt` 0; E reuses Y, +1, leaves free queue; K/V kept). | **Pass · same day** | One more next-day check, folded into the row above. |
+
 ## 2026-11-10 — memory-bound / batching (no formal pass)
 
 **Note:** the 2026-11-09 rows below were **not** reviewed on 2026-11-10; they are still due.
