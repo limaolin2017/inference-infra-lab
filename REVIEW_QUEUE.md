@@ -4,6 +4,18 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-13 — review results (no formal pass)
+
+All three 2026-11-11 rows below were reviewed today with fresh cases. Answers were right but **guided** (taught in earlier sessions). Full log: [journal/2026-11-13.md](journal/2026-11-13.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| WAITING gate after preemption (5th check) | Right reason for the first time: "preemption in this step → whole Waiting skipped". Follow-up (no preemption, Waiting C → E, C can't fit): right — not skipped, but C blocks the head and E waits (FCFS `break`). | **Right · guided** | 2026-11-16+: mixed case — one step with preemption, next step without; Waiting head fits vs doesn't fit. |
+| Preempt: request field vs block field (3rd check) | Right: `num_computed_tokens` 40 → 0 (request); `ref_cnt` 1 → 0 (block); K/V kept. | **Right · guided** | 2026-11-16+: one more fresh case to confirm. |
+| Shared block `ref_cnt` after one user is preempted (**new**) | c1 shared by C and D (`ref_cnt` 2), C preempted: said `ref_cnt` → 0 (wrong, should be 2 → 1); free queue: self-corrected to "no, D still uses it". | **Partial** | 2026-11-14+: block shared by 3 requests, 1 preempted and 1 finishes — `ref_cnt` after each event, and when does it enter the free queue? |
+| Free queue: front vs end (2nd check) | Right: X (no hash) → front, Y (hash) → end; N takes X, E reuses Y. Explained why in own words: at the front a new request would take Y and overwrite its K/V. | **Right · own words** | 2026-11-16+: one more fresh case; then move to less frequent review. |
+| `max_num_batched_tokens` direction | Not reviewed today. | **Due** | 2026-11-14: independent two-complaint case, no hint. |
+
 ## 2026-11-11 — review results + BlockPool (no formal pass)
 
 | Topic | Observed answer / uncertainty | State | Next check |

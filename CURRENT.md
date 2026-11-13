@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-11  
+**Last reviewed:** 2026-11-13  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -19,15 +19,15 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Morning review (≤3 questions, fresh cases):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — Waiting gate reason, `num_computed_tokens` vs `ref_cnt`, `max_num_batched_tokens` direction (independent), free-queue front vs end.
+1. **Morning review (≤3 questions, fresh cases, one at a time):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — shared-block `ref_cnt` (N → N−1), `max_num_batched_tokens` direction (independent), Waiting gate + FCFS head-of-line mixed case.
 2. **Main task — BlockPool code check (~15 min, learner-located):** in [`get_new_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L681-L722), [`touch()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L774-L792) and [`free_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L798-L839), find the line that changes `ref_cnt` and the free-queue action. Bonus: what `_maybe_evict_cached_block()` does to an old hash.
 3. **Then:** `SchedulerOutput` → Model Runner — learner locates where `input_ids` / `positions` are built.
 
-## Latest session close (2026-11-11)
+## Latest session close (2026-11-13)
 
-- **New fact (concept, guided; source assistant-shown):** `get_new_blocks()` takes from the free-queue **front** (0 → 1, old hash evicted first); `touch()` +1 on a prefix hit and removes the block from **any** position; `free_blocks()` −1, and at 0 a block without a hash goes to the **front**, with a hash to the **end** (LRU). K/V is not erased when freed.
-- **Gap:** Waiting-gate reason wrong a 4th time; preempt field answered `ref_cnt` again (correct: `num_computed_tokens`); front/end not given until explained.
-- **Next action:** see *Next session* above.
+- **New fact (guided; source assistant-shown):** a preempted request goes back to the Waiting **front** (`prepend_request`); with FCFS, if the Waiting head can't get blocks, the loop `break`s, so requests behind it wait too. Review: Waiting-gate reason, preempt fields and front/end were all right (guided); front/end "why" explained in own words.
+- **Gap:** shared block — said `ref_cnt` goes to 0 when one of two users is preempted (correct: 2 → 1).
+- **Next action:** see *Next session* above (BlockPool code check still not done).
 
 Older session closes live in [journal/](journal/) — one file per day.
 
