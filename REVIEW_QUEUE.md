@@ -18,7 +18,8 @@ All three 2026-11-11 rows below were reviewed today with fresh cases. Answers we
 | **Code check:** which line takes blocks in `get_new_blocks()` (**new**) | Pointed to `on_block_allocated` (metrics only). Real line: `free_block_queue.popleft_n()` (L696). | **Partial · guided** | 2026-11-14: show the function, learner points to the take line and says why `popleft` = front. |
 | **Code check:** `free_block_queue` is a queue, not a function (**new**) | Called it "the function that takes blocks". | **Corrected** | 2026-11-14: "In `self.free_block_queue.remove(block)`, which part is the thing and which is the action?" |
 | evict vs preempt; what evict removes (**new**) | Forgot evict; then said evict "fully clears K/V". Correct: evict removes the hash label (lookup entry); K/V is overwritten later by the new owner. Self-noted: free / preempt keep the hash. | **Partial · guided** | 2026-11-14: "C is preempted, then a new request takes one of C's blocks. When is the hash removed, and is K/V erased?" |
-| `free_blocks()`: hashed block → `append_n` → end (**new**) | Asked, not answered (session paused). | **Unattempted** | 2026-11-14: point to the line (L835–L837). |
+| `free_blocks()`: hashed block → `append_n` → end (**new**) | Said `prepend_n`. Idea (hash → end) was right; method name mixed up. Then gave front for a no-hash block. | **Miss (name) → restated** | 2026-11-14: "Which method puts a block at the front, which at the end? Which one does a hashed block use?" |
+| Model Runner `positions` (from 2026-11-10 row) | A 6 computed + decode 1, C new 3 → "6, 0, 1, 2". | **Right · guided** | 2026-11-16+: three requests (one old, two new, one with chunked prefill) without a table template. |
 
 ## 2026-11-11 — review results + BlockPool (no formal pass)
 

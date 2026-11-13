@@ -11,8 +11,8 @@
 | Stage | Status (all guided — no independent L3 trace yet) | Concept notes |
 | --- | --- | --- |
 | 1. Scheduler | Concepts mostly learned: token budget, `max_num_seqs`, preemption, Waiting gate | [scheduler](concepts/scheduler-and-cache-policy.md) |
-| 2. KV Cache Manager / BlockPool | **In progress** — block life cycle learned 2026-11-11; code check pending | [BlockPool life cycle](concepts/blockpool-block-life-cycle.md) · [Block Table / slot](concepts/block-table-and-slot-mapping.md) |
-| 3. Model Runner | Started — flattened inputs, chunked prefill (concept only) | [Model Runner inputs](concepts/model-runner-inputs-and-chunked-prefill.md) |
+| 2. KV Cache Manager / BlockPool | Concepts + **code check done 2026-11-13** (guided, learner-located) | [BlockPool life cycle](concepts/blockpool-block-life-cycle.md) · [Block Table / slot](concepts/block-table-and-slot-mapping.md) |
+| 3. Model Runner | **In progress** — `input_ids` / `positions` right on 2026-11-13 (guided); chunked prefill concept only; source not yet located | [Model Runner inputs](concepts/model-runner-inputs-and-chunked-prefill.md) |
 | After all 3 | Independent `schedule()` trace → one CPU check → choose a real Issue | — |
 
 Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and-batching.md).
@@ -20,14 +20,14 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 ## Next session
 
 1. **Morning review (≤3 questions, fresh cases, one at a time):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — pick 3 from the 2026-11-13 rows — shared-block `ref_cnt` (N → N−1); evict removes the hash, not K/V; `popleft_n` vs `on_block_allocated`; `max_num_batched_tokens` direction (independent).
-2. **Main task — finish BlockPool code check (~5 min left; only the `free_blocks()` `append_n` step remains, see [journal 2026-11-13](journal/2026-11-13.md)):** in [`get_new_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L681-L722), [`touch()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L774-L792) and [`free_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L798-L839), find the line that changes `ref_cnt` and the free-queue action. Bonus: what `_maybe_evict_cached_block()` does to an old hash.
-3. **Then:** `SchedulerOutput` → Model Runner — learner locates where `input_ids` / `positions` are built.
+2. **Main task — Model Runner source (~15 min, learner-located):** find where `positions` are built for a step (start from `prepare_attn()` / input prep in [model_runner.py](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/worker/gpu/model_runner.py)). Teach one tiny step at a time.
+3. **Then:** `slot_mapping` concept — where each token's K/V is written (links to [Block Table / slot](concepts/block-table-and-slot-mapping.md)).
 
 ## Latest session close (2026-11-13)
 
 - **New fact (guided; source assistant-shown):** a preempted request goes back to the Waiting **front** (`prepend_request`); with FCFS, if the Waiting head can't get blocks, the loop `break`s, so requests behind it wait too. Review: Waiting-gate reason, preempt fields and front/end were all right (guided); front/end "why" explained in own words.
-- **Code check (mostly done):** found `ref_cnt = 1` / `+= 1` / `-= 1` and the `touch()` condition. Last step (`append_n` → end) not answered.
-- **Gap:** shared block `ref_cnt` (said 0, correct 2 → 1); picked `on_block_allocated` instead of `popleft_n`; called `free_block_queue` a function; thought evict erases K/V (it removes the hash).
+- **BlockPool code check done:** found `ref_cnt = 1` / `+= 1` / `-= 1`, the `touch()` condition and both free-queue moves. **Model Runner started:** `positions` for an old + new request right (6, 0, 1, 2).
+- **Gap:** shared block `ref_cnt` (said 0, correct 2 → 1); picked `on_block_allocated` instead of `popleft_n`; called `free_block_queue` a function; thought evict erases K/V (it removes the hash); said `prepend_n` for a hashed block (correct `append_n`).
 - **Next action:** see *Next session* above.
 
 Older session closes live in [journal/](journal/) — one file per day.

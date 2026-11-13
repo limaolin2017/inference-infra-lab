@@ -1,6 +1,6 @@
 # Knowledge Map and Evidence
 
-**Audit date:** 2026-11-04; rows updated through 2026-11-11. **Purpose:** show the knowledge inventory and gaps, not formal exam results. See **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** for L1–L4 validation. **A** means you design and direct Agent tests; **H** means hands-on, independent validation. The plan lives in [ROADMAP.md](ROADMAP.md); the next action in [CURRENT.md](CURRENT.md).
+**Audit date:** 2026-11-04; rows updated through 2026-11-13. **Purpose:** show the knowledge inventory and gaps, not formal exam results. See **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** for L1–L4 validation. **A** means you design and direct Agent tests; **H** means hands-on, independent validation. The plan lives in [ROADMAP.md](ROADMAP.md); the next action in [CURRENT.md](CURRENT.md).
 
 ![Inference engine knowledge map](assets/inference-skill-map.svg)
 
@@ -24,10 +24,10 @@
 | Prefill vs decode; compute vs bandwidth | Explained in earlier chats; **memory-bound decode, batching and turning point practised (guided, 2026-11-10)** — [note](concepts/memory-bound-and-batching.md) | Explain and diagnose with an independent example | P0 |
 | MHA / MQA / GQA and K/V sizes | Guided explanations | Calculate KV bytes from model config | P0 |
 | Weights vs hidden states | Basic concept check | Connect projections to K/V and draft states | P0 |
-| PagedAttention and BlockPool | Concept studied; **block life cycle (`get_new_blocks` / `touch` / `free_blocks`, free-queue front vs end) practised (guided, 2026-11-11)** — [note](concepts/blockpool-block-life-cycle.md); open draft [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests | Independently trace allocation, `ref_cnt`, release | P0 |
+| PagedAttention and BlockPool | Concept studied; **block life cycle (`get_new_blocks` / `touch` / `free_blocks`, free-queue front vs end) practised (guided, 2026-11-11); **learner-located code check of all three functions (guided, 2026-11-13)** — [note](concepts/blockpool-block-life-cycle.md); open draft [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests | Independently trace allocation, `ref_cnt`, release | P0 |
 | Prefix caching / block hashes | Explained | CPU test for hit/miss and cache limits | P0 |
 | Scheduler, batching, token budgets | **Basic Token Budget explained and answered correctly in guided follow-up examples (2026-11-04)**; request-count and KV-space distinctions checked; **`schedule()` skeleton, preemption and the Waiting gate practised (guided, 2026-11-09 → 11-11; gate reason still recurring)**; older CPU simulations reported | Independently trace real `schedule()` control flow, allocation failures, and preemption; then verify via CPU test | P0 |
-| Model Runner | Mentioned in prior code discussions; **flattened inputs and chunked prefill practised (guided, 2026-11-10)** — [note](concepts/model-runner-inputs-and-chunked-prefill.md) | End-to-end input/state source trace | P0 |
+| Model Runner | Mentioned in prior code discussions; **flattened inputs and chunked prefill practised (guided, 2026-11-10); `positions` for old + new requests right (guided, 2026-11-13)** — [note](concepts/model-runner-inputs-and-chunked-prefill.md) | End-to-end input/state source trace | P0 |
 | Performance experiments | Prior real serving comparisons reported; recent CPU experiments are chat-reported | Reproducible public experiments, clear confounders | P0 |
 | Open-source testing | [#61801](https://github.com/vllm-project/vllm/pull/61801), [#64281](https://github.com/vllm-project/vllm/pull/64281), [#65366](https://github.com/vllm-project/vllm/pull/65366) exist (all open at audit) | Upstream review and independent understanding | P1 |
 | Serving and deployment | Real single-NVIDIA-GPU inference deployment reported; private artifacts absent | Public-safe write-up, monitoring/K8s evidence | P1 |
