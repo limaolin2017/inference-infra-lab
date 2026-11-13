@@ -15,6 +15,10 @@ All three 2026-11-11 rows below were reviewed today with fresh cases. Answers we
 | Shared block `ref_cnt` after one user is preempted (**new**) | c1 shared by C and D (`ref_cnt` 2), C preempted: said `ref_cnt` → 0 (wrong, should be 2 → 1); free queue: self-corrected to "no, D still uses it". | **Partial** | 2026-11-14+: block shared by 3 requests, 1 preempted and 1 finishes — `ref_cnt` after each event, and when does it enter the free queue? |
 | Free queue: front vs end (2nd check) | Right: X (no hash) → front, Y (hash) → end; N takes X, E reuses Y. Explained why in own words: at the front a new request would take Y and overwrite its K/V. | **Right · own words** | 2026-11-16+: one more fresh case; then move to less frequent review. |
 | `max_num_batched_tokens` direction | Not reviewed today. | **Due** | 2026-11-14: independent two-complaint case, no hint. |
+| **Code check:** which line takes blocks in `get_new_blocks()` (**new**) | Pointed to `on_block_allocated` (metrics only). Real line: `free_block_queue.popleft_n()` (L696). | **Partial · guided** | 2026-11-14: show the function, learner points to the take line and says why `popleft` = front. |
+| **Code check:** `free_block_queue` is a queue, not a function (**new**) | Called it "the function that takes blocks". | **Corrected** | 2026-11-14: "In `self.free_block_queue.remove(block)`, which part is the thing and which is the action?" |
+| evict vs preempt; what evict removes (**new**) | Forgot evict; then said evict "fully clears K/V". Correct: evict removes the hash label (lookup entry); K/V is overwritten later by the new owner. Self-noted: free / preempt keep the hash. | **Partial · guided** | 2026-11-14: "C is preempted, then a new request takes one of C's blocks. When is the hash removed, and is K/V erased?" |
+| `free_blocks()`: hashed block → `append_n` → end (**new**) | Asked, not answered (session paused). | **Unattempted** | 2026-11-14: point to the line (L835–L837). |
 
 ## 2026-11-11 — review results + BlockPool (no formal pass)
 

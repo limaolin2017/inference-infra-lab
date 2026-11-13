@@ -19,15 +19,16 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Morning review (≤3 questions, fresh cases, one at a time):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — shared-block `ref_cnt` (N → N−1), `max_num_batched_tokens` direction (independent), Waiting gate + FCFS head-of-line mixed case.
-2. **Main task — BlockPool code check (~15 min, learner-located):** in [`get_new_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L681-L722), [`touch()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L774-L792) and [`free_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L798-L839), find the line that changes `ref_cnt` and the free-queue action. Bonus: what `_maybe_evict_cached_block()` does to an old hash.
+1. **Morning review (≤3 questions, fresh cases, one at a time):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — pick 3 from the 2026-11-13 rows — shared-block `ref_cnt` (N → N−1); evict removes the hash, not K/V; `popleft_n` vs `on_block_allocated`; `max_num_batched_tokens` direction (independent).
+2. **Main task — finish BlockPool code check (~5 min left; only the `free_blocks()` `append_n` step remains, see [journal 2026-11-13](journal/2026-11-13.md)):** in [`get_new_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L681-L722), [`touch()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L774-L792) and [`free_blocks()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/core/block_pool.py#L798-L839), find the line that changes `ref_cnt` and the free-queue action. Bonus: what `_maybe_evict_cached_block()` does to an old hash.
 3. **Then:** `SchedulerOutput` → Model Runner — learner locates where `input_ids` / `positions` are built.
 
 ## Latest session close (2026-11-13)
 
 - **New fact (guided; source assistant-shown):** a preempted request goes back to the Waiting **front** (`prepend_request`); with FCFS, if the Waiting head can't get blocks, the loop `break`s, so requests behind it wait too. Review: Waiting-gate reason, preempt fields and front/end were all right (guided); front/end "why" explained in own words.
-- **Gap:** shared block — said `ref_cnt` goes to 0 when one of two users is preempted (correct: 2 → 1).
-- **Next action:** see *Next session* above (BlockPool code check still not done).
+- **Code check (mostly done):** found `ref_cnt = 1` / `+= 1` / `-= 1` and the `touch()` condition. Last step (`append_n` → end) not answered.
+- **Gap:** shared block `ref_cnt` (said 0, correct 2 → 1); picked `on_block_allocated` instead of `popleft_n`; called `free_block_queue` a function; thought evict erases K/V (it removes the hash).
+- **Next action:** see *Next session* above.
 
 Older session closes live in [journal/](journal/) — one file per day.
 
