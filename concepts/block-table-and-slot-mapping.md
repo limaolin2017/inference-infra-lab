@@ -1,6 +1,6 @@
 # Block Table and slot mapping
 
-**Status:** concept note, 2026-11-09. Guided explanation plus an assistant-shown source check. **Not** an independent source trace or a test.
+**Status:** concept note, 2026-11-09; small-block example and first learner answer added 2026-11-16 (guided). Guided explanation plus an assistant-shown source check. **Not** an independent source trace or a test.
 
 **Main path:** Request → Scheduler → KV Cache Manager / BlockPool → **Model Runner** → GPU
 
@@ -32,6 +32,19 @@ Request A has 10 computed tokens, so the new token has position 10 (counting fro
 Block 0 still has free space (offsets 11–15), so no new block is needed in this step.
 
 One cell, two numbers: **10** is the index inside the block (offset); **58** is the global slot index in the whole KV Cache.
+
+## Small example (2026-11-16, `block_size = 4`)
+
+A has 8 tokens (pos 0–7) → two groups of 4. Block Table = `[7, 2]`: group 0 → physical block 7 (slots 28–31), group 1 → physical block 2 (slots 8–11).
+
+| pos | group `pos // 4` | physical block | offset `pos % 4` | slot |
+| --- | --- | --- | --- | --- |
+| 5 | 1 | `table[1]` = 2 | 1 | 2 × 4 + 1 = **9** (shown) |
+| 2 | 0 | `table[0]` = 7 | 2 | 7 × 4 + 2 = **30** (learner, right) |
+
+**How to read `Block Table[i] = b`:** "request group *i* is stored in physical block *b*". The index is the request's own group number; the value is the real block number. KV Cache Manager writes it (blocks come from the free-queue front, so they are not in order); Model Runner only reads it.
+
+**Confusions seen:** "5 ÷ 4 = 1" means *group number* (integer division), not a fraction; always count groups and offsets **from 0** (saying "the 2nd block" for group 1 confused the learner).
 
 ## What is written
 

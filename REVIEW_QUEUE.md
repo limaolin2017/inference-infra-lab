@@ -14,6 +14,7 @@ Three 2026-11-13 rows reviewed with fresh cases. Full log: [journal/2026-11-16.m
 | evict: when the hash is removed (2nd check) | Said "after N's K/V is computed". Correct: in `get_new_blocks()`, right after `popleft_n()`, before GPU work. K/V not erased, overwritten later — right. | **Partial** | 2026-11-17+: "Scheduler step vs GPU step — which one removes the hash, which one overwrites K/V? Why can't the hash wait?" |
 | Free queue end: the reason (3rd check) | Position right (end); reason forgotten, restated after one reminder. | **Partial · restated** | 2026-11-18+: one fresh case, reason first. |
 | Shared block `ref_cnt` (2nd check) | 3 → 2 (preempt) → 1 (finish); not in free queue while A runs. | **Right** | Less frequent; fold into a later mixed case. |
+| `slot_mapping` (**new**) | After a static picture: pos 2, `block_size` 4, table `[7, 2]` → 30 (right). Needed help reading `Block Table[i] = b` and "5 ÷ 4 = 1". | **Right · guided · same day** | 2026-11-17+: new numbers (e.g. `block_size` 4, table `[5, 0, 3]`, pos 9) — slot? Who writes the table, who computes the slot? |
 
 ## 2026-11-13 — review results (no formal pass)
 

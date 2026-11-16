@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | 1. Scheduler | Concepts mostly learned: token budget, `max_num_seqs`, preemption, Waiting gate | [scheduler](concepts/scheduler-and-cache-policy.md) |
 | 2. KV Cache Manager / BlockPool | Concepts + **code check done 2026-11-13** (guided, learner-located) | [BlockPool life cycle](concepts/blockpool-block-life-cycle.md) · [Block Table / slot](concepts/block-table-and-slot-mapping.md) |
-| 3. Model Runner | **In progress** — `input_ids` / `positions` right on 2026-11-13 (guided); chunked prefill concept only; source not yet located | [Model Runner inputs](concepts/model-runner-inputs-and-chunked-prefill.md) |
+| 3. Model Runner | **In progress** — `input_ids` / `positions` right on 2026-11-13 (guided); `slot_mapping` concept right on 2026-11-16 (guided); chunked prefill concept only; source not yet located | [Model Runner inputs](concepts/model-runner-inputs-and-chunked-prefill.md) |
 | After all 3 | Independent `schedule()` trace → one CPU check → choose a real Issue | — |
 
 Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and-batching.md).
@@ -21,11 +21,13 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 1. **Morning review (≤3 questions, fresh cases, one at a time):** top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) (2026-11-16 rows) — `max_num_batched_tokens` direction (missed 4 times; learner's own sentence first); evict hash timing (Scheduler, not GPU); `popleft_n` vs `on_block_allocated` (not yet re-checked).
 2. **Main task — Model Runner source (~15 min, learner-located):** find where `positions` are built for a step (start from `prepare_attn()` / input prep in [model_runner.py](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/worker/gpu/model_runner.py)). Teach one tiny step at a time.
-3. **Then:** `slot_mapping` concept — where each token's K/V is written (links to [Block Table / slot](concepts/block-table-and-slot-mapping.md)).
+3. **Then:** in the same file, find where `slot_mapping` is computed (`compute_slot_mappings()` called from `prepare_attn()`), and match it to the 3-step formula learned on 2026-11-16 ([Block Table / slot](concepts/block-table-and-slot-mapping.md)).
+4. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-16, review part)
+## Latest session close (2026-11-16)
 
-- **New fact (guided):** evict removes the hash in the **Scheduler step** (`get_new_blocks()`, right after `popleft_n()`), before GPU work; the old K/V is only overwritten later by the new owner's forward pass. Shared-block `ref_cnt` now right (3 → 2 → 1).
+- **New concept (guided):** `slot_mapping` — group = `pos // block_size`, Block Table → physical block, offset = `pos % block_size`, `slot = block × block_size + offset`; pos 2 with table `[7, 2]` → 30 (right).
+- **Review fact (guided):** evict removes the hash in the **Scheduler step** (`get_new_blocks()`, right after `popleft_n()`), before GPU work; the old K/V is only overwritten later by the new owner's forward pass. Shared-block `ref_cnt` now right (3 → 2 → 1).
 - **Gap:** `max_num_batched_tokens` direction flipped again (4th time) — raise = more prefill per step = faster first token; lower = lighter steps = less stutter. Free-queue "why end" reason forgotten, restated.
 - **Next action:** see *Next session* above.
 
