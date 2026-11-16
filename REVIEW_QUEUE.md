@@ -4,6 +4,17 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-16 — review results (no formal pass)
+
+Three 2026-11-13 rows reviewed with fresh cases. Full log: [journal/2026-11-16.md](journal/2026-11-16.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| `max_num_batched_tokens` direction (**4th check, recurring**) | Independent case: flipped both (User 1 lower, User 2 raise). Reason "more tokens per step → stutter" was right but put on the wrong user. After Chinese explanation: "raise = one step fits more prefill" → right. | **Miss → restated** | 2026-11-17+: learner fills "第一个 token 慢，我 ___ 它，因为 ___", then a fresh case with a different symptom (e.g. long-prompt users vs chat users), no hint. |
+| evict: when the hash is removed (2nd check) | Said "after N's K/V is computed". Correct: in `get_new_blocks()`, right after `popleft_n()`, before GPU work. K/V not erased, overwritten later — right. | **Partial** | 2026-11-17+: "Scheduler step vs GPU step — which one removes the hash, which one overwrites K/V? Why can't the hash wait?" |
+| Free queue end: the reason (3rd check) | Position right (end); reason forgotten, restated after one reminder. | **Partial · restated** | 2026-11-18+: one fresh case, reason first. |
+| Shared block `ref_cnt` (2nd check) | 3 → 2 (preempt) → 1 (finish); not in free queue while A runs. | **Right** | Less frequent; fold into a later mixed case. |
+
 ## 2026-11-13 — review results (no formal pass)
 
 All three 2026-11-11 rows below were reviewed today with fresh cases. Answers were right but **guided** (taught in earlier sessions). Full log: [journal/2026-11-13.md](journal/2026-11-13.md).

@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-13  
+**Last reviewed:** 2026-11-16  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -19,15 +19,14 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Morning review (≤3 questions, fresh cases, one at a time):** due items at the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — pick 3 from the 2026-11-13 rows — shared-block `ref_cnt` (N → N−1); evict removes the hash, not K/V; `popleft_n` vs `on_block_allocated`; `max_num_batched_tokens` direction (independent).
+1. **Morning review (≤3 questions, fresh cases, one at a time):** top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) (2026-11-16 rows) — `max_num_batched_tokens` direction (missed 4 times; learner's own sentence first); evict hash timing (Scheduler, not GPU); `popleft_n` vs `on_block_allocated` (not yet re-checked).
 2. **Main task — Model Runner source (~15 min, learner-located):** find where `positions` are built for a step (start from `prepare_attn()` / input prep in [model_runner.py](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/worker/gpu/model_runner.py)). Teach one tiny step at a time.
 3. **Then:** `slot_mapping` concept — where each token's K/V is written (links to [Block Table / slot](concepts/block-table-and-slot-mapping.md)).
 
-## Latest session close (2026-11-13)
+## Latest session close (2026-11-16, review part)
 
-- **New fact (guided; source assistant-shown):** a preempted request goes back to the Waiting **front** (`prepend_request`); with FCFS, if the Waiting head can't get blocks, the loop `break`s, so requests behind it wait too. Review: Waiting-gate reason, preempt fields and front/end were all right (guided); front/end "why" explained in own words.
-- **BlockPool code check done:** found `ref_cnt = 1` / `+= 1` / `-= 1`, the `touch()` condition and both free-queue moves. **Model Runner started:** `positions` for an old + new request right (6, 0, 1, 2).
-- **Gap:** shared block `ref_cnt` (said 0, correct 2 → 1); picked `on_block_allocated` instead of `popleft_n`; called `free_block_queue` a function; thought evict erases K/V (it removes the hash); said `prepend_n` for a hashed block (correct `append_n`).
+- **New fact (guided):** evict removes the hash in the **Scheduler step** (`get_new_blocks()`, right after `popleft_n()`), before GPU work; the old K/V is only overwritten later by the new owner's forward pass. Shared-block `ref_cnt` now right (3 → 2 → 1).
+- **Gap:** `max_num_batched_tokens` direction flipped again (4th time) — raise = more prefill per step = faster first token; lower = lighter steps = less stutter. Free-queue "why end" reason forgotten, restated.
 - **Next action:** see *Next session* above.
 
 Older session closes live in [journal/](journal/) — one file per day.
