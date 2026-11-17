@@ -4,6 +4,21 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-17 — `slot_mapping` review + KV memory formula (no formal pass)
+
+Full log: [journal/2026-11-17.md](journal/2026-11-17.md). Case: `block_size` 4, table `[7, 2, 5]`.
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| `slot_mapping` vs `block_table` | Mixed them up. Correct: table = per request, for **read**; slot_mapping = per new token, for **write**. | **Miss → restated** | 2026-11-18+: "Which one does attention read, which one does `store_kvcache` use?" |
+| Use the **physical** block | pos 6 → answered 6 (used logical block). Correct: 10. | **Miss → restated** | 2026-11-18+: fresh table and pos. |
+| offset = **remainder** (recurring, 2×) | pos 11 and pos 12: used the quotient. Correct: 23 and 0. | **Miss → restated** | 2026-11-18+: two fresh positions, one at a block edge. |
+| pos counts from 0 | pos 10 → answered 9 (as token index). Correct: 22. | **Miss → restated** | Fold into the rows above. |
+| Decode: size of `slot_mapping` | Took it as total tokens. Correct: **1** per request. | **Miss → restated** | 2026-11-18+: decode batch of 3 requests — how many numbers? |
+| pos 12 → new block | Idea right (logical 3 not in table → allocate). | **Partial** | **First question next session:** no free blocks — what does the Scheduler do? |
+| MHA / GQA / MQA (**new**) | Thought the difference was blocking; thought KV heads were "split" from K. Correct: different **KV head count**; heads are projected with weights. | **Corrected** | 2026-11-18+: per-token bytes for a GQA model with new numbers. |
+| Why vLLM reserves KV at startup (**new**) | Thought it was for warm-up. Correct: slow allocation, fragmentation, fixed capacity for the Scheduler. | **Corrected** | 2026-11-18+: "Why not allocate when a request arrives?" — give 2 reasons. |
+
 ## 2026-11-16 — review results (no formal pass)
 
 Three 2026-11-13 rows reviewed with fresh cases. Full log: [journal/2026-11-16.md](journal/2026-11-16.md).

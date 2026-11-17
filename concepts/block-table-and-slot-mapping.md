@@ -46,6 +46,19 @@ A has 8 tokens (pos 0–7) → two groups of 4. Block Table = `[7, 2]`: group 0 
 
 **Confusions seen:** "5 ÷ 4 = 1" means *group number* (integer division), not a fraction; always count groups and offsets **from 0** (saying "the 2nd block" for group 1 confused the learner).
 
+## Review example (2026-11-17, `block_size = 4`, table `[7, 2, 5]`)
+
+| pos | logical | physical | offset | slot |
+| --- | --- | --- | --- | --- |
+| 6 | 1 | 2 | 2 | **10** |
+| 10 | 2 | 5 | 2 | **22** |
+| 11 | 2 | 5 | 3 | **23** |
+| 12 | 3 (not in table → new block, e.g. P0) | 0 | 0 | **0** |
+
+**`block_table` vs `slot_mapping`:** `block_table` = one list per request, used to **read** all old K/V. `slot_mapping` = one slot per **new** token this step, used to **write**. In decode it has **1** number per request. Each layer has its own KV cache; a token uses the same slot number in every layer.
+
+**Mistakes seen 2026-11-17:** used the logical block instead of the physical block; used the quotient for offset (it is the **remainder**); treated pos as a 1-based token count.
+
 ## What is written
 
 The token's **K and V** are written to the slot. The token itself is not.
@@ -60,6 +73,11 @@ Pinned vLLM commit `c2320e3`. Shown by the assistant; the learner has not traced
 
 - [`ModelRunner.prepare_attn()`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/worker/gpu/model_runner.py#L1658-L1678): gathers block tables and calls `compute_slot_mappings()`.
 - [`_compute_slot_mappings_kernel`](https://github.com/vllm-project/vllm/blob/c2320e37f14420a1157967362b56c899a726d84d/vllm/v1/worker/gpu/block_table.py#L402-L409): without context parallel, `block_indices = positions // block_size`, `block_offsets = positions % block_size`, and `slot_ids = block_numbers * block_size + block_offsets`. The multi-group and context-parallel branches are ignored here.
+
+Other pointers (names only, not traced):
+
+- nano-vllm: `ModelRunner.prepare_prefill` / `prepare_decode` build `slot_mapping`; `store_kvcache` writes; `BlockManager.may_append` allocates a new block.
+- vLLM V1: `BlockTable.compute_slot_mapping` (`vllm/v1/worker/block_table.py`); `KVCacheManager.allocate_slots` allocates new blocks.
 
 ## Still unverified
 
