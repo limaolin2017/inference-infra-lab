@@ -1,6 +1,6 @@
 # Knowledge Map and Evidence
 
-**Audit date:** 2026-11-04; rows updated through 2026-11-13. **Purpose:** show the knowledge inventory and gaps, not formal exam results. See **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** for L1–L4 validation. **A** means you design and direct Agent tests; **H** means hands-on, independent validation. The plan lives in [ROADMAP.md](ROADMAP.md); the next action in [CURRENT.md](CURRENT.md).
+**Audit date:** 2026-11-04; rows updated through 2026-11-17. **Purpose:** show the knowledge inventory and gaps, not formal exam results. See **[SKILL_VALIDATION.md](SKILL_VALIDATION.md)** for L1–L4 validation. **A** means you design and direct Agent tests; **H** means hands-on, independent validation. The plan lives in [ROADMAP.md](ROADMAP.md); the next action in [CURRENT.md](CURRENT.md).
 
 ![Inference engine knowledge map](assets/inference-skill-map.svg)
 
@@ -22,7 +22,7 @@
 | Main-path skill | Current evidence | Main gap | Priority |
 | --- | --- | --- | --- |
 | Prefill vs decode; compute vs bandwidth | Explained in earlier chats; **memory-bound decode, batching and turning point practised (guided, 2026-11-10)** — [note](concepts/memory-bound-and-batching.md) | Explain and diagnose with an independent example | P0 |
-| MHA / MQA / GQA and K/V sizes | Guided explanations | Calculate KV bytes from model config | P0 |
+| MHA / MQA / GQA and K/V sizes | Guided explanations; **per-token KV formula learned, MHA/GQA/MQA = KV head count (guided, 2026-11-17)** — [note](concepts/kv-cache-memory.md) | Calculate KV bytes and request capacity from a real model config | P0 |
 | Weights vs hidden states | Basic concept check | Connect projections to K/V and draft states | P0 |
 | PagedAttention and BlockPool | Concept studied; **block life cycle (`get_new_blocks` / `touch` / `free_blocks`, free-queue front vs end) practised (guided, 2026-11-11); **learner-located code check of all three functions (guided, 2026-11-13)** — [note](concepts/blockpool-block-life-cycle.md); open draft [#64281](https://github.com/vllm-project/vllm/pull/64281) reports CPU tests | Independently trace allocation, `ref_cnt`, release | P0 |
 | Prefix caching / block hashes | Explained | CPU test for hit/miss and cache limits | P0 |

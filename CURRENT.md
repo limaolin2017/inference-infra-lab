@@ -13,6 +13,31 @@
 
 The request-path trace below is the background for items 1 and 3.
 
+## Status board — mastered / gap / unclear (updated 2026-11-17)
+
+Update this board at every session close. Copy kept in project memory.
+
+| Area | Mastered (can do) | Gap (cannot do alone yet) | Unclear (still confused) |
+| --- | --- | --- | --- |
+| KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count | Capacity math for a real model config | — (just learned) |
+| `slot_mapping` | 3-step rule; pos 12 needs a new block | Fresh cases without help | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` |
+| BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
+| Scheduler | Token budget, preemption, Waiting gate (guided) | Independent `schedule()` trace + CPU test | `max_num_batched_tokens` direction (missed 4×) |
+| Model Runner | `input_ids` / `positions` (guided) | Find `positions` / `slot_mapping` in source alone | Chunked prefill details |
+| Prefill / decode (item 2) | Memory-bound decode, batching (guided) | Say alone what limits TTFT vs TPOT | — |
+| Benchmark / profiling (item 4) | — | Public, rerunnable benchmark; profiling | Not started |
+
+**Formal passes:** 0. All answers so far are guided.
+
+### When to start running (agreed 2026-11-17)
+
+Run vLLM for the first time when **both** are true:
+
+1. Item 1: can calculate alone how many requests a real model fits.
+2. Item 2: can explain alone what limits TTFT and what limits TPOT.
+
+The first run checks concepts (e.g. the KV formula vs the vLLM startup log); it is not meant to produce a result.
+
 ## Request-path trace (background)
 
 **Trace one request through `Scheduler → KV Cache Manager / BlockPool → Model Runner`.**
