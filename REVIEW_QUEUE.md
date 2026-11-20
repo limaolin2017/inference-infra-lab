@@ -4,6 +4,17 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-19 — studied outside the project chat (self-reported, no answers saved)
+
+Full log: [journal/2026-11-19.md](journal/2026-11-19.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Scheduler: 3 key parts (**new**) | Next day recalled only `waiting` (a deque); forgot the other two. | **Miss (forgot)** | 2026-11-20: re-learn, then "Name the 3 parts and say what each holds." |
+| `waiting` = deque (**new**) | Named, not explained. Source: `FCFSRequestQueue` subclasses `deque`; add → end, pop → front, `prepend_request` → front. | **Partial** | 2026-11-20: "A preempted request goes back to Waiting — front or end? Which method?" |
+| Blocks (review) | Result not recorded. | **Due** | 2026-11-20: fresh `slot_mapping` case (rows below). |
+| No free blocks (review) | Result not recorded. | **Due** | 2026-11-20: "Free queue empty — what does the Scheduler do, which request, what happens to its progress?" |
+
 ## 2026-11-17 — `slot_mapping` review + KV memory formula (no formal pass)
 
 Full log: [journal/2026-11-17.md](journal/2026-11-17.md). Case: `block_size` 4, table `[7, 2, 5]`.

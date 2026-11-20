@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-17  
+**Last reviewed:** 2026-11-19 (self-reported, outside project chat)  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -13,7 +13,7 @@
 
 The request-path trace below is the background for items 1 and 3.
 
-## Status board — mastered / gap / unclear (updated 2026-11-17)
+## Status board — mastered / gap / unclear (updated 2026-11-19)
 
 Update this board at every session close. Copy kept in project memory.
 
@@ -22,7 +22,7 @@ Update this board at every session close. Copy kept in project memory.
 | KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count | Capacity math for a real model config | — (just learned) |
 | `slot_mapping` | 3-step rule; pos 12 needs a new block | Fresh cases without help | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` |
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
-| Scheduler | Token budget, preemption, Waiting gate (guided) | Independent `schedule()` trace + CPU test | `max_num_batched_tokens` direction (missed 4×) |
+| Scheduler | Token budget, preemption, Waiting gate (guided) | Independent `schedule()` trace + CPU test; name the 3 key parts next day (only `waiting` recalled) | `max_num_batched_tokens` direction (missed 4×); the other 2 key parts; `waiting` deque add / pop / prepend |
 | Model Runner | `input_ids` / `positions` (guided) | Find `positions` / `slot_mapping` in source alone | Chunked prefill details |
 | Prefill / decode (item 2) | Memory-bound decode, batching (guided) | Say alone what limits TTFT vs TPOT | — |
 | Benchmark / profiling (item 4) | — | Public, rerunnable benchmark; profiling | Not started |
@@ -53,17 +53,17 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Review first question:** no free blocks — what does the Scheduler do?
-2. **Review (≤3 questions, fresh cases):** top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) (2026-11-17 rows) — offset = remainder; physical block after lookup; `slot_mapping` vs `block_table`.
+1. **Re-learn first:** the 3 key Scheduler parts (one is the `waiting` deque) — then the learner names all 3 alone.
+2. **Review (≤3 questions, fresh cases):** top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) — no free blocks; blocks / `slot_mapping` (offset = remainder, physical block, pos from 0); `waiting` deque front vs end.
 3. **Main task — paper exercise (no local run):** M1 Pro 16 GB with a small model — how many 4K-token requests fit at once? Use the [KV memory formula](concepts/kv-cache-memory.md).
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-17)
+## Latest session close (2026-11-19, self-reported)
 
-- **New fact:** KV per token = `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA differ only in KV head count (32 layers, head_dim 128, FP16: 512 / 128 / 16 KiB per token). vLLM reserves the leftover GPU memory as KV blocks at startup (slow allocation, fragmentation, fixed capacity for the Scheduler).
-- **Gap:** `slot_mapping` arithmetic — offset used the quotient (2×), logical block used instead of physical, pos treated as 1-based.
-- **Next action:** see *Next session* above.
+- **New fact:** the Scheduler's `waiting` queue is a deque (`FCFSRequestQueue`): add → end, pop → front, `prepend_request` → front.
+- **Gap:** next day, recalled only 1 of the 3 key Scheduler parts; the 2 reviews (blocks, no free blocks) have no saved result.
+- **Next action:** see *Next session* above. Rule: when studying outside the project chat, paste the Q&A back here.
 
 Older session closes live in [journal/](journal/) — one file per day.
 
