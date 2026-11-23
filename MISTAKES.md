@@ -7,9 +7,12 @@
 
 ## Weak points by pattern
 
+**Sub-pattern seen 2× on 11-23:** right conclusion, but the reason explains something else ("decode, not first token"; "must wait for prefill"). Ask: *what changed, and why does that change the result?*
+
+
 | Pattern | Wrong (total) | Worst items | What it means |
 | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **14** | `max_num_batched_tokens` 5×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **15** | `max_num_batched_tokens` 5×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
 | **A. Roles: who owns / does what** | **15** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 9 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
@@ -59,6 +62,7 @@
 | KV memory | Quantization: only weights, missed KV cache | A | 1 | 11-23 | 11-23 (same day) |
 | GPU | Why K/V is read per user: mixed prefix-cache hit with decode reads | A | 1 | 11-23 | — |
 | Model Runner | Chunked prefill: thought the same user alternates prefill / decode (it is different users in one step) | A | 1 | 11-23 | — |
+| Model Runner | Chunked prefill → long-prompt TTFT slower: right conclusion, reason missing (more steps) | B | 1 | 11-23 | — |
 
 \* 11-13: not reviewed, counted in the source as a forgotten check. `?` = from the archive, date not exact.
 
