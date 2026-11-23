@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 250" font-family="Helvetica, Arial, sans-serif">
+  <style>.th{font-size:14px;font-weight:600;fill:#2C2C2A}.ts{font-size:12px;fill:#5F5E5A}.p{fill:#FAECE7;stroke:#993C1D}.d{fill:#E1F5EE;stroke:#0F6E56}</style>
+  <rect width="680" height="250" fill="#ffffff"/>
+  <text x="40" y="28" class="th">10,000-token prompt · max_num_batched_tokens = per-step token cap</text>
+  <text x="40" y="62" class="ts">Low cap (2,048)</text>
+  <g stroke-width="0.5"><rect x="150" y="46" width="70" height="26" rx="3" class="p"/><rect x="226" y="46" width="70" height="26" rx="3" class="p"/><rect x="302" y="46" width="70" height="26" rx="3" class="p"/><rect x="378" y="46" width="70" height="26" rx="3" class="p"/><rect x="454" y="46" width="70" height="26" rx="3" class="p"/></g>
+  <text x="530" y="64" class="ts">5 steps → TTFT slow</text>
+  <text x="40" y="112" class="ts">High cap (8,192)</text>
+  <g stroke-width="0.5"><rect x="150" y="96" width="140" height="26" rx="3" class="p"/><rect x="296" y="96" width="70" height="26" rx="3" class="p"/></g>
+  <text x="372" y="114" class="ts">2 steps → TTFT fast ✓</text>
+  <text x="40" y="160" class="th">Cost: each step is heavier</text>
+  <text x="40" y="186" class="ts">Users already decoding wait for the big step before their next token</text>
+  <g stroke-width="0.5"><rect x="150" y="200" width="24" height="24" rx="3" class="d"/><rect x="180" y="200" width="140" height="24" rx="3" class="p"/><rect x="326" y="200" width="24" height="24" rx="3" class="d"/></g>
+  <text x="360" y="217" class="ts">→ TPOT spikes (stutter) for chat users</text>
+</svg>

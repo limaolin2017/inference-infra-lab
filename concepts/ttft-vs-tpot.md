@@ -46,6 +46,12 @@ Restaurant: prefill = one huge order, the chef is busy **cooking** (compute). De
 
 Check right after: "10,000-token prompt → TTFT slow: compute- or memory-bound?" → "compute-bound" → **Right · same day (just taught)**.
 
+**Knob case:** long prompts slow to start → `max_num_batched_tokens`? Learner: "lower it, so more memory goes to prefill; cost: TTFT gets slower" → **Miss (5th time on this knob)**. Two errors: (1) direction flipped; (2) treats the knob as a **memory** setting — it is a **per-step token cap**. Correct: **raise** it → the long prompt fits in fewer steps → TTFT faster. Cost: each step is heavier → users already decoding wait longer → **TPOT** spikes (not TTFT).
+
+![max_num_batched_tokens](../assets/max-num-batched-tokens.svg)
+
+Elevator: 10,000 people, elevator holds 2,048 → 5 trips before everyone is up. Bigger elevator → 2 trips. But each trip is longer, so people waiting on other floors (decode users) wait longer between rides.
+
 ## Next question
 
-Knob case (weak pattern B): long-prompt users complain "it takes long to start"; chat users are fine. Raise or lower `max_num_batched_tokens`, and what is the cost?
+Fill in: "第一个 token 慢，我 ___ `max_num_batched_tokens`，因为 ___；代价是 ___ 变慢。"

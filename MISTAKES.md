@@ -9,7 +9,7 @@
 
 | Pattern | Wrong (total) | Worst items | What it means |
 | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **13** | `max_num_batched_tokens` 4×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **14** | `max_num_batched_tokens` 5×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
 | **A. Roles: who owns / does what** | **14** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 8 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
@@ -22,7 +22,7 @@
 
 | Area | Item | Pattern | Wrong | Dates wrong | Last right |
 | --- | --- | --- | --- | --- | --- |
-| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) | B | 4 | 11-10, 11-11, 11-13*, 11-16 | — |
+| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) — also thought it is a memory setting | B | 5 | 11-10, 11-11, 11-13*, 11-16, 11-23 | — |
 | Scheduler | WAITING gate after preemption | B | 4 | 11-05?, 11-09, 11-10, 11-11 | 11-13 (guided) |
 | Scheduler | `max_num_seqs` vs running requests | B | 1 | 11-09 | — |
 | Scheduler | What triggers preemption | B | 1 | 11-23 | 11-23 (restated) |

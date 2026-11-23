@@ -66,4 +66,4 @@ Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runn
 
 ## Assets
 
-[block-table-mapping.svg](assets/block-table-mapping.svg) · [scheduler-three-parts.svg](assets/scheduler-three-parts.svg) · [components-who-decides.svg](assets/components-who-decides.svg) · [kv-budget.svg](assets/kv-budget.svg) · [ttft-vs-tpot.svg](assets/ttft-vs-tpot.svg) · [eagle-lookahead.svg](assets/eagle-lookahead.svg) · [inference-skill-map.svg](assets/inference-skill-map.svg) · [memory-bound-batching.svg](assets/memory-bound-batching.svg)
+[block-table-mapping.svg](assets/block-table-mapping.svg) · [scheduler-three-parts.svg](assets/scheduler-three-parts.svg) · [components-who-decides.svg](assets/components-who-decides.svg) · [kv-budget.svg](assets/kv-budget.svg) · [ttft-vs-tpot.svg](assets/ttft-vs-tpot.svg) · [max-num-batched-tokens.svg](assets/max-num-batched-tokens.svg) · [eagle-lookahead.svg](assets/eagle-lookahead.svg) · [inference-skill-map.svg](assets/inference-skill-map.svg) · [memory-bound-batching.svg](assets/memory-bound-batching.svg)
