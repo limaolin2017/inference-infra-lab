@@ -12,6 +12,7 @@ A public learning and contribution log for **LLM inference engineering**.
 
 | Question | Read |
 | --- | --- |
+| Where is every page? Rules for the LLM? Recent activity? | **[index.md](index.md)** · [CLAUDE.md](CLAUDE.md) · [log.md](log.md) (Karpathy [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) pattern) |
 | What should I do next? | **[CURRENT.md](CURRENT.md)**: the active focus, next session, latest session close |
 | What is due for review? | **[REVIEW_QUEUE.md](REVIEW_QUEUE.md)**: confusions to retest, newest first |
 | What should I learn, and what can wait? | [ROADMAP.md](ROADMAP.md): priorities, Issue filter, no-GPU plan |
