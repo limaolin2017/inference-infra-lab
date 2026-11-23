@@ -4,6 +4,18 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-23 — Scheduler 3 parts re-learned (guided, no formal pass)
+
+Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Scheduler vs `kv_cache_manager` (**new**) | Said `kv_cache_manager` decides who goes to waiting / running. Correct: the Scheduler decides; `kv_cache_manager` only gives out / takes back KV blocks. | **Miss → restated** | 2026-11-24: "Who decides, who only answers? What does `allocate_slots` return when there are no blocks?" |
+| What triggers preemption (**new**) | Thought a new waiting C can preempt running B. Correct (FCFS): only a running request that needs one more block with no free blocks. | **Partial → restated** | 2026-11-24: two cases — new C can't fit vs running A needs a block. Which one preempts? |
+| Which request gets preempted (**new**) | Said "Scheduler preempts" (right) but not who. Correct (FCFS): the last request in `running`; can be A itself. | **Due** | 2026-11-24: running = [A, B, D], A needs a block — who is preempted, where does it go, what happens to `num_computed_tokens`? |
+| `add_request` vs `prepend_request` | Front right; method name unknown. | **Miss (name)** | 2026-11-24: "Which method for a new request, which for a preempted one?" |
+| 3 key parts | Re-learned with animation; `waiting` / `running` right. | **Right · guided · same day** | 2026-11-24: name all 3 alone, one line each. |
+
 ## 2026-11-19 — studied outside the project chat (self-reported, no answers saved)
 
 Full log: [journal/2026-11-19.md](journal/2026-11-19.md).
