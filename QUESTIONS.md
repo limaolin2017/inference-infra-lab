@@ -26,6 +26,7 @@
 | --- | --- | --- |
 | 11-23 | Why "How many tokens fit?" and not "does fit"? | "How many tokens" is the subject → no *do* |
 | 11-23 | What does "1 KB = 1,024 bytes" mean here? | Convert bytes to KB: ÷ 1,024 |
+| 11-23 | "knob" 中文是啥? | 旋钮 → in infra: a setting you can tune (可调参数) |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 
