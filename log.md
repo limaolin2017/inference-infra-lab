@@ -51,3 +51,6 @@ See [kv-cache-memory](concepts/kv-cache-memory.md) and [LEARNING_PROTOCOL.md](LE
 
 ## [2026-11-23] schema | Goal alignment: concepts → CPU test → GPU benchmark
 See [CURRENT.md](CURRENT.md#order-of-work-agreed-2026-11-23).
+
+## [2026-11-23] schema | Colab gate with pass criteria (A capacity, B TTFT/TPOT, C prediction)
+See [CURRENT.md](CURRENT.md#colab-gate--measurable-agreed-2026-11-23).

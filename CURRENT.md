@@ -33,6 +33,18 @@ Update this board at every session close. Copy kept in project memory.
 
 No good local machine for tests yet, so: **(1) concepts first until the run-gate below → (2) one CPU test of the Scheduler or BlockPool (pytest, runs on a laptop; first independent public proof) → (3) GPU benchmark on Colab** (TTFT / TPOT, startup log vs KV formula).
 
+### Colab gate — measurable (agreed 2026-11-23)
+
+Start the first Colab GPU run when **all 3** pass. Pass = closed-book, first try, no hints (a hint = guided, does not count).
+
+| Check | Task | Pass if | Status 11-23 |
+| --- | --- | --- | --- |
+| A. Capacity | Unseen `config.json` + GPU size: find the 4 fields, write the full formula, say budget → max tokens → max 4K requests (assistant does the arithmetic) | All steps right on **2 models, 2 different days** | ~40%: formula known; missed the leading 2; steps 2–4 not done |
+| B. TTFT vs TPOT | Explain what limits each; 3 "user complains about X — which knob?" cases | Explanation right + **≥ 2 / 3** cases | 0%: main line item 2 not started |
+| C. Prediction | Before the run, write the expected KV cache size and block count for the Colab model | Written **before** running | After A |
+
+Estimate: **2–3 weeks** at ~4 sessions / week (A ≈ 1 week, B ≈ 1–2 weeks) → about mid-December. The CPU test does not block Colab; order chosen later.
+
 ### When to start running (agreed 2026-11-17)
 
 Run vLLM for the first time when **both** are true:
