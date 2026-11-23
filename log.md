@@ -48,3 +48,6 @@ Added to [kv-cache-memory](concepts/kv-cache-memory.md). Missed the leading 2 �
 
 ## [2026-11-23] learn | Capacity thinking: KV cache vs weight quantization; no-hand-arithmetic rule
 See [kv-cache-memory](concepts/kv-cache-memory.md) and [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md).
+
+## [2026-11-23] schema | Goal alignment: concepts → CPU test → GPU benchmark
+See [CURRENT.md](CURRENT.md#order-of-work-agreed-2026-11-23).

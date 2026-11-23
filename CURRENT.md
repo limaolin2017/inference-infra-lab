@@ -29,6 +29,10 @@ Update this board at every session close. Copy kept in project memory.
 
 **Formal passes:** 0. All answers so far are guided.
 
+### Order of work (agreed 2026-11-23)
+
+No good local machine for tests yet, so: **(1) concepts first until the run-gate below → (2) one CPU test of the Scheduler or BlockPool (pytest, runs on a laptop; first independent public proof) → (3) GPU benchmark on Colab** (TTFT / TPOT, startup log vs KV formula).
+
 ### When to start running (agreed 2026-11-17)
 
 Run vLLM for the first time when **both** are true:
