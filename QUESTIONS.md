@@ -46,8 +46,9 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 | 11-23 | 10,000-token prompt → TTFT slow, must prefill 10,000 tokens — 对吧? | Right | 11-24 |
 | 11-23 | K/V read 50× because it depends on cache hits — 我的理解对吗? | Partial (K/V is per-user data) | 11-24 |
 | 11-23 | Each user's K/V is only theirs and different, so it's read 50 times — 对吧? | Right (after explanation) | 11-24 |
+| 11-23 | Chunked prefill = split prefill into fixed-size pieces, like 8 or 2 — 我记得好像? | Partial (chunk size comes from the per-step token budget; missed the key point: chunks share a step with decode tokens) | 11-24 (new lesson) |
 
-**Pattern:** 10 confidence checks on 11-23: 4 right, 5 partial, 1 miss. Even the right ones need a re-check.
+**Pattern:** 11 confidence checks on 11-23: 4 right, 6 partial, 1 miss. Even the right ones need a re-check.
 
 ## Unclear areas (from questions)
 
