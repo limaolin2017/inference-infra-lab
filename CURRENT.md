@@ -19,7 +19,7 @@ Update this board at every session close. Copy kept in project memory.
 
 | Area | Mastered (can do) | Gap (cannot do alone yet) | Unclear (still confused) |
 | --- | --- | --- | --- |
-| KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count | Capacity math for a real model config | — (just learned) |
+| KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2 (K and V); KV heads vs KV cache; rough estimate idea (Llama-3-8B ≈ 0.5 GB per 4K request) (guided, 11-23) | Write the full formula alone (missed the leading 2 on 11-23; bits vs bytes slip); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone | KV cache quantization vs weight quantization (restated 11-23, review 11-24) |
 | `slot_mapping` | 3-step rule; pos 12 needs a new block | Fresh cases without help | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` |
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
 | Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts `waiting` / `running` / `kv_cache_manager` re-learned 11-23 (guided); preempted → front of `waiting` | Independent `schedule()` trace + CPU test; name the 3 parts alone next day; `add_request` vs `prepend_request` names | `max_num_batched_tokens` direction (missed 4×); Scheduler vs `kv_cache_manager` roles (mixed up 11-23); what triggers preemption; which request is preempted |
@@ -53,17 +53,17 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Review first (2026-11-24, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top):** name the 3 Scheduler parts alone; Scheduler vs `kv_cache_manager` (who decides, who only answers); what triggers preemption (new C can't fit vs running A needs a block); which request is preempted and what happens to it; `add_request` vs `prepend_request`.
+1. **Review first (2026-11-24, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top):** KV cache vs weight quantization (which changes `bytes`, which grows the KV budget); write the full KV per-token formula for a new model; name the 3 Scheduler parts alone; Scheduler vs `kv_cache_manager` (who decides, who only answers); what triggers preemption (new C can't fit vs running A needs a block); which request is preempted and what happens to it; `add_request` vs `prepend_request`.
 2. **Then (≤3 questions, fresh cases):** blocks / `slot_mapping` (offset = remainder, physical block, pos from 0).
-3. **Main task — paper exercise (no local run):** M1 Pro 16 GB with a small model — how many 4K-token requests fit at once? Use the [KV memory formula](concepts/kv-cache-memory.md).
+3. **Main task — capacity reasoning (no hand arithmetic; the assistant does the math):** KV budget steps 2–4 — budget → max tokens → how many 4K requests fit (e.g. M1 Pro 16 GB with a small model). Learner finds the 4 fields in a real `config.json`. Use the [KV memory formula](concepts/kv-cache-memory.md).
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
 ## Latest session close (2026-11-23, guided)
 
-- **New fact:** the Scheduler decides; `kv_cache_manager` only gives out / takes back KV blocks. Preemption is triggered only by a running request that needs a block when none are free — a new request just waits.
-- **Gap:** mixed up Scheduler and `kv_cache_manager`; did not know `prepend_request()`; not yet asked which request gets preempted.
-- **Next action:** see *Next session* above. Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
+- **New fact:** only the Scheduler decides; `kv_cache_manager` only gives out / takes back blocks; preemption only for a running request that needs a block. To fit more users on the same GPU: KV cache quantization (FP8, the `bytes` factor) or weight quantization (bigger KV budget).
+- **Gap:** missed the leading 2 in the KV formula; did not know `prepend_request()`; KV budget steps 2–4 not done; "4× users" first answered as × 4 (the need, not the fix).
+- **Next action:** see *Next session* above. Repo now follows the LLM Wiki pattern ([CLAUDE.md](CLAUDE.md), [index.md](index.md), [log.md](log.md), [components/](components/README.md)). No hand arithmetic from now on. Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
 
 Older session closes live in [journal/](journal/) — one file per day.
 
