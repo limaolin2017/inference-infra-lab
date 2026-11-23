@@ -1,5 +1,7 @@
 # Model Runner inputs and chunked prefill
 
+**Component pages:** [model-runner](../components/model-runner.md)
+
 **Trunk position:** `SchedulerOutput` → **Model Runner** → GPU forward. Builds on [Scheduler token budget](scheduler-and-cache-policy.md) and [Block Table / slot mapping](block-table-and-slot-mapping.md). Concept only — no source trace yet.
 
 ## Why it matters at work

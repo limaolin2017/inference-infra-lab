@@ -1,5 +1,7 @@
 # BlockPool — block life cycle (`ref_cnt`, free queue, hash)
 
+**Component pages:** [kv-cache-manager](../components/kv-cache-manager.md) · [block-pool](../components/block-pool.md)
+
 **Trunk position:** Scheduler → **KV Cache Manager → BlockPool** → Model Runner. The Scheduler talks to `KVCacheManager` (front desk); `KVCacheManager` calls `BlockPool` (warehouse), which really moves blocks. Builds on [Scheduler and cache policy](scheduler-and-cache-policy.md) and [Block Table / slot mapping](block-table-and-slot-mapping.md). Concept learned 2026-11-11 (guided). **Code check still pending.**
 
 ## Why it matters at work

@@ -19,6 +19,16 @@ Read this first to find a page. Updated on every change. Rules: [CLAUDE.md](CLAU
 | [ROADMAP.md](ROADMAP.md) | Priorities, trunk-first rule, Issue-selection filter, no-GPU plan |
 | [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md) | Session format, review split, evidence rules |
 
+## Components (vLLM parts: owns / decides / answers / called by)
+
+| Page | Summary |
+| --- | --- |
+| [components/README](components/README.md) | Who calls whom; "who decides?" table |
+| [scheduler](components/scheduler.md) | Owns `waiting` / `running`; the only part that decides |
+| [kv-cache-manager](components/kv-cache-manager.md) | Front desk: blocks or `None`; decides nothing |
+| [block-pool](components/block-pool.md) | Warehouse: physical blocks, free queue, hash |
+| [model-runner](components/model-runner.md) | Kitchen: builds inputs, runs the GPU step |
+
 ## Concepts (by main-path stage)
 
 Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runner → GPU

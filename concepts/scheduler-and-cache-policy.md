@@ -1,5 +1,7 @@
 # Scheduling, Cache Eviction, and KV Offloading
 
+**Component pages:** [scheduler](../components/scheduler.md)
+
 **Level:** Mixed. Prior study completed, but independent code-level verification remains.
 
 ## Token Budget — basic concept checked (2026-11-04)

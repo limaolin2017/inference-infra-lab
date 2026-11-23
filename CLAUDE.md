@@ -7,7 +7,7 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 | Layer | Where | Who writes | Rule |
 | --- | --- | --- | --- |
 | 1. Raw sources | [raw/](raw/) | Learner adds | **Read-only.** Never edit after adding. |
-| 2. Wiki | [concepts/](concepts/), [issues/](issues/), [experiments/](experiments/), [contributions/](contributions/), [assets/](assets/) | LLM | Summaries, concept pages, analyses. Cross-link pages. Flag contradictions. |
+| 2. Wiki | [components/](components/) (vLLM parts), [concepts/](concepts/) (ideas), [issues/](issues/), [experiments/](experiments/), [contributions/](contributions/), [assets/](assets/) | LLM | Summaries, concept pages, analyses. Cross-link pages. Flag contradictions. |
 | 3. Schema | this file + [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md) | Learner + LLM | Change only when the learner agrees. |
 | Learner state | [CURRENT.md](CURRENT.md), [REVIEW_QUEUE.md](REVIEW_QUEUE.md), [SKILL_VALIDATION.md](SKILL_VALIDATION.md), [journal/](journal/) | LLM, from session evidence | Record only what happened. Guided ≠ pass. |
 | Navigation | [index.md](index.md), [log.md](log.md) | LLM | Update on every change. |
@@ -50,4 +50,5 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 - Evidence words: **Right**, **Partial**, **Miss**, **guided**, **own words**, **assistant-shown**. Only [SKILL_VALIDATION.md](SKILL_VALIDATION.md) records formal A/H passes.
 - Pin vLLM source links to a commit.
 - Simple English. Terms stay in English.
-- Every concept page starts with **Status** and **Main path** lines.
+- Every concept and component page starts with **Status** and **Main path** lines.
+- Component pages use the same 4 rows: **Owns**, **Decides**, **Answers / Does**, **Called by**. Concept pages link to their component pages and back.

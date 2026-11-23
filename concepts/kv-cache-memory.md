@@ -1,5 +1,7 @@
 # KV cache memory — formula and capacity
 
+**Component pages:** [kv-cache-manager](../components/kv-cache-manager.md)
+
 **Status:** concept note, 2026-11-17 (guided). Main line item 1. Not yet checked against a real vLLM startup log.
 
 **Main path:** Request → Scheduler → **KV Cache Manager / BlockPool** → Model Runner → GPU

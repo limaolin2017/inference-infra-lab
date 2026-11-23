@@ -39,3 +39,6 @@ See [journal/2026-11-23.md](journal/2026-11-23.md).
 
 ## [2026-11-23] schema | Adopt Karpathy LLM Wiki pattern (light)
 Added [CLAUDE.md](CLAUDE.md), [index.md](index.md), this log and [raw/](raw/README.md). No files moved.
+
+## [2026-11-23] schema | Add components/ (Scheduler, KV Cache Manager, BlockPool, Model Runner)
+One page per vLLM part, same 4 rows. Added to fix the Scheduler vs `kv_cache_manager` mix-up. See [components/](components/README.md).

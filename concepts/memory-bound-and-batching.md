@@ -1,5 +1,7 @@
 # Memory-bound decode and batching
 
+**Component pages:** [scheduler](../components/scheduler.md)
+
 **Trunk position:** GPU execution step after the Model Runner. Explains *why* the Scheduler's batch size (`max_num_seqs`, token budget) and KV space matter for speed and cost. SKILL_MAP row: *Prefill vs decode; compute vs bandwidth* (P0).
 
 ![Memory-bound decode and the batch-size turning point](../assets/memory-bound-batching.svg)

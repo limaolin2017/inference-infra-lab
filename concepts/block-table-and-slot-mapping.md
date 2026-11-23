@@ -1,5 +1,7 @@
 # Block Table and slot mapping
 
+**Component pages:** [model-runner](../components/model-runner.md)
+
 **Status:** concept note, 2026-11-09; small-block example and first learner answer added 2026-11-16 (guided). Guided explanation plus an assistant-shown source check. **Not** an independent source trace or a test.
 
 **Main path:** Request → Scheduler → KV Cache Manager / BlockPool → **Model Runner** → GPU
