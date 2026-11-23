@@ -39,9 +39,9 @@ Start the first Colab GPU run when **all 3** pass. Pass = closed-book, first try
 
 | Check | Task | Pass if | Status 11-23 |
 | --- | --- | --- | --- |
-| A. Capacity | Unseen `config.json` + GPU size: find the 4 fields, write the full formula, say budget → max tokens → max 4K requests (assistant does the arithmetic) | All steps right on **2 models, 2 different days** | ~40%: formula known; missed the leading 2; steps 2–4 not done |
-| B. TTFT vs TPOT | Explain what limits each; 3 "user complains about X — which knob?" cases | Explanation right + **≥ 2 / 3** cases | 0%: main line item 2 not started |
-| C. Prediction | Before the run, write the expected KV cache size and block count for the Colab model | Written **before** running | After A |
+| A. Capacity (容量估算) | Unseen `config.json` + GPU size: find the 4 fields, write the full formula, say budget → max tokens → max 4K requests (assistant does the arithmetic) | All steps right on **2 models, 2 different days** | ~40%: formula known; missed the leading 2; steps 2–4 not done |
+| B. TTFT vs TPOT (延迟检查) | Explain what limits each; 3 "user complains about X — which knob?" cases | Explanation right + **≥ 2 / 3** cases | 0%: main line item 2 not started |
+| C. Prediction (运行前预测) | Before the run, write the expected KV cache size and block count for the Colab model | Written **before** running | After A |
 
 Estimate: **2–3 weeks** at ~4 sessions / week (A ≈ 1 week, B ≈ 1–2 weeks) → about mid-December. The CPU test does not block Colab; order chosen later.
 
