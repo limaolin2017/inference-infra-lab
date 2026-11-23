@@ -52,3 +52,5 @@ Learner locates in source where the runner builds `input_ids` / `positions` for 
 - **Chunk size** is not a fixed count: it is the per-step token cap (`max_num_batched_tokens`) minus the decode tokens already in that step.
 - **Trade-off:** the long prompt needs more steps, so its own TTFT is a bit slower; chat users get smooth TPOT.
 - Elevator: each trip carries one batch of the 10,000 people **plus** the people waiting on other floors.
+
+**Learner restatement (2026-11-23):** "a long prompt makes users stuck; with chunks, the user prefills a piece, then decodes a piece, then prefills, then decodes, so TPOT is smooth" → **Partial**: smooth TPOT is right, but it is **two different users** in each step — the long-prompt request does the prefill chunk; the **other**, already-chatting users do the decode. The long-prompt request does not decode until all its chunks are done.
