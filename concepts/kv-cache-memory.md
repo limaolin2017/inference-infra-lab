@@ -51,6 +51,8 @@ KV heads is **one factor** in the KV cache size. Fewer KV heads (GQA, MQA) → s
 
 ## KV budget → max requests (added 2026-11-23)
 
+![KV cache budget](../assets/kv-budget.svg)
+
 ~~~text
 KV budget    = GPU memory × gpu_memory_utilization − weights − activation peak
 max tokens   = KV budget ÷ KV bytes per token

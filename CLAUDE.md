@@ -30,6 +30,7 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 **Learn / review** (a session)
 - Follow [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md): place the concept on the main path, say why it matters at work, one picture, one question at a time, count from 0.
 - A good answer or a new picture that explains something well goes back into a concept page, not only the chat.
+- **Pictures:** save every teaching picture as a standalone SVG in [assets/](assets/) (white background, hard-coded colors, no host CSS) and embed it in its concept or component page. At review, reuse the saved picture instead of drawing a new one. Interactive animations: save a static SVG version.
 
 **Close** (when the learner says the session is done, or asks to save)
 1. Write `journal/YYYY-MM-DD.md` for the **whole** session.

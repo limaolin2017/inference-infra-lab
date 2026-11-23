@@ -42,6 +42,7 @@ Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runn
 | BlockPool | [blockpool-block-life-cycle](concepts/blockpool-block-life-cycle.md) | `ref_cnt`, free queue front/end, hash, evict vs preempt |
 | Model Runner | [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md) | Block Table (read) vs `slot_mapping` (write), the 3-step rule |
 | Model Runner | [model-runner-inputs-and-chunked-prefill](concepts/model-runner-inputs-and-chunked-prefill.md) | `input_ids`, `positions`, chunked prefill |
+| GPU | [ttft-vs-tpot](concepts/ttft-vs-tpot.md) | What limits TTFT (prefill) vs TPOT (decode) — main line item 2, started 11-23 |
 | GPU | [memory-bound-and-batching](concepts/memory-bound-and-batching.md) | Why decode is memory-bound; what batching shares |
 | Side (P2) | [speculative-decoding-eagle](concepts/speculative-decoding-eagle.md) | Speculative decoding, EAGLE block drop, lookahead hash |
 
@@ -64,4 +65,4 @@ Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runn
 
 ## Assets
 
-[block-table-mapping.svg](assets/block-table-mapping.svg) · [eagle-lookahead.svg](assets/eagle-lookahead.svg) · [inference-skill-map.svg](assets/inference-skill-map.svg) · [memory-bound-batching.svg](assets/memory-bound-batching.svg)
+[block-table-mapping.svg](assets/block-table-mapping.svg) · [scheduler-three-parts.svg](assets/scheduler-three-parts.svg) · [components-who-decides.svg](assets/components-who-decides.svg) · [kv-budget.svg](assets/kv-budget.svg) · [ttft-vs-tpot.svg](assets/ttft-vs-tpot.svg) · [eagle-lookahead.svg](assets/eagle-lookahead.svg) · [inference-skill-map.svg](assets/inference-skill-map.svg) · [memory-bound-batching.svg](assets/memory-bound-batching.svg)

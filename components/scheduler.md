@@ -4,6 +4,8 @@
 **Main path:** Request → **Scheduler** → KV Cache Manager / BlockPool → Model Runner → GPU
 **Source:** [`vllm/v1/core/sched/scheduler.py`](https://github.com/vllm-project/vllm/blob/6ba10507e11c012d40051548c07c10c9bc5971d6/vllm/v1/core/sched/scheduler.py) · [`request_queue.py`](https://github.com/vllm-project/vllm/blob/6ba10507e11c012d40051548c07c10c9bc5971d6/vllm/v1/core/sched/request_queue.py)
 
+![Scheduler — 3 key parts](../assets/scheduler-three-parts.svg)
+
 | | |
 | --- | --- |
 | **Owns** | `waiting` (deque: not-started and preempted requests), `running` (list: requests in the batch now), `kv_cache_manager` (a handle to ask for blocks) |

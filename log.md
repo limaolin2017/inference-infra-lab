@@ -57,3 +57,9 @@ See [CURRENT.md](CURRENT.md#colab-gate--measurable-agreed-2026-11-23).
 
 ## [2026-11-23] schema | Add MISTAKES.md (mistake counts and weak-point patterns)
 Rebuilt from the review queue and journal. See [MISTAKES.md](MISTAKES.md).
+
+## [2026-11-23] learn | TTFT vs TPOT started (main line item 2)
+See [ttft-vs-tpot](concepts/ttft-vs-tpot.md).
+
+## [2026-11-23] schema | Save teaching SVGs to assets/ and reuse at review
+4 pictures added. Rule in [CLAUDE.md](CLAUDE.md).

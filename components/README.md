@@ -3,6 +3,8 @@
 **Status:** component pages added 2026-11-23, after the learner mixed up the Scheduler and `kv_cache_manager`. Built from concept notes plus assistant-shown source, not an independent trace.
 **Main path:** Request → **Scheduler → KV Cache Manager → BlockPool → Model Runner** → GPU
 
+![Who decides](../assets/components-who-decides.svg)
+
 Concept pages explain an **idea** (`slot_mapping`, KV budget). Component pages explain a **part of vLLM**: what it owns, what it decides, who calls it. Every page uses the same 4 lines.
 
 ```text
