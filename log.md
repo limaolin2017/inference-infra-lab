@@ -54,3 +54,6 @@ See [CURRENT.md](CURRENT.md#order-of-work-agreed-2026-11-23).
 
 ## [2026-11-23] schema | Colab gate with pass criteria (A capacity, B TTFT/TPOT, C prediction)
 See [CURRENT.md](CURRENT.md#colab-gate--measurable-agreed-2026-11-23).
+
+## [2026-11-23] schema | Add MISTAKES.md (mistake counts and weak-point patterns)
+Rebuilt from the review queue and journal. See [MISTAKES.md](MISTAKES.md).
