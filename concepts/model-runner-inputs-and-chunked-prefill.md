@@ -41,3 +41,14 @@ Rule of thumb: **TTFT slow → more seats; TPOT stutter → fewer seats.** Prefi
 ## Next proof
 
 Learner locates in source where the runner builds `input_ids` / `positions` for a step (file + function to be given), and predicts the arrays for a new A/B case.
+
+
+## Chunked prefill — the key point (added 2026-11-23)
+
+![Chunked prefill](../assets/chunked-prefill.svg)
+
+- **One sentence:** split a long prompt into chunks, and run each chunk **in the same step as the decode tokens** of users who are already chatting.
+- **Why:** without chunking, one huge prefill step makes chat users wait (TPOT spike). With chunking, every step still gives each chat user its next token.
+- **Chunk size** is not a fixed count: it is the per-step token cap (`max_num_batched_tokens`) minus the decode tokens already in that step.
+- **Trade-off:** the long prompt needs more steps, so its own TTFT is a bit slower; chat users get smooth TPOT.
+- Elevator: each trip carries one batch of the 10,000 people **plus** the people waiting on other floors.
