@@ -68,3 +68,6 @@ See [ttft-vs-tpot](concepts/ttft-vs-tpot.md).
 See [QUESTIONS.md](QUESTIONS.md).
 
 ## [2026-11-23] schema | Track confidence checks ("对吗?") in QUESTIONS.md
+
+## [2026-11-23] review | Session close: TTFT/TPOT, max_num_batched_tokens, chunked prefill; review list for 11-24
+See [CURRENT.md](CURRENT.md) and [journal/2026-11-23.md](journal/2026-11-23.md).

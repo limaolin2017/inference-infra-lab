@@ -24,7 +24,7 @@ Update this board at every session close. Copy kept in project memory.
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
 | Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts `waiting` / `running` / `kv_cache_manager` re-learned 11-23 (guided); preempted → front of `waiting` | Independent `schedule()` trace + CPU test; name the 3 parts alone next day; `add_request` vs `prepend_request` names | `max_num_batched_tokens` direction (missed 4×); Scheduler vs `kv_cache_manager` roles (mixed up 11-23); what triggers preemption; which request is preempted |
 | Model Runner | `input_ids` / `positions` (guided) | Find `positions` / `slot_mapping` in source alone | Chunked prefill details |
-| Prefill / decode (item 2) | Memory-bound decode, batching (guided) | Say alone what limits TTFT vs TPOT | — |
+| Prefill / decode (item 2) | Memory-bound decode, batching (guided); long prompt → slow TTFT (right, first try 11-23); `max_num_batched_tokens` raise → faster TTFT, cost TPOT (restated 11-23); chunked prefill idea (11-23, guided) | Say alone: TTFT = compute-bound, TPOT = memory-bound (swapped 11-23); why big batch → slower TPOT (K/V per user) | Chunked prefill: prefill chunk and decode share **one step / one batch** (pictured as alternating 2×); reasons that explain the wrong thing |
 | Benchmark / profiling (item 4) | — | Public, rerunnable benchmark; profiling | Not started |
 
 **Formal passes:** 0. All answers so far are guided.
@@ -69,18 +69,18 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-1. **Review first (2026-11-24, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top):** KV cache vs weight quantization (which changes `bytes`, which grows the KV budget); write the full KV per-token formula for a new model; name the 3 Scheduler parts alone; Scheduler vs `kv_cache_manager` (who decides, who only answers); what triggers preemption (new C can't fit vs running A needs a block); which request is preempted and what happens to it; `add_request` vs `prepend_request`.
+1. **Review first (2026-11-24, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top, weak patterns first — see [MISTAKES.md](MISTAKES.md)):** chunked prefill — one step = one batch (prefill chunk + others' decode); `max_num_batched_tokens` reverse symptom (chat users stutter → ?); TTFT compute-bound vs TPOT memory-bound (no hint); big batch → which read grows; plus the 14 confidence checks in [QUESTIONS.md](QUESTIONS.md); KV cache vs weight quantization (which changes `bytes`, which grows the KV budget); write the full KV per-token formula for a new model; name the 3 Scheduler parts alone; Scheduler vs `kv_cache_manager` (who decides, who only answers); what triggers preemption (new C can't fit vs running A needs a block); which request is preempted and what happens to it; `add_request` vs `prepend_request`.
 2. **Then (≤3 questions, fresh cases):** blocks / `slot_mapping` (offset = remainder, physical block, pos from 0).
 3. **Main task — capacity reasoning (no hand arithmetic; the assistant does the math):** KV budget steps 2–4 — budget → max tokens → how many 4K requests fit (e.g. M1 Pro 16 GB with a small model). Learner finds the 4 fields in a real `config.json`. Use the [KV memory formula](concepts/kv-cache-memory.md).
-3b. **Next (main line item 2, 延迟检查):** **chunked prefill — fill the gap, not a full re-lesson** (learned 11-10; 11-23 recall was partial: missing "chunks share a step with decode tokens"). One picture + one question on that piece. Chunked prefill is the fix for the TPOT cost of a big `max_num_batched_tokens` (split a long prompt into chunks and mix them with decode tokens in the same step). Then `max_num_seqs` (batch size → TPOT vs throughput). Together with `max_num_batched_tokens` these are the 3 knob cases for check B.
+3b. **Next (main line item 2, 延迟检查):** chunked prefill key point **taught 11-23** — 11-24 only re-check it; then **`max_num_seqs`** (the 3rd knob). Original note: chunked prefill — fill the gap, not a full re-lesson (learned 11-10; 11-23 recall was partial: missing "chunks share a step with decode tokens"). One picture + one question on that piece. Chunked prefill is the fix for the TPOT cost of a big `max_num_batched_tokens` (split a long prompt into chunks and mix them with decode tokens in the same step). Then `max_num_seqs` (batch size → TPOT vs throughput). Together with `max_num_batched_tokens` these are the 3 knob cases for check B.
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-23, guided)
+## Latest session close (2026-11-23, guided — long session)
 
-- **New fact:** only the Scheduler decides; `kv_cache_manager` only gives out / takes back blocks; preemption only for a running request that needs a block. To fit more users on the same GPU: KV cache quantization (FP8, the `bytes` factor) or weight quantization (bigger KV budget).
-- **Gap:** missed the leading 2 in the KV formula; did not know `prepend_request()`; KV budget steps 2–4 not done; "4× users" first answered as × 4 (the need, not the fix).
-- **Next action:** see *Next session* above. Repo now follows the LLM Wiki pattern ([CLAUDE.md](CLAUDE.md), [index.md](index.md), [log.md](log.md), [components/](components/README.md)). No hand arithmetic from now on. Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
+- **New fact:** TTFT = queue + prefill (compute-bound); TPOT = decode (memory-bound). Raise `max_num_batched_tokens` → faster TTFT, cost TPOT. Chunked prefill puts a prefill chunk and other users' decode tokens in **one step**, so chat users stay smooth; the long prompt's TTFT gets a bit slower (more steps).
+- **Gap:** `max_num_batched_tokens` missed a 5th time; TTFT/TPOT bounds swapped; chunked prefill pictured as alternating (2×); "right conclusion, wrong reason" 2×. Morning: Scheduler vs `kv_cache_manager`, missed the K/V 2 in the formula.
+- **Next action:** see *Next session*. New learner-state files today: [MISTAKES.md](MISTAKES.md), [QUESTIONS.md](QUESTIONS.md) (incl. confidence checks). Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
 
 Older session closes live in [journal/](journal/) — one file per day.
 
