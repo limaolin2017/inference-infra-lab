@@ -34,7 +34,7 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 
 **Close** (when the learner says the session is done, or asks to save)
 1. Write `journal/YYYY-MM-DD.md` for the **whole** session.
-2. Add misses and partials to the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) with a next check, and count them in [MISTAKES.md](MISTAKES.md) (+1 per wrong answer, recount patterns). Log every learner question in [QUESTIONS.md](QUESTIONS.md) — a question shows what is unclear.
+2. Add misses and partials to the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) with a next check, and count them in [MISTAKES.md](MISTAKES.md) (+1 per wrong answer, recount patterns). Log every learner question in [QUESTIONS.md](QUESTIONS.md) — a question shows what is unclear. Log every "对吗? / is this right?" as a **confidence check** there too, with the result; right-but-unsure answers get a re-check on a later day.
 3. Update the status board and *Latest session close* in [CURRENT.md](CURRENT.md).
 4. Append one `log.md` entry. Update [index.md](index.md) if pages changed.
 

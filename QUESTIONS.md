@@ -25,6 +25,24 @@
 | 11-23 | Why "How many tokens fit?" and not "does fit"? | "How many tokens" is the subject → no *do* |
 | 11-23 | What does "1 KB = 1,024 bytes" mean here? | Convert bytes to KB: ÷ 1,024 |
 
+## Confidence checks ("对吗? / 我的理解对吗?")
+
+When the learner ends with "对吗?", confidence is low, even if the answer is right. **Right + 对吗 = right but unsure → re-check on a later day.** Added 2026-11-23 (learner's idea).
+
+| Date | Learner's claim (short) | Result | Re-check |
+| --- | --- | --- | --- |
+| 11-23 | `kv_cache_manager` gives out / takes back blocks; Scheduler asks it — 对吧? | Right | 11-24 |
+| 11-23 | No blocks for new C → C waits; or Scheduler may preempt running B to let C in — 对吗? | Partial (new request never preempts in FCFS) | 11-24 |
+| 11-23 | 32 × 8 × 128 × 2 — 对吗? | Partial (missed the K/V 2) | 11-24 |
+| 11-23 | 2 × 32 × 8 × 128 × 16 — 对吗? | Partial (bits, not bytes) | 11-24 |
+| 11-23 | You are teaching me a rough estimate, like memory for 4K tokens — 对吗? | Right | — (meta) |
+| 11-23 | 4 users → × 4 — 对吧? | Miss (need, not fix) | 11-24 |
+| 11-23 | Shrinking weights = quantization — 对吗? | Right (+ KV cache quantization too) | 11-24 |
+| 11-23 | 10,000-token prompt → TTFT slow, must prefill 10,000 tokens — 对吧? | Right | 11-24 |
+| 11-23 | K/V read 50× because it depends on cache hits — 我的理解对吗? | Partial (K/V is per-user data) | 11-24 |
+
+**Pattern:** 9 confidence checks on 11-23: 3 right, 5 partial, 1 miss. Even the right ones need a re-check.
+
 ## Unclear areas (from questions)
 
 - **KV memory formula** (5 questions on 11-23): what each factor means, where the numbers come from.

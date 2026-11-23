@@ -66,3 +66,5 @@ See [ttft-vs-tpot](concepts/ttft-vs-tpot.md).
 
 ## [2026-11-23] schema | Add QUESTIONS.md (learner questions by topic)
 See [QUESTIONS.md](QUESTIONS.md).
+
+## [2026-11-23] schema | Track confidence checks ("对吗?") in QUESTIONS.md
