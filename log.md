@@ -45,3 +45,6 @@ One page per vLLM part, same 4 rows. Added to fix the Scheduler vs `kv_cache_man
 
 ## [2026-11-23] learn | KV per-token practice; why × 2; KV heads vs KV cache
 Added to [kv-cache-memory](concepts/kv-cache-memory.md). Missed the leading 2 → review queue.
+
+## [2026-11-23] learn | Capacity thinking: KV cache vs weight quantization; no-hand-arithmetic rule
+See [kv-cache-memory](concepts/kv-cache-memory.md) and [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md).

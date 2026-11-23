@@ -59,6 +59,28 @@ max requests = max tokens ÷ tokens per request
 
 Worked step 1 (Qwen2.5-0.5B, FP16: 24 layers, 2 KV heads, head_dim 64): 2 × 24 × 2 × 64 × 2 = 12,288 B ≈ **12 KiB per token**.
 
+## Fit more users on the same GPU — two kinds of quantization (added 2026-11-23)
+
+Rough mental numbers (Llama-3-8B, GQA): **~128 KB per token**, **~0.5 GB per 4K-token request**. On a 24 GB GPU, BF16 weights take ~16 GB, so only ~9 requests of 4K fit.
+
+GPU memory is fixed, so to fit more users you must use less memory per user. Both ways are quantization (fewer bytes per number), on different targets:
+
+| | Quantize what | Effect | vLLM | Hotel |
+| --- | --- | --- | --- | --- |
+| 1 | **KV cache** → FP8 | Each token smaller; this is the `bytes` in the formula | `--kv-cache-dtype fp8` | Smaller guest rooms |
+| 2 | **Weights** → 8-bit / 4-bit | Weights smaller → bigger KV budget | Quantized model (AWQ / GPTQ / FP8) | Smaller staff rooms, more guest rooms |
+
+~~~text
+(24 GB GPU, Llama-3-8B, rough)   weights   KV budget   4K users
+BF16 weights + FP16 KV            16 GB     ~4.6 GB     ~9
++ KV cache → FP8                  16 GB     ~4.6 GB     ~18
++ weights → 8-bit                  8 GB     ~12.6 GB    ~50
+~~~
+
+Other ways (not quantization): a model with fewer KV heads (GQA / MQA); a lower `max_model_len`; prefix caching to share common prefixes. Quantization can cost some accuracy, so test it.
+
+Common mix-up (2026-11-23): "4× users → × 4 in the formula" is how much memory 4× users **need**. The fix is to make each token smaller, not bigger.
+
 ## Common confusions
 
 - Forgetting the leading **2** (K and V): gives half the real size (2026-11-23: 64 KiB instead of 128 KiB for Llama-3-8B).
