@@ -35,6 +35,15 @@ Word note: *prefill* = processing the whole prompt and writing its K/V, not "fil
 
 After a Chinese explanation, learner restated: "each user's K/V belongs only to that user and the content is different, so it has to be read 50 times" → **Right · own words (after explanation)**. This also answers "which read grows with the batch?" → the K/V.
 
+**What limits TTFT vs TPOT?** Learner: TTFT is limited by "memory-bound — moving weights to the compute units — and one more thing, forgot". → **Miss (swapped)**: memory-bound is **TPOT**'s limit; the forgotten word is **compute-bound**, which is TTFT's limit.
+
+| | Limited by | Why |
+| --- | --- | --- |
+| **TTFT** (prefill) | **Compute** (+ queue wait) | All prompt tokens in one step → many multiplications per weight read; the math units are the bottleneck |
+| **TPOT** (decode) | **Memory bandwidth** | 1 token per step → little math, but every step must read all weights + all K/V from HBM; moving data is the bottleneck |
+
+Restaurant: prefill = one huge order, the chef is busy **cooking** (compute). Decode = one small dish at a time, but the chef walks to the shelf for the whole recipe book every time — the **walking** (memory) is the slow part.
+
 ## Next question
 
-In one line each: what limits **TTFT**, and what limits **TPOT**? (Colab gate check B, explanation part.)
+10,000-token prompt (from earlier) → TTFT slow. Is that slowness compute-bound or memory-bound?

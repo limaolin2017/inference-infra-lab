@@ -9,7 +9,7 @@
 
 | Pattern | Wrong (total) | Worst items | What it means |
 | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **12** | `max_num_batched_tokens` 4×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **13** | `max_num_batched_tokens` 4×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
 | **A. Roles: who owns / does what** | **14** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 8 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
@@ -49,6 +49,7 @@
 | GPU | Batching shares weights, not KV (why big batch → slower TPOT) | F | 2 | 11-10, 11-23 | — |
 | GPU | Decode reads weights too | F | 1 | 11-10 | — |
 | GPU | Throughput vs per-user TPOT | B | 1 | 11-10 | — |
+| GPU | TTFT = compute-bound, TPOT = memory-bound (swapped; forgot "compute-bound") | B | 1 | 11-23 | — |
 | KV memory | MHA / GQA / MQA = KV head count | F | 1 | 11-17 | — |
 | KV memory | Why vLLM reserves KV at startup | F | 1 | 11-17 | — |
 | KV memory | Leading 2 (K and V) | C | 1 | 11-23 | — |

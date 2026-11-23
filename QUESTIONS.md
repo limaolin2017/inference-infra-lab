@@ -16,6 +16,8 @@
 | 11-23 | 为啥要换算成 KB? | Units (bytes vs GB) | journal 11-23 |
 | 11-23 | 如果有 4 个用户，为啥不是乘以 4? | Capacity: need vs fix | [kv-cache-memory § Fit more users](concepts/kv-cache-memory.md) |
 | 11-23 | 模型权重缩小就是量化吗? | KV cache vs weight quantization | [kv-cache-memory § Fit more users](concepts/kv-cache-memory.md) |
+| 11-23 | 什么叫做 check B? | Colab gate | [CURRENT.md § Colab gate](CURRENT.md) |
+| 11-23 | TTFT 除了 memory-bound，还有一个是什么 bound? (forgot) | TTFT vs TPOT: compute vs memory | [ttft-vs-tpot](concepts/ttft-vs-tpot.md) |
 | 11-23 | 为什么 50 个用户权重只读一次，KV cache 要读 50 次? | Batching: weights shared, K/V per user | [ttft-vs-tpot](concepts/ttft-vs-tpot.md), [memory-bound-and-batching](concepts/memory-bound-and-batching.md) |
 
 ## English questions
