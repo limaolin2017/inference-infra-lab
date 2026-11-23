@@ -44,6 +44,8 @@ After a Chinese explanation, learner restated: "each user's K/V belongs only to 
 
 Restaurant: prefill = one huge order, the chef is busy **cooking** (compute). Decode = one small dish at a time, but the chef walks to the shelf for the whole recipe book every time — the **walking** (memory) is the slow part.
 
+Check right after: "10,000-token prompt → TTFT slow: compute- or memory-bound?" → "compute-bound" → **Right · same day (just taught)**.
+
 ## Next question
 
-10,000-token prompt (from earlier) → TTFT slow. Is that slowness compute-bound or memory-bound?
+Knob case (weak pattern B): long-prompt users complain "it takes long to start"; chat users are fine. Raise or lower `max_num_batched_tokens`, and what is the cost?
