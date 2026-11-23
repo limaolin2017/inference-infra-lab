@@ -33,6 +33,8 @@ Word note: *prefill* = processing the whole prompt and writing its K/V, not "fil
 
 **Learner's question:** why are the weights read once for 50 users, but K/V 50 times? Learner's own guess: "weights are fixed; K/V depends on whether each user's prompt hits the cache" → **Partial**: *weights are the same for everyone* is right; the cache-hit part mixes up **prefix caching** (saves compute at prefill) with **decode reads**. Correct: each user's K/V is **different data** (their own tokens), so the GPU must read each user's K/V separately, every step — cache hit or not. Restaurant: one recipe book for all tables; but each table's order is different, so the chef reads each order.
 
-## Open question (2026-11-23)
+After a Chinese explanation, learner restated: "each user's K/V belongs only to that user and the content is different, so it has to be read 50 times" → **Right · own words (after explanation)**. This also answers "which read grows with the batch?" → the K/V.
 
-Batch goes from 1 user to 50 users. Per decode step, which read grows with the batch: the weights, or the K/V? Why does that make TPOT slower?
+## Next question
+
+In one line each: what limits **TTFT**, and what limits **TPOT**? (Colab gate check B, explanation part.)
