@@ -12,7 +12,7 @@
 | **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **12** | `max_num_batched_tokens` 4×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
 | **A. Roles: who owns / does what** | **13** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
-| **F. GPU / memory concepts** | 7 | — (1× each) | First-time misconceptions, mostly fixed |
+| **F. GPU / memory concepts** | 8 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
 | **D. Names and front / end** | 6 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
 | **E. Next-day recall** | 2 | 3 Scheduler parts | Learned, then forgot after a day |
 
@@ -46,7 +46,7 @@
 | Model Runner | Model Runner does not allocate blocks | A | 1 | 11-09 | — |
 | Model Runner | Chunked prefill: how chunks combine | F | 1 | 11-10 | — |
 | GPU | Memory-bound data path (HBM → SRAM, not CPU → GPU) | F | 1 | 11-10 | — |
-| GPU | Batching shares weights, not KV | F | 1 | 11-10 | — |
+| GPU | Batching shares weights, not KV (why big batch → slower TPOT) | F | 2 | 11-10, 11-23 | — |
 | GPU | Decode reads weights too | F | 1 | 11-10 | — |
 | GPU | Throughput vs per-user TPOT | B | 1 | 11-10 | — |
 | KV memory | MHA / GQA / MQA = KV head count | F | 1 | 11-17 | — |

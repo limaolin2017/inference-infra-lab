@@ -29,6 +29,8 @@ Extra: TPOT also gets a bit slower — every decode step reads the K/V of all 10
 
 Word note: *prefill* = processing the whole prompt and writing its K/V, not "filling in" tokens.
 
+**50 users decoding together → TPOT gets slower.** Learner: "TPOT, because this is the decode phase, not the first token" → **Partial**: right conclusion; the reason only says why it is *not* TTFT. Missing mechanism: every decode step must read the K/V of all 50 users (weights are read once and shared, K/V is per user), so each step takes longer → every user waits longer between tokens. See [memory-bound-and-batching](memory-bound-and-batching.md).
+
 ## Open question (2026-11-23)
 
-50 users are decoding at the same time (big batch). Which gets slower for each user, TTFT or TPOT, and why?
+Batch goes from 1 user to 50 users. Per decode step, which read grows with the batch: the weights, or the K/V? Why does that make TPOT slower?
