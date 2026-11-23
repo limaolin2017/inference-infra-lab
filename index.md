@@ -8,6 +8,7 @@ Read this first to find a page. Updated on every change. Rules: [CLAUDE.md](CLAU
 | --- | --- |
 | [CURRENT.md](CURRENT.md) | Main line, status board (mastered / gap / unclear), next session |
 | [REVIEW_QUEUE.md](REVIEW_QUEUE.md) | Confusions to retest, newest first |
+| [QUESTIONS.md](QUESTIONS.md) | Every learner question by topic — shows unclear areas |
 | [MISTAKES.md](MISTAKES.md) | What was wrong and how many times; weak points by pattern |
 | [SKILL_VALIDATION.md](SKILL_VALIDATION.md) | Formal L1–L4 and A/H passes (0 so far) |
 | [SKILL_MAP.md](SKILL_MAP.md) | Knowledge inventory and gaps |

@@ -10,7 +10,7 @@
 | Pattern | Wrong (total) | Worst items | What it means |
 | --- | --- | --- | --- |
 | **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **12** | `max_num_batched_tokens` 4×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
-| **A. Roles: who owns / does what** | **13** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
+| **A. Roles: who owns / does what** | **14** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 8 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
 | **D. Names and front / end** | 6 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
@@ -56,6 +56,7 @@
 | KV memory | "Which concept is this?" (formula not recalled) | E | 1 | 11-23 | — |
 | KV memory | 4× users: need (× 4) vs fix (smaller per token) | B | 1 | 11-23 | — |
 | KV memory | Quantization: only weights, missed KV cache | A | 1 | 11-23 | 11-23 (same day) |
+| GPU | Why K/V is read per user: mixed prefix-cache hit with decode reads | A | 1 | 11-23 | — |
 
 \* 11-13: not reviewed, counted in the source as a forgotten check. `?` = from the archive, date not exact.
 

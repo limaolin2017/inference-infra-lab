@@ -63,3 +63,6 @@ See [ttft-vs-tpot](concepts/ttft-vs-tpot.md).
 
 ## [2026-11-23] schema | Save teaching SVGs to assets/ and reuse at review
 4 pictures added. Rule in [CLAUDE.md](CLAUDE.md).
+
+## [2026-11-23] schema | Add QUESTIONS.md (learner questions by topic)
+See [QUESTIONS.md](QUESTIONS.md).

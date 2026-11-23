@@ -31,6 +31,8 @@ Word note: *prefill* = processing the whole prompt and writing its K/V, not "fil
 
 **50 users decoding together → TPOT gets slower.** Learner: "TPOT, because this is the decode phase, not the first token" → **Partial**: right conclusion; the reason only says why it is *not* TTFT. Missing mechanism: every decode step must read the K/V of all 50 users (weights are read once and shared, K/V is per user), so each step takes longer → every user waits longer between tokens. See [memory-bound-and-batching](memory-bound-and-batching.md).
 
+**Learner's question:** why are the weights read once for 50 users, but K/V 50 times? Learner's own guess: "weights are fixed; K/V depends on whether each user's prompt hits the cache" → **Partial**: *weights are the same for everyone* is right; the cache-hit part mixes up **prefix caching** (saves compute at prefill) with **decode reads**. Correct: each user's K/V is **different data** (their own tokens), so the GPU must read each user's K/V separately, every step — cache hit or not. Restaurant: one recipe book for all tables; but each table's order is different, so the chef reads each order.
+
 ## Open question (2026-11-23)
 
 Batch goes from 1 user to 50 users. Per decode step, which read grows with the batch: the weights, or the K/V? Why does that make TPOT slower?

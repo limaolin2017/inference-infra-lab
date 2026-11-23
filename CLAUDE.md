@@ -9,7 +9,7 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 | 1. Raw sources | [raw/](raw/) | Learner adds | **Read-only.** Never edit after adding. |
 | 2. Wiki | [components/](components/) (vLLM parts), [concepts/](concepts/) (ideas), [issues/](issues/), [experiments/](experiments/), [contributions/](contributions/), [assets/](assets/) | LLM | Summaries, concept pages, analyses. Cross-link pages. Flag contradictions. |
 | 3. Schema | this file + [LEARNING_PROTOCOL.md](LEARNING_PROTOCOL.md) | Learner + LLM | Change only when the learner agrees. |
-| Learner state | [CURRENT.md](CURRENT.md), [REVIEW_QUEUE.md](REVIEW_QUEUE.md), [MISTAKES.md](MISTAKES.md), [SKILL_VALIDATION.md](SKILL_VALIDATION.md), [journal/](journal/) | LLM, from session evidence | Record only what happened. Guided ≠ pass. |
+| Learner state | [CURRENT.md](CURRENT.md), [REVIEW_QUEUE.md](REVIEW_QUEUE.md), [MISTAKES.md](MISTAKES.md), [QUESTIONS.md](QUESTIONS.md), [SKILL_VALIDATION.md](SKILL_VALIDATION.md), [journal/](journal/) | LLM, from session evidence | Record only what happened. Guided ≠ pass. |
 | Navigation | [index.md](index.md), [log.md](log.md) | LLM | Update on every change. |
 
 ## Session start
@@ -34,7 +34,7 @@ This repo is a learning wiki for **LLM inference engineering** (vLLM), built on 
 
 **Close** (when the learner says the session is done, or asks to save)
 1. Write `journal/YYYY-MM-DD.md` for the **whole** session.
-2. Add misses and partials to the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) with a next check, and count them in [MISTAKES.md](MISTAKES.md) (+1 per wrong answer, recount patterns).
+2. Add misses and partials to the top of [REVIEW_QUEUE.md](REVIEW_QUEUE.md) with a next check, and count them in [MISTAKES.md](MISTAKES.md) (+1 per wrong answer, recount patterns). Log every learner question in [QUESTIONS.md](QUESTIONS.md) — a question shows what is unclear.
 3. Update the status board and *Latest session close* in [CURRENT.md](CURRENT.md).
 4. Append one `log.md` entry. Update [index.md](index.md) if pages changed.
 
