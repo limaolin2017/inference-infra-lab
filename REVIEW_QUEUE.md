@@ -14,6 +14,9 @@ Full log: [journal/2026-11-23.md](journal/2026-11-23.md).
 | What triggers preemption (**new**) | Thought a new waiting C can preempt running B. Correct (FCFS): only a running request that needs one more block with no free blocks. | **Partial → restated** | 2026-11-24: two cases — new C can't fit vs running A needs a block. Which one preempts? |
 | Which request gets preempted (**new**) | Said "Scheduler preempts" (right) but not who. Correct (FCFS): the last request in `running`; can be A itself. | **Due** | 2026-11-24: running = [A, B, D], A needs a block — who is preempted, where does it go, what happens to `num_computed_tokens`? |
 | `add_request` vs `prepend_request` | Front right; method name unknown. | **Miss (name)** | 2026-11-24: "Which method for a new request, which for a preempted one?" |
+| KV per-token formula: the leading 2 (**new**) | Step 1 (Qwen2.5-0.5B): "don't know which concept". Llama-3-8B: wrote 32 × 8 × 128 × 2 (missed the 2 for K and V) → 64 KiB. Asked why × 2; explained (K and V both cached). | **Miss → restated** | 2026-11-24: new model config, learner writes the full formula first, then the number. |
+| KV heads vs KV cache (**new, question**) | Asked the difference. Answer: KV heads = number in the model config; KV cache = stored data that grows per token. | **Explained** | 2026-11-24: "GQA cuts KV heads 4× — what happens to the KV cache?" |
+| KV budget steps 2–4 (**new**) | Picture shown; learner said "understood", but steps 2–4 not computed yet; Llama-3-8B final (128 KiB) not given. | **Due** | 2026-11-24: finish 64 × 2, then budget → max tokens → 4K requests. |
 | 3 key parts | Re-learned with animation; `waiting` / `running` right. | **Right · guided · same day** | 2026-11-24: name all 3 alone, one line each. |
 
 ## 2026-11-19 — studied outside the project chat (self-reported, no answers saved)

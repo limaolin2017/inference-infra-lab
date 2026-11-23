@@ -42,3 +42,6 @@ Added [CLAUDE.md](CLAUDE.md), [index.md](index.md), this log and [raw/](raw/READ
 
 ## [2026-11-23] schema | Add components/ (Scheduler, KV Cache Manager, BlockPool, Model Runner)
 One page per vLLM part, same 4 rows. Added to fix the Scheduler vs `kv_cache_manager` mix-up. See [components/](components/README.md).
+
+## [2026-11-23] learn | KV per-token practice; why × 2; KV heads vs KV cache
+Added to [kv-cache-memory](concepts/kv-cache-memory.md). Missed the leading 2 → review queue.
