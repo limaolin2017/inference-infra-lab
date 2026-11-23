@@ -21,6 +21,14 @@ Restaurant: TTFT = wait for the first dish (the kitchen reads the whole order fi
 - TTFT = queue wait + **prefill** (whole prompt in one go, compute-bound).
 - TPOT = one **decode** step per token (memory-bound — see [memory-bound-and-batching](memory-bound-and-batching.md)).
 
+## Answered (2026-11-23)
+
+**10,000-token prompt → TTFT gets much slower**, because prefill must process all 10,000 tokens before the first output token. → **Right · own reasoning, first try.**
+
+Extra: TPOT also gets a bit slower — every decode step reads the K/V of all 10,000 earlier tokens (memory-bound), but much less than TTFT.
+
+Word note: *prefill* = processing the whole prompt and writing its K/V, not "filling in" tokens.
+
 ## Open question (2026-11-23)
 
-A 10,000-token prompt: does TTFT or TPOT get slower, and why?
+50 users are decoding at the same time (big batch). Which gets slower for each user, TTFT or TPOT, and why?
