@@ -71,3 +71,6 @@ See [QUESTIONS.md](QUESTIONS.md).
 
 ## [2026-11-23] review | Session close: TTFT/TPOT, max_num_batched_tokens, chunked prefill; review list for 11-24
 See [CURRENT.md](CURRENT.md) and [journal/2026-11-23.md](journal/2026-11-23.md).
+
+## [2026-11-23] schema | Delete merged branch wip/session-2026-11-09
+All its commits were already in main.
