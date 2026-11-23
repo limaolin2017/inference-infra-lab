@@ -18,6 +18,7 @@
 | 11-23 | 模型权重缩小就是量化吗? | KV cache vs weight quantization | [kv-cache-memory § Fit more users](concepts/kv-cache-memory.md) |
 | 11-23 | 什么叫做 check B? (asked **3×**, in Chinese) → the letter label does not stick; use full names (容量估算 / 延迟检查 / 运行前预测) | Colab gate | [CURRENT.md § Colab gate](CURRENT.md) |
 | 11-23 | TTFT 除了 memory-bound，还有一个是什么 bound? (forgot) | TTFT vs TPOT: compute vs memory | [ttft-vs-tpot](concepts/ttft-vs-tpot.md) |
+| 11-23 | 什么是延迟检查? (after the rename — the gate idea itself is unclear) | Colab gate / latency | [CURRENT.md § Colab gate](CURRENT.md) |
 | 11-23 | 我的理解对不对? 这个图没看懂，用中文解释 (max_num_batched_tokens picture) | `max_num_batched_tokens` | [ttft-vs-tpot](concepts/ttft-vs-tpot.md) |
 | 11-23 | 为什么 50 个用户权重只读一次，KV cache 要读 50 次? | Batching: weights shared, K/V per user | [ttft-vs-tpot](concepts/ttft-vs-tpot.md), [memory-bound-and-batching](concepts/memory-bound-and-batching.md) |
 
