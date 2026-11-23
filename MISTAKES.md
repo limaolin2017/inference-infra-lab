@@ -22,7 +22,7 @@
 
 | Area | Item | Pattern | Wrong | Dates wrong | Last right |
 | --- | --- | --- | --- | --- | --- |
-| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) — also thought it is a memory setting | B | 5 | 11-10, 11-11, 11-13*, 11-16, 11-23 | — |
+| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) — also thought it is a memory setting | B | 5 | 11-10, 11-11, 11-13*, 11-16, 11-23 | 11-23 (restated after explanation) |
 | Scheduler | WAITING gate after preemption | B | 4 | 11-05?, 11-09, 11-10, 11-11 | 11-13 (guided) |
 | Scheduler | `max_num_seqs` vs running requests | B | 1 | 11-09 | — |
 | Scheduler | What triggers preemption | B | 1 | 11-23 | 11-23 (restated) |

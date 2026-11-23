@@ -52,6 +52,8 @@ Check right after: "10,000-token prompt → TTFT slow: compute- or memory-bound?
 
 Elevator: 10,000 people, elevator holds 2,048 → 5 trips before everyone is up. Bigger elevator → 2 trips. But each trip is longer, so people waiting on other floors (decode users) wait longer between rides.
 
-## Next question
+After a Chinese walk-through of the picture, learner restated: "first token slow → **raise** `max_num_batched_tokens`, more tokens per step so the first token comes out sooner; cost: each step has a bigger prefill, users must wait for it before their next decode, so **TPOT** gets slower" → **Right · own words (after explanation)**. Wording fix: not "prefill goes up" but "each step gets heavier (a bigger prefill chunk per step)".
 
-Fill in: "第一个 token 慢，我 ___ `max_num_batched_tokens`，因为 ___；代价是 ___ 变慢。"
+## Next check (2026-11-24, no hint)
+
+A different symptom: chat users complain the text **stutters** when long prompts arrive. Raise or lower `max_num_batched_tokens`?
