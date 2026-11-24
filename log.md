@@ -83,3 +83,9 @@ See [max-num-seqs](concepts/max-num-seqs.md) and [journal/2026-11-24.md § Part 
 
 ## [2026-11-24] schema | MISTAKES.md: Miss / Partial split and tag G (reason missing)
 Learner's idea; no new file. See [MISTAKES.md](MISTAKES.md).
+
+## [2026-11-24] ingest | nano-vllm as a code reference (pinned bb823b3)
+See [raw/2026-11-24-nano-vllm.md](raw/2026-11-24-nano-vllm.md); linked from [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md).
+
+## [2026-11-24] review | slot_mapping keep-alive: read vs write right; who builds / uses missed
+New picture [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.svg). See [journal/2026-11-24.md § Part 3](journal/2026-11-24.md).

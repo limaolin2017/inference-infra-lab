@@ -19,9 +19,19 @@ Each request has a different length and keeps growing, so the KV Cache in GPU me
 | Role | Job |
 | --- | --- |
 | Scheduler + KV Cache Manager | Decide how many tokens to run; allocate KV blocks |
-| Model Runner | Use the token position and the Block Table to find the slot; write K and V there |
+| Model Runner | Use the token position and the Block Table to find the slot → **builds** `slot_mapping` |
+| Attention kernel | **Writes** new K/V using `slot_mapping`; **reads** old K/V using the Block Table |
 
-The Model Runner needs the new token's position, but it does **not** allocate KV blocks.
+The Model Runner needs the new token's position, but it does **not** allocate KV blocks. The KV Cache Manager only hands out blocks; it never writes K/V.
+
+![Who builds and uses slot_mapping vs block_table](../assets/slot-mapping-who-builds-uses.svg)
+
+| | Per | Job | Built by | Used by |
+| --- | --- | --- | --- | --- |
+| Block Table | request | which physical blocks the request owns | KV Cache Manager | attention → **read** old K/V |
+| `slot_mapping` | new token in this step | exact slot for the new K/V | Model Runner | attention → **write** new K/V |
+
+**In nano-vllm** (simpler code, [raw/2026-11-24-nano-vllm.md](../raw/2026-11-24-nano-vllm.md)): built in [`prepare_decode`](https://github.com/GeeeekExplorer/nano-vllm/blob/bb823b3e06983d71485a8e1f23715ebd87d98ef8/nanovllm/engine/model_runner.py#L172) · used by [`store_kvcache` in attention.py](https://github.com/GeeeekExplorer/nano-vllm/blob/bb823b3e06983d71485a8e1f23715ebd87d98ef8/nanovllm/layers/attention.py#L33).
 
 ## Worked example
 
@@ -80,6 +90,14 @@ Other pointers (names only, not traced):
 
 - nano-vllm: `ModelRunner.prepare_prefill` / `prepare_decode` build `slot_mapping`; `store_kvcache` writes; `BlockManager.may_append` allocates a new block.
 - vLLM V1: `BlockTable.compute_slot_mapping` (`vllm/v1/worker/block_table.py`); `KVCacheManager.allocate_slots` allocates new blocks.
+
+## Answered (2026-11-24, keep-alive)
+
+| Q | Question | Answer | Result |
+| --- | --- | --- | --- |
+| Q1 | What is `slot_mapping` for? Who uses it? | "Maps a request's blocks from logical to physical"; "KV Cache Manager uses it" | **Partial** (that is the Block Table's job) · **Miss** on who |
+| Q2 | Which is read, which is written? | `slot_mapping` written, `block_table` read; block_table = logical → physical block | **Right, first try** (asked what the question meant first) |
+| Q1c | After the animation: what does it do, who builds / uses it? | "Maps the new token to a specific block in the GPU"; "Model Runner uses it; attention writes new K/V and reads old K/V with the Block Table" | **Partial** (guided): say **slot**, not block; it's the token's **K/V**; Model Runner **builds** it |
 
 ## Still unverified
 

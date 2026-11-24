@@ -43,6 +43,7 @@ Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runn
 | BlockPool | [blockpool-block-life-cycle](concepts/blockpool-block-life-cycle.md) | `ref_cnt`, free queue front/end, hash, evict vs preempt |
 | Model Runner | [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md) | Block Table (read) vs `slot_mapping` (write), the 3-step rule |
 | Model Runner | [model-runner-inputs-and-chunked-prefill](concepts/model-runner-inputs-and-chunked-prefill.md) | `input_ids`, `positions`, chunked prefill |
+| Source | [raw/2026-11-24-nano-vllm](raw/2026-11-24-nano-vllm.md) | nano-vllm pinned: minimal code for the main path (differs: no prefill/decode mixing) |
 | Scheduler | [max-num-seqs](concepts/max-num-seqs.md) | Max requests in `running`; symptom → knob table (3 knobs) — taught 11-24 |
 | GPU | [ttft-vs-tpot](concepts/ttft-vs-tpot.md) | What limits TTFT (prefill) vs TPOT (decode) — main line item 2, started 11-23 |
 | GPU | [memory-bound-and-batching](concepts/memory-bound-and-batching.md) | Why decode is memory-bound; what batching shares |

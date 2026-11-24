@@ -4,6 +4,16 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-24 part 3 — `slot_mapping` keep-alive (no formal pass)
+
+Full log: [journal/2026-11-24.md § Part 3](journal/2026-11-24.md). Picture: [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.svg).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Who builds / uses `slot_mapping` (**new**) | Said KV Cache Manager uses it; after the picture said "Model Runner uses it". Correct: Model Runner **builds**, attention kernel **uses** (writes K/V). | **Miss → Partial (guided)** | 2026-11-25: "Who builds `slot_mapping`, who uses it, and who only hands out blocks?" — no hint |
+| `slot_mapping` vs Block Table (**2nd**) | Described `slot_mapping` as logical → physical block (the Block Table's job); after the picture said "to a specific block". Correct: per new token, the exact **slot** for its **K/V**. | **Partial** | 2026-11-25: "Block Table is per ___, `slot_mapping` is per ___." |
+| Read vs write | `slot_mapping` = write, Block Table = read. | **Right, first try** | Later day |
+
 ## 2026-11-24 part 2 — new concept `max_num_seqs` (no formal pass)
 
 Full log: [journal/2026-11-24.md § Part 2](journal/2026-11-24.md). Page: [max-num-seqs](concepts/max-num-seqs.md).

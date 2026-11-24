@@ -31,6 +31,8 @@
 | 11-24 | 缺的部分能记下来吗? 新文件还是已经有了? | Repo / where notes live | [max-num-seqs](concepts/max-num-seqs.md) |
 | 11-24 | 答不完整的地方也要存一个文件吗? 有必要吗? | Mistake tracking → decided: Miss / Partial split + tag G | [MISTAKES.md](MISTAKES.md) |
 | 11-24 | slot_mapping 不是学过么? 对齐目标看看 gap | Learning plan / `slot_mapping` | journal 11-24 part 2 |
+| 11-24 | Which one is read, which one is written? 这个是啥意思? | `slot_mapping` vs Block Table | [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md) |
+| 11-24 | 能画图解释吗? 多图少字 (what / who for `slot_mapping`) | `slot_mapping` roles | [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.svg) |
 
 ## English questions
 
@@ -40,7 +42,7 @@
 | 11-23 | What does "1 KB = 1,024 bytes" mean here? | Convert bytes to KB: ÷ 1,024 |
 | 11-23 | "knob" 中文是啥? | 旋钮 → in infra: a setting you can tune (可调参数) |
 | 11-24 | FCFS stands for? | First-Come, First-Served (先来先服务) |
-| 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs** | — |
+| 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs**; slope mapping → **slot mapping**; Gateway Cache → **KV cache** | — |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 

@@ -14,7 +14,7 @@
 | Pattern | Wrong (total) | Since 11-24 pt 2: Miss / Partial | Worst items | What it means |
 | --- | --- | --- | --- | --- |
 | **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **20** | 0 / 0 | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3× | Knows the parts, flips which way a knob moves the result |
-| **A. Roles: who owns / does what** | **18** | 1 / 0 | which knob owns tokens vs requests 1× (11-24), evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
+| **A. Roles: who owns / does what** | **21** | 2 / 2 | who builds / uses `slot_mapping` 2× (11-24), which knob owns tokens vs requests 1× (11-24), evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
 | **C. Formula details** | 8 | 0 / 0 | offset = remainder 2×, bits vs bytes 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 14 | 0 / 2 | batching shares weights, not KV 3×, compute vs load 3× | First-time misconceptions, mostly fixed |
 | **D. Names and front / end** | 7 | 0 / 0 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
@@ -50,7 +50,8 @@
 | Model Runner | Use the physical block | C | 1 | 11-17 | — |
 | Model Runner | pos counts from 0 | C | 1 | 11-17 | — |
 | Model Runner | Decode: `slot_mapping` size = 1 per request | C | 1 | 11-17 | — |
-| Model Runner | `slot_mapping` vs `block_table` | A | 1 | 11-17 | — |
+| Model Runner | `slot_mapping` vs `block_table` (11-24: described it as logical → physical block) | A | 2 | 11-17, 11-24 (P) | 11-24 read vs write (first try) |
+| Model Runner | Who builds / uses `slot_mapping` (said KV Cache Manager; then "Model Runner uses") | A | 2 | 11-24 (M), 11-24 (P) | — |
 | Model Runner | `input_ids` vs `positions` | A | 1 | 11-10 | 11-13 |
 | Model Runner | Model Runner does not allocate blocks | A | 1 | 11-09 | — |
 | Model Runner | Chunked prefill: how chunks combine; that chunks share a step with decode tokens; first token at the last chunk | F | 3 | 11-10, 11-23, 11-24 | 11-24 (one step = chunk + others' decode, right) |
