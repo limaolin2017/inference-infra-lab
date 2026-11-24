@@ -74,3 +74,6 @@ See [CURRENT.md](CURRENT.md) and [journal/2026-11-23.md](journal/2026-11-23.md).
 
 ## [2026-11-23] schema | Branch wip/session-2026-11-09 is fully merged — to delete
 All its commits are already in main. Delete was blocked from the session; delete it on GitHub.
+
+## [2026-11-24] review | Full review of the 11-23 queue (+ 11-23 evening recall)
+Knob reverse case right first try; TTFT/TPOT bounds swapped again; bits vs bytes again. See [journal/2026-11-24.md](journal/2026-11-24.md).

@@ -4,6 +4,23 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-24 — full review of the 11-23 queue (no formal pass)
+
+Full log: [journal/2026-11-24.md](journal/2026-11-24.md). Includes the 11-23 evening recall.
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| TTFT compute-bound vs TPOT memory-bound (**2nd swap**) | Said TTFT memory-bound, TPOT compute-bound (no hint). Mnemonic: 先算后读 (prefill computes, decode reads). | **Miss → restated (own words)** | 2026-11-25: first question, no hint — "Which is compute-bound, which is memory-bound, and why?" |
+| Side-by-side causes (**3rd time linked as cause → effect**) | Said chat user A's growing K/V read is related to `max_num_batched_tokens`. Correct: unrelated; step time = others' prefill compute (knob) + own K/V read (grows anyway). | **Miss → restated right** | 2026-11-25: "Lower the knob — does A's K/V read still grow?" (skipped 11-24) |
+| Prefill computes, not loads (**recurring**) | "each step has to load more and more prefill". Correct: compute more per step. | **Partial → asked why → right** | 2026-11-25: fill-in "Prefill ___ K/V, decode ___ K/V." |
+| Bits vs bytes (**2nd**) | Wrote 2 × 28 × 4 × 128 × ? — asked "× 16?". FP16 = 2 bytes. Leading 2 right first try. | **Partial → restated** | 2026-11-25: "FP8 KV cache — what is the last factor?" + a new model's full formula |
+| Preempt frees blocks (**new**) | Said D's blocks "stay" but D recomputes. Correct: blocks freed to free queue (so A gets one) → that's why recompute. | **Partial → restated** | 2026-11-25: "Why must a preempted request recompute?" |
+| Chunked prefill: first token | Said step 4; correct: end of step 3 (last chunk outputs it). Step content right; name the decode users. | **Partial → restated** | 2026-11-25: "8000 tokens in 4 chunks — first token after which step?" |
+| Why lowering the knob helps | Direction right first try (chat users stutter → lower); reason "more compute for decode". Correct: shorter step. | **Right direction · reason Partial → restated** | 2026-11-25: third knob case (after `max_num_seqs`) |
+| Why weight quantization fits more users | Named it but no "why"; with picture: smaller weights → bigger KV budget. | **Partial → guided right** | 2026-11-25: say it alone, one sentence |
+| Preempted → front of `waiting` | Said "waiting list" only; restated front. | **Partial → restated** | Fold into the preempt row |
+| Scheduler decides / FCFS preempts the last in `running` | Right, first try, no hint. | **Right** | Later day: re-check once |
+
 ## 2026-11-23 — Scheduler 3 parts re-learned (guided, no formal pass)
 
 Full log: [journal/2026-11-23.md](journal/2026-11-23.md).

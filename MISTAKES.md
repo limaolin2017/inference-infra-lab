@@ -12,28 +12,31 @@
 
 | Pattern | Wrong (total) | Worst items | What it means |
 | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **15** | `max_num_batched_tokens` 5×, WAITING gate 4× | Knows the parts, flips which way a knob moves the result |
-| **A. Roles: who owns / does what** | **16** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
-| **C. Formula details** | 7 | offset = remainder 2× | Small steps inside a rule (now: assistant does arithmetic) |
-| **F. GPU / memory concepts** | 9 | batching shares weights, not KV 2× | First-time misconceptions, mostly fixed |
-| **D. Names and front / end** | 6 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **20** | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3× | Knows the parts, flips which way a knob moves the result |
+| **A. Roles: who owns / does what** | **17** | evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
+| **C. Formula details** | 8 | offset = remainder 2×, bits vs bytes 2× | Small steps inside a rule (now: assistant does arithmetic) |
+| **F. GPU / memory concepts** | 12 | batching shares weights, not KV 2×, compute vs load 2× | First-time misconceptions, mostly fixed |
+| **D. Names and front / end** | 7 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
 | **E. Next-day recall** | 2 | 3 Scheduler parts | Learned, then forgot after a day |
 
-**Top weak points:** **B** and **A**. Review questions should test *direction* ("which way, and why?") and *roles* ("who decides / who does it?") first.
+**Top weak points:** **B** and **A** (recounted 11-24, incl. the 11-23 evening recall). Review questions should test *direction* ("which way, and why?") and *roles* ("who decides / who does it?") first.
 
 ## Item log
 
 | Area | Item | Pattern | Wrong | Dates wrong | Last right |
 | --- | --- | --- | --- | --- | --- |
-| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) — also thought it is a memory setting | B | 5 | 11-10, 11-11, 11-13*, 11-16, 11-23 | 11-23 (restated after explanation) |
+| Scheduler | `max_num_batched_tokens` direction (TTFT vs TPOT) — also thought it is a memory setting | B | 5 | 11-10, 11-11, 11-13*, 11-16, 11-23 | **11-24 (reverse case, first try, no hint)** |
 | Scheduler | WAITING gate after preemption | B | 4 | 11-05?, 11-09, 11-10, 11-11 | 11-13 (guided) |
 | Scheduler | `max_num_seqs` vs running requests | B | 1 | 11-09 | — |
 | Scheduler | What triggers preemption | B | 1 | 11-23 | 11-23 (restated) |
 | Scheduler | Preemption unit = request, not block | A | 2 | 11-05, 11-09 | — |
-| Scheduler | Preempt: request field vs block field / what is reset | A | 2 | 11-09, 11-11 | 11-13 (guided) |
-| Scheduler | Scheduler vs `kv_cache_manager` roles | A | 1 | 11-23 | — |
+| Scheduler | Preempt: request field vs block field / what is reset (11-24: said blocks stay) | A | 3 | 11-09, 11-11, 11-24 | 11-24 (restated) |
+| Scheduler | Scheduler vs `kv_cache_manager` roles | A | 1 | 11-23 | 11-24 (first try) |
 | Scheduler | 3 key parts (next-day recall) | E | 1 | 11-20 | 11-23 (guided) |
 | Scheduler | `add_request` vs `prepend_request` | D | 2 | 11-19, 11-23 | — |
+| Scheduler | Preempted → **front** of `waiting` (said only "waiting") | D | 1 | 11-24 | 11-24 (restated) |
+| Scheduler | Why lowering the knob helps (said "more compute for decode"; correct: shorter step) | B | 1 | 11-24 | 11-24 (restated) |
+| Scheduler | Side-by-side causes: knob cost vs own K/V growth (linked as cause → effect) | B | 3 | 11-23 eve (×2), 11-24 | 11-24 (restated) |
 | BlockPool | Evict: what it removes, when | A | 3 | 11-09, 11-13, 11-16 | — |
 | BlockPool | Shared block `ref_cnt` | A | 1 | 11-13 | 11-16 |
 | BlockPool | `ref_cnt` 0 → back to free queue | A | 1 | 11-09 | 11-11 |
@@ -47,16 +50,18 @@
 | Model Runner | `slot_mapping` vs `block_table` | A | 1 | 11-17 | — |
 | Model Runner | `input_ids` vs `positions` | A | 1 | 11-10 | 11-13 |
 | Model Runner | Model Runner does not allocate blocks | A | 1 | 11-09 | — |
-| Model Runner | Chunked prefill: how chunks combine; that chunks share a step with decode tokens | F | 2 | 11-10, 11-23 | — |
+| Model Runner | Chunked prefill: how chunks combine; that chunks share a step with decode tokens; first token at the last chunk | F | 3 | 11-10, 11-23, 11-24 | 11-24 (one step = chunk + others' decode, right) |
+| GPU | Prefill **computes** K/V, decode **reads** it (said "load") | F | 2 | 11-23 eve, 11-24 | 11-24 (asked why → right) |
+| KV memory | Why weight quantization fits more users (bigger KV budget) | F | 1 | 11-24 | 11-24 (guided) |
 | GPU | Memory-bound data path (HBM → SRAM, not CPU → GPU) | F | 1 | 11-10 | — |
-| GPU | Batching shares weights, not KV (why big batch → slower TPOT) | F | 2 | 11-10, 11-23 | — |
+| GPU | Batching shares weights, not KV (why big batch → slower TPOT) | F | 2 | 11-10, 11-23 | 11-24 (own words) |
 | GPU | Decode reads weights too | F | 1 | 11-10 | — |
 | GPU | Throughput vs per-user TPOT | B | 1 | 11-10 | — |
-| GPU | TTFT = compute-bound, TPOT = memory-bound (swapped; forgot "compute-bound") | B | 1 | 11-23 | — |
+| GPU | TTFT = compute-bound, TPOT = memory-bound (swapped; forgot "compute-bound") | B | 2 | 11-23, 11-24 | 11-24 (restated) |
 | KV memory | MHA / GQA / MQA = KV head count | F | 1 | 11-17 | — |
 | KV memory | Why vLLM reserves KV at startup | F | 1 | 11-17 | — |
-| KV memory | Leading 2 (K and V) | C | 1 | 11-23 | — |
-| KV memory | Bits vs bytes (FP16 = 2) | C | 1 | 11-23 | — |
+| KV memory | Leading 2 (K and V) | C | 1 | 11-23 | 11-24 (first try) |
+| KV memory | Bits vs bytes (FP16 = 2) | C | 2 | 11-23, 11-24 | 11-24 (restated) |
 | KV memory | "Which concept is this?" (formula not recalled) | E | 1 | 11-23 | — |
 | KV memory | 4× users: need (× 4) vs fix (smaller per token) | B | 1 | 11-23 | — |
 | KV memory | Quantization: only weights, missed KV cache | A | 1 | 11-23 | 11-23 (same day) |
