@@ -19,7 +19,7 @@ Update this board at every session close. Copy kept in project memory.
 
 | Area | Mastered (can do) | Gap (cannot do alone yet) | Unclear (still confused) |
 | --- | --- | --- | --- |
-| KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2; KV heads vs KV cache; rough estimate idea; **leading 2 written first try (11-24)**; KV cache quantization changes `bytes` (first try 11-24); weight quantization → bigger KV budget (guided 11-24) | Last factor alone (bits vs bytes, 2×: FP16 = 2 bytes); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone; say alone why weight quantization fits more users | Bits vs bytes |
+| KV memory (item 1) | `gpu_memory_utilization` = share of total memory, fixed at startup; `config.json` = the model's, `block_size` = vLLM's (guided 11-24); [`allocate_kv_cache`](concepts/kv-cache-memory.md) taught 11-24; Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2; KV heads vs KV cache; rough estimate idea; **leading 2 written first try (11-24)**; KV cache quantization changes `bytes` (first try 11-24); weight quantization → bigger KV budget (guided 11-24) | Last factor alone (bits vs bytes, 2×: FP16 = 2 bytes); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone (missed `layers` 11-24); say alone why weight quantization fits more users; `block_size` 16 → 32 effect | Bits vs bytes; **`block_size` vs `block_bytes` (count vs size; input vs result) — ended unclear 11-24** |
 | `slot_mapping` | 3-step rule; pos 12 needs a new block; read vs write (Block Table read, `slot_mapping` write — first try 11-24) | Fresh cases without help; say alone who builds (Model Runner) / uses (attention) it | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` (per token slot vs per request blocks, 2×); who builds / uses it |
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
 | Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts; **Scheduler decides, not `kv_cache_manager` (first try 11-24)**; **FCFS preempts the last in `running` (first try 11-24)**; preempted → front of `waiting`; preempted request's blocks are freed → recompute (restated 11-24) | Independent `schedule()` trace + CPU test; `add_request` vs `prepend_request` names; say "front" without a prompt | Preempt frees blocks (said "blocks stay" 11-24) |
@@ -69,6 +69,7 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
+0. **Start with a re-teach (Chinese + egg carton picture):** `block_size` vs `block_bytes` — ended unclear 11-24. Then "which one do you set, which one does vLLM calculate?" and "16 → 32: what changes?"
 1. **Review first (2026-11-25, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top, ≤ 6 questions, no hints):** TTFT compute-bound vs TPOT memory-bound (first question; 先算后读); lower the knob — does chat user A's K/V read still grow? (side-by-side causes); fill-in "prefill ___ K/V, decode ___ K/V"; FP8 KV cache last factor + a new model's full formula; why must a preempted request recompute?; chunked prefill first token (8000 tokens / 4 chunks).
 1b. **`max_num_seqs` re-check (taught 11-24):** one fresh mixed case, no hint — "one heavy person (tokens) or too many people (requests)?"; then "why does lowering `max_num_seqs` make each word faster?" Page: [max-num-seqs](concepts/max-num-seqs.md).
 2. **Then (≤2 concept questions, no math):** `slot_mapping` — who builds / uses it; per token vs per request. Code: [nano-vllm](raw/2026-11-24-nano-vllm.md).
@@ -77,11 +78,11 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-24 part 2, new concept `max_num_seqs`)
+## Latest session close (2026-11-24, parts 1–4)
 
-- **New fact:** all 3 knobs for 延迟检查 are taught. `max_num_seqs` cases right first try (E waits, never preempts; many users → lower, cost TTFT). Review took under 40 min (was 1.5–2 h).
-- **Gap:** mixed case — picked `max_num_seqs` for a long document (a token problem → `max_num_batched_tokens`); mechanism "each step reads every running user's K/V" missing 2nd time.
-- **Next action:** see *Next session*. Full log: [journal/2026-11-24.md § Part 2](journal/2026-11-24.md). MISTAKES.md now splits Miss / Partial and tags **G. Reason missing**.
+- **New fact:** all 3 knobs for 延迟检查 taught (`max_num_seqs` new, first-try cases); nano-vllm added as the code reference — main path ~60% learned (guided), map: [nano-vllm-progress](assets/nano-vllm-progress.svg); `allocate_kv_cache` = the KV formula in real code.
+- **Gap:** `block_size` vs `block_bytes` ended unclear; mixed knob case (wrong knob); who builds / uses `slot_mapping`.
+- **Next action:** re-teach `block_size` vs `block_bytes` first (Chinese + picture), then the review list. Full log: [journal/2026-11-24.md](journal/2026-11-24.md) (4 parts).
 
 Older session closes live in [journal/](journal/) — one file per day.
 

@@ -100,7 +100,31 @@ Why up front, not per request:
 2. Avoid fragmentation.
 3. The Scheduler needs a fixed total capacity to decide whether to admit a request.
 
-It is **not** for warm-up.
+It is **not** for warm-up. (But a warm-up / profiling run happens *before* it, to measure the peak memory of the biggest batch.)
+
+## `gpu_memory_utilization` vs `allocate_kv_cache` (added 2026-11-24, learner asked to save)
+
+![allocate_kv_cache step by step](../assets/allocate-kv-cache.svg)
+
+| | What it is | Where (nano-vllm, pinned) |
+| --- | --- | --- |
+| `gpu_memory_utilization` (default 0.9) | **The input** (a knob you set): the share of total GPU memory vLLM may use — for **everything**: weights + peak + KV cache | [config.py L12](https://github.com/GeeeekExplorer/nano-vllm/blob/bb823b3e06983d71485a8e1f23715ebd87d98ef8/nanovllm/config.py#L12) |
+| `allocate_kv_cache()` | **The function** that uses it, **once at startup**: (total × 0.9 − weights − peak) ÷ `block_bytes` = N blocks | [model_runner.py L103-121](https://github.com/GeeeekExplorer/nano-vllm/blob/bb823b3e06983d71485a8e1f23715ebd87d98ef8/nanovllm/engine/model_runner.py#L103-L121) |
+| `num_kvcache_blocks` = N | **The result**: fixed after startup; the BlockManager rents these blocks to requests | [scheduler.py L15](https://github.com/GeeeekExplorer/nano-vllm/blob/bb823b3e06983d71485a8e1f23715ebd87d98ef8/nanovllm/engine/scheduler.py#L15) |
+
+Warehouse: you tell the manager "use 90% of the building" (the knob). The manager (`allocate_kv_cache`) measures, takes out the furniture (weights) and the working room (peak), and cuts the rest into equal shelves (blocks). Raise the knob → more blocks → more users before preemption. To change it, restart.
+
+## `block_size` vs `block_bytes` (added 2026-11-24 — still unclear)
+
+![block_size vs block_bytes as an egg carton](../assets/block-size-vs-block-bytes.svg)
+
+| | Unit | Set by | Meaning |
+| --- | --- | --- | --- |
+| 1 token's K/V (egg) | bytes | **model** (`config.json`: layers, KV heads, head_dim, dtype) | per-token formula |
+| `block_size` | tokens | **engine** (`--block-size`, vLLM default 16; nano-vllm 256) | how **many** eggs in one carton |
+| `block_bytes` | bytes | **nobody — it is calculated** | how **heavy** one full carton is = `block_size` × egg size |
+
+`block_bytes` is a **result**, not a second limit. Egg size → carton weight, never the reverse. Example (Qwen2.5-7B, FP16): egg 56 KiB × 16 = 896 KiB. `block_size` 16 → 32: egg same, `block_bytes` × 2, N ÷ 2, total tokens about the same; more waste in each request's last half-empty block.
 
 ## Next checks
 

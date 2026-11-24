@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="430" viewBox="0 0 680 430" font-family="Helvetica, Arial, sans-serif">
+<rect width="680" height="430" fill="#FFFFFF"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<title>allocate_kv_cache: from GPU memory to KV blocks</title>
+<text x="40" y="40" font-size="12" fill="#5F5E5A" text-anchor="start">GPU memory (total)</text>
+<rect x="40" y="55" width="180" height="40" rx="4" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="130" y="80" font-size="12" fill="#444441" text-anchor="middle">② weights</text>
+<rect x="220" y="55" width="70" height="40" rx="0" fill="#FAECE7" stroke="#993C1D" stroke-width="0.8"/>
+<text x="255" y="80" font-size="12" fill="#712B13" text-anchor="middle">③ peak</text>
+<rect x="290" y="55" width="290" height="40" rx="0" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="294.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="314.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="335.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="355.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="376.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="396.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="417.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="437.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="458.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="478.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="499.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="519.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="540.0" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="560.5" y="59" width="17" height="32" rx="2" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.8"/>
+<rect x="580" y="55" width="60" height="40" rx="4" fill="#FFFFFF" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="610" y="80" font-size="12" fill="#5F5E5A" text-anchor="middle">① 10%</text>
+<text x="435" y="114" font-size="12" fill="#085041" text-anchor="middle">④ KV budget → ⑤ N blocks, each = block_bytes</text>
+<text x="40" y="165" font-size="12" fill="#5F5E5A" text-anchor="start">K</text>
+<text x="40" y="205" font-size="12" fill="#5F5E5A" text-anchor="start">V</text>
+<rect x="120" y="150" width="60" height="30" rx="4" fill="#9FE1CB" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="150" y="170" font-size="12" fill="#444441" text-anchor="middle">L0</text>
+<rect x="200" y="150" width="60" height="30" rx="4" fill="#9FE1CB" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="230" y="170" font-size="12" fill="#444441" text-anchor="middle">L1</text>
+<rect x="280" y="150" width="60" height="30" rx="4" fill="#9FE1CB" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="310" y="170" font-size="12" fill="#444441" text-anchor="middle">L2</text>
+<text x="390" y="170" font-size="12" fill="#5F5E5A" text-anchor="middle">…</text>
+<rect x="440" y="150" width="60" height="30" rx="4" fill="#9FE1CB" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="470" y="170" font-size="12" fill="#444441" text-anchor="middle">L27</text>
+<rect x="120" y="190" width="60" height="30" rx="4" fill="#FAC775" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="150" y="210" font-size="12" fill="#444441" text-anchor="middle">L0</text>
+<rect x="200" y="190" width="60" height="30" rx="4" fill="#FAC775" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="230" y="210" font-size="12" fill="#444441" text-anchor="middle">L1</text>
+<rect x="280" y="190" width="60" height="30" rx="4" fill="#FAC775" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="310" y="210" font-size="12" fill="#444441" text-anchor="middle">L2</text>
+<text x="390" y="210" font-size="12" fill="#5F5E5A" text-anchor="middle">…</text>
+<rect x="440" y="190" width="60" height="30" rx="4" fill="#FAC775" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="470" y="210" font-size="12" fill="#444441" text-anchor="middle">L27</text>
+<line x1="150" y1="222" x2="150" y2="246" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="60" y="250" width="240" height="36" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="180" y="273" font-size="12" fill="#3C3489" text-anchor="middle">⑥ Attention layer 0: k_cache, v_cache</text>
+<text x="40" y="318" font-size="13" fill="#2C2C2A" text-anchor="start">① gpu_memory_utilization = 0.9 → use total × 0.9</text>
+<text x="40" y="336" font-size="13" fill="#2C2C2A" text-anchor="start">② used = total − free (weights loaded)</text>
+<text x="40" y="354" font-size="13" fill="#2C2C2A" text-anchor="start">③ warmup run with the biggest batch → peak temp memory</text>
+<text x="40" y="372" font-size="13" fill="#2C2C2A" text-anchor="start">④ budget = total × 0.9 − used − peak + current</text>
+<text x="40" y="390" font-size="13" fill="#2C2C2A" text-anchor="start">⑤ num_blocks = budget // block_bytes</text>
+<text x="40" y="408" font-size="13" fill="#2C2C2A" text-anchor="start">⑥ one big tensor, once; each layer gets its K and V slice</text>
+</svg>

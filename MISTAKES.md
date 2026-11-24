@@ -13,9 +13,9 @@
 
 | Pattern | Wrong (total) | Since 11-24 pt 2: Miss / Partial | Worst items | What it means |
 | --- | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **20** | 0 / 0 | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3× | Knows the parts, flips which way a knob moves the result |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **21** | 0 / 1 | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3× | Knows the parts, flips which way a knob moves the result |
 | **A. Roles: who owns / does what** | **21** | 2 / 2 | who builds / uses `slot_mapping` 2× (11-24), which knob owns tokens vs requests 1× (11-24), evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
-| **C. Formula details** | 8 | 0 / 0 | offset = remainder 2×, bits vs bytes 2× | Small steps inside a rule (now: assistant does arithmetic) |
+| **C. Formula details** | 10 | 1 / 1 | offset = remainder 2×, bits vs bytes 2× | Small steps inside a rule (now: assistant does arithmetic) |
 | **F. GPU / memory concepts** | 14 | 0 / 2 | batching shares weights, not KV 3×, compute vs load 3× | First-time misconceptions, mostly fixed |
 | **D. Names and front / end** | 7 | 0 / 0 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
 | **E. Next-day recall** | 2 | 0 / 0 | 3 Scheduler parts | Learned, then forgot after a day |
@@ -66,6 +66,9 @@
 | KV memory | Why vLLM reserves KV at startup | F | 1 | 11-17 | — |
 | KV memory | Leading 2 (K and V) | C | 1 | 11-23 | 11-24 (first try) |
 | KV memory | Bits vs bytes (FP16 = 2) | C | 2 | 11-23, 11-24 | 11-24 (restated) |
+| KV memory | Model (`config.json`) vs engine (`block_size`) factors — missed `layers` | C | 1 | 11-24 (P) | 11-24 (guided) |
+| KV memory | `block_size` change → per-token K/V size unchanged | C | 1 | 11-24 (M) | — |
+| KV memory | `block_bytes` is a result (`block_size` × token size), not a second limit; egg → carton, not carton → egg | B | 1 | 11-24 (P) | — |
 | KV memory | "Which concept is this?" (formula not recalled) | E | 1 | 11-23 | — |
 | KV memory | 4× users: need (× 4) vs fix (smaller per token) | B | 1 | 11-23 | — |
 | KV memory | Quantization: only weights, missed KV cache | A | 1 | 11-23 | 11-23 (same day) |

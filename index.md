@@ -39,7 +39,7 @@ Main path: Request → Scheduler → KV Cache Manager / BlockPool → Model Runn
 | --- | --- | --- |
 | Basics | [model-states-and-kv-cache](concepts/model-states-and-kv-cache.md) | Weights vs hidden states vs KV cache |
 | Scheduler | [scheduler-and-cache-policy](concepts/scheduler-and-cache-policy.md) | Token budget, `max_num_seqs`, preemption vs eviction, offloading |
-| KV Cache Manager | [kv-cache-memory](concepts/kv-cache-memory.md) | Per-token KV formula, MHA/GQA/MQA, capacity (main line item 1) |
+| KV Cache Manager | [kv-cache-memory](concepts/kv-cache-memory.md) | Per-token KV formula, MHA/GQA/MQA, capacity (main line item 1); `allocate_kv_cache`, `gpu_memory_utilization`, `block_size` vs `block_bytes` |
 | BlockPool | [blockpool-block-life-cycle](concepts/blockpool-block-life-cycle.md) | `ref_cnt`, free queue front/end, hash, evict vs preempt |
 | Model Runner | [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md) | Block Table (read) vs `slot_mapping` (write), the 3-step rule |
 | Model Runner | [model-runner-inputs-and-chunked-prefill](concepts/model-runner-inputs-and-chunked-prefill.md) | `input_ids`, `positions`, chunked prefill |

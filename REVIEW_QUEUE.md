@@ -4,6 +4,17 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-24 part 4 — `allocate_kv_cache` and capacity start (no formal pass)
+
+Full log: [journal/2026-11-24.md § Part 4](journal/2026-11-24.md). Page: [kv-cache-memory](concepts/kv-cache-memory.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| `block_size` vs `block_bytes` (**new, top**) | Asked 3× what they are / how they differ; thought a bigger carton makes bigger eggs; called `block_bytes` a second limit. Correct: `block_size` = how many tokens (engine), `block_bytes` = result = `block_size` × 1 token's K/V (bytes). | **Unclear — session ended "还是没看懂"** | 2026-11-25: re-teach with the egg carton picture first (Chinese), then: "Which one do you set? Which one does vLLM calculate?" |
+| `block_size` 16 → 32 (**new**) | Per-token size: "don't know, stores more?" (Miss); `block_bytes` / N not answered. | **Partial** | 2026-11-25 (after the re-teach): "What changes, what stays the same?" |
+| Model vs engine factors (**new**) | Put `block_size` in `config.json`; missed `layers`. | **Partial → right (guided)** | 2026-11-25: show a new `config.json`, find the 4 fields alone |
+| `gpu_memory_utilization` vs `allocate_kv_cache` | Recalled the knob from using vLLM (right). | **Right (cc)** | Later: "Raise 0.9 → 0.95: what happens to N?" |
+
 ## 2026-11-24 part 3 — `slot_mapping` keep-alive (no formal pass)
 
 Full log: [journal/2026-11-24.md § Part 3](journal/2026-11-24.md). Picture: [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.svg).

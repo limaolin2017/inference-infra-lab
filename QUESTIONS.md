@@ -33,6 +33,13 @@
 | 11-24 | slot_mapping 不是学过么? 对齐目标看看 gap | Learning plan / `slot_mapping` | journal 11-24 part 2 |
 | 11-24 | Which one is read, which one is written? 这个是啥意思? | `slot_mapping` vs Block Table | [block-table-and-slot-mapping](concepts/block-table-and-slot-mapping.md) |
 | 11-24 | 能画图解释吗? 多图少字 (what / who for `slot_mapping`) | `slot_mapping` roles | [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.svg) |
+| 11-24 | 对照 nano-vllm 总共几大块? 掌握了几块? | Progress | [nano-vllm-progress](assets/nano-vllm-progress.svg) |
+| 11-24 | 目前复习了哪些、新学了哪些? | Recap | journal 11-24 |
+| 11-24 | 讲讲 `allocate_kv_cache` | KV budget at startup | [kv-cache-memory](concepts/kv-cache-memory.md) |
+| 11-24 | `gpu_memory_utilization` 和 `allocate_kv_cache` 有啥关系? | Input vs function | [kv-cache-memory](concepts/kv-cache-memory.md) |
+| 11-24 | 什么是 `block_bytes`? | Block size in bytes | [kv-cache-memory](concepts/kv-cache-memory.md) |
+| 11-24 | `block_size` 和 `block_bytes` 有啥区别? (asked again after 2 explanations) | Count vs size | [block-size-vs-block-bytes](assets/block-size-vs-block-bytes.svg) |
+| 11-24 | bytes 啥意思? 盒子大了蛋就更大吗? | Units; direction egg → carton | journal 11-24 part 4 |
 
 ## English questions
 
@@ -42,7 +49,8 @@
 | 11-23 | What does "1 KB = 1,024 bytes" mean here? | Convert bytes to KB: ÷ 1,024 |
 | 11-23 | "knob" 中文是啥? | 旋钮 → in infra: a setting you can tune (可调参数) |
 | 11-24 | FCFS stands for? | First-Come, First-Served (先来先服务) |
-| 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs**; slope mapping → **slot mapping**; Gateway Cache → **KV cache** | — |
+| 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs**; slope mapping → **slot mapping**; Gateway Cache → **KV cache**; shift → **shelf**; kiwi heads → **KV heads**; head demand → **head_dim** | — |
+| 11-24 | carton 中文是啥? | 纸盒; egg carton = 鸡蛋盒 |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 
@@ -72,6 +80,9 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 | 11-24 | Batch 1 → 50 decode → closer to compute-bound — 对不对? | Right (wavered; still mostly memory-bound) | later |
 | 11-24 | D's blocks go to the free queue, not held — 对吧? | Right (guided) | 11-25 |
 | 11-24 pt 2 | Fewer running requests → less K/V to read; 这应该是 decode 阶段吧? | Right (TPOT = decode) | later |
+| 11-24 pt 4 | vLLM has a % of GPU memory setting, fixed once set — 对吧? | Right | later |
+| 11-24 pt 4 | config.json is the model's, block_size is vLLM's — 对吧? | Right (guided) | 11-25 |
+| 11-24 pt 4 | Two things limit the carton: block_size and block_bytes — 对吗? | Partial (`block_bytes` is a result) | 11-25 |
 
 **Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided).
 

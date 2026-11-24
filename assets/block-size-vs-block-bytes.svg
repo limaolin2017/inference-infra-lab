@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="260" viewBox="0 0 680 260" font-family="Helvetica, Arial, sans-serif">
+<rect width="680" height="260" fill="#FFFFFF"/>
+<title>block_size vs block_bytes (egg carton)</title>
+<rect x="180" y="40" width="320" height="100" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<circle cx="214" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="250" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="286" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="322" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="358" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="394" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="430" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="466" cy="68" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="214" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="250" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="286" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="322" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="358" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="394" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="430" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<circle cx="466" cy="110" r="13" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<rect x="40" y="170" width="180" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="130" y="193" font-size="14" fill="#633806" text-anchor="middle" font-weight="bold">1 egg = 1 token</text>
+<text x="130" y="213" font-size="12" fill="#633806" text-anchor="middle">56 KiB (model decides)</text>
+<rect x="250" y="170" width="180" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="340" y="193" font-size="14" fill="#085041" text-anchor="middle" font-weight="bold">block_size = 16</text>
+<text x="340" y="213" font-size="12" fill="#085041" text-anchor="middle">how MANY eggs (count)</text>
+<rect x="460" y="170" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="550" y="193" font-size="14" fill="#3C3489" text-anchor="middle" font-weight="bold">block_bytes = 896 KiB</text>
+<text x="550" y="213" font-size="12" fill="#3C3489" text-anchor="middle">how HEAVY the full carton</text>
+<text x="340" y="246" font-size="12" fill="#2C2C2A" text-anchor="middle">block_bytes = block_size × egg size  (a result, not a setting)</text>
+</svg>
