@@ -30,7 +30,7 @@ Analogy: a kitchen. Throughput = dishes per hour for the whole restaurant; TPOT 
 - **Interactive chat:** left of the turning point, as close to it as possible — TPOT stays about the same, throughput is higher.
 - **Offline batch job (nobody waiting):** as large as KV memory allows; the real limit is KV cache filling GPU memory, and vLLM preempts when it does (see [scheduler note](scheduler-and-cache-policy.md)).
 
-Knobs in vLLM: `max_num_seqs`, `gpu_memory_utilization`, `max_num_batched_tokens`.
+Knobs in vLLM: [`max_num_seqs`](max-num-seqs.md), `gpu_memory_utilization`, `max_num_batched_tokens`.
 
 ## Next
 

@@ -77,3 +77,9 @@ All its commits are already in main. Delete was blocked from the session; delete
 
 ## [2026-11-24] review | Full review of the 11-23 queue (+ 11-23 evening recall)
 Knob reverse case right first try; TTFT/TPOT bounds swapped again; bits vs bytes again. See [journal/2026-11-24.md](journal/2026-11-24.md).
+
+## [2026-11-24] learn | New concept max_num_seqs (3rd knob for 延迟检查)
+See [max-num-seqs](concepts/max-num-seqs.md) and [journal/2026-11-24.md § Part 2](journal/2026-11-24.md).
+
+## [2026-11-24] schema | MISTAKES.md: Miss / Partial split and tag G (reason missing)
+Learner's idea; no new file. See [MISTAKES.md](MISTAKES.md).

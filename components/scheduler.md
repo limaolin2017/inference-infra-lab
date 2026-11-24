@@ -9,7 +9,7 @@
 | | |
 | --- | --- |
 | **Owns** | `waiting` (deque: not-started and preempted requests), `running` (list: requests in the batch now), `kv_cache_manager` (a handle to ask for blocks) |
-| **Decides** | Who runs this step (token budget, `max_num_seqs`), who waits, who is preempted |
+| **Decides** | Who runs this step (token budget, [`max_num_seqs`](../concepts/max-num-seqs.md)), who waits, who is preempted |
 | **Asks** | KV Cache Manager: "blocks for this request?" |
 | **Called by / sends to** | Engine core calls `schedule()` each step → sends `SchedulerOutput` to the Model Runner |
 

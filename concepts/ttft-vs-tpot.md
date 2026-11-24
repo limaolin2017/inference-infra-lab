@@ -16,6 +16,8 @@ Most latency complaints are one of two: "it takes long to start" (TTFT) or "the 
 
 Restaurant: TTFT = wait for the first dish (the kitchen reads the whole order first); TPOT = time between dishes.
 
+**Knob pages:** [max-num-seqs](max-num-seqs.md) (symptom → knob table for all 3 knobs).
+
 ## So far
 
 - TTFT = queue wait + **prefill** (whole prompt in one go, compute-bound).

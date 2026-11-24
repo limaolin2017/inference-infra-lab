@@ -4,6 +4,17 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-24 part 2 — new concept `max_num_seqs` (no formal pass)
+
+Full log: [journal/2026-11-24.md § Part 2](journal/2026-11-24.md). Page: [max-num-seqs](concepts/max-num-seqs.md).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Which knob: tokens vs requests (**new**) | Chat stutters when a 10,000-token doc arrives → chose `max_num_seqs`. Correct: `max_num_batched_tokens` (the doc is 1 request, a token problem). | **Miss → restated (own words)** | 2026-11-25: a fresh mixed case, no hint — "one heavy person or too many people?" |
+| Many users → TPOT: the mechanism (**2nd time**, also 11-23 Q2) | Knob / direction / cost right first try; reason was only "too high". Missing: each step reads every running user's K/V. | **Partial → own words (after explanation)** | 2026-11-25: "Why does lowering `max_num_seqs` make each word faster?" — no hint |
+| Prefill computes (said 读取 again) | In Q4: "prefill … 每次读取很重". | **Partial (wording)** | Fold into the 11-25 fill-in "Prefill ___ K/V, decode ___ K/V" |
+| New request never preempts | Right, first try (E waits, running full). | **Right** | Later day: re-check once |
+
 ## 2026-11-24 — full review of the 11-23 queue (no formal pass)
 
 Full log: [journal/2026-11-24.md](journal/2026-11-24.md). Includes the 11-23 evening recall.

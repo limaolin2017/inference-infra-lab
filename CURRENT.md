@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-24 (project chat, full review of the 11-23 queue)  
+**Last reviewed:** 2026-11-24 (project chat: full review of the 11-23 queue, then new concept `max_num_seqs`)  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -22,9 +22,9 @@ Update this board at every session close. Copy kept in project memory.
 | KV memory (item 1) | Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2; KV heads vs KV cache; rough estimate idea; **leading 2 written first try (11-24)**; KV cache quantization changes `bytes` (first try 11-24); weight quantization → bigger KV budget (guided 11-24) | Last factor alone (bits vs bytes, 2×: FP16 = 2 bytes); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone; say alone why weight quantization fits more users | Bits vs bytes |
 | `slot_mapping` | 3-step rule; pos 12 needs a new block | Fresh cases without help | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` |
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
-| Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts; **Scheduler decides, not `kv_cache_manager` (first try 11-24)**; **FCFS preempts the last in `running` (first try 11-24)**; preempted → front of `waiting`; preempted request's blocks are freed → recompute (restated 11-24) | Independent `schedule()` trace + CPU test; `add_request` vs `prepend_request` names; say "front" without a prompt | Preempt frees blocks (said "blocks stay" 11-24); new request never preempts (not re-asked) |
+| Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts; **Scheduler decides, not `kv_cache_manager` (first try 11-24)**; **FCFS preempts the last in `running` (first try 11-24)**; preempted → front of `waiting`; preempted request's blocks are freed → recompute (restated 11-24) | Independent `schedule()` trace + CPU test; `add_request` vs `prepend_request` names; say "front" without a prompt | Preempt frees blocks (said "blocks stay" 11-24) |
 | Model Runner | `input_ids` / `positions` (guided) | Find `positions` / `slot_mapping` in source alone | Chunked prefill details |
-| Prefill / decode (item 2) | Long prompt → slow TTFT; raise `max_num_batched_tokens` → faster TTFT, cost TPOT; **reverse case (chat users stutter → lower) direction + cost right first try, no hint (11-24)**; chunked prefill = one step with a prefill chunk + others' decode (11-24); first token at the end of the last chunk (restated); batching shares weights, not K/V → still mostly memory-bound at 50 (own words 11-24) | Say alone: TTFT = compute-bound, TPOT = memory-bound (**swapped 2×**: 11-23, 11-24); reasons in own words first try ("shorter step", not "more compute for decode"); `max_num_seqs` (not started) | Compute vs load wording (prefill computes, decode reads); two side-by-side causes linked as cause → effect (3×) |
+| Prefill / decode (item 2) | Long prompt → slow TTFT; raise `max_num_batched_tokens` → faster TTFT, cost TPOT; **reverse case (chat users stutter → lower) direction + cost right first try, no hint (11-24)**; chunked prefill = one step with a prefill chunk + others' decode (11-24); first token at the end of the last chunk (restated); batching shares weights, not K/V → still mostly memory-bound at 50 (own words 11-24); **[`max_num_seqs`](concepts/max-num-seqs.md) taught 11-24: new request waits, never preempts (first try); many users → lower it, cost TTFT (first try)** | Say alone: TTFT = compute-bound, TPOT = memory-bound (**swapped 2×**: 11-23, 11-24); reasons in own words first try ("shorter step", not "more compute for decode"); `max_num_seqs` mechanism first try (each step reads every running user's K/V — missed 2×); pick the right knob in a mixed case (missed 11-24) | Compute vs load wording (prefill computes, decode reads); two side-by-side causes linked as cause → effect (3×); tokens per step vs requests per step (which knob owns what) |
 | Benchmark / profiling (item 4) | — | Public, rerunnable benchmark; profiling | Not started |
 
 **Formal passes:** 0. All answers so far are guided.
@@ -40,7 +40,7 @@ Start the first Colab GPU run when **all 3** pass. Pass = closed-book, first try
 | Check | Task | Pass if | Status 11-24 |
 | --- | --- | --- | --- |
 | A. Capacity (容量估算) | Unseen `config.json` + GPU size: find the 4 fields, write the full formula, say budget → max tokens → max 4K requests (assistant does the arithmetic) | All steps right on **2 models, 2 different days** | ~50%: leading 2 right (11-24); bits vs bytes slip; steps 2–4 not done |
-| B. TTFT vs TPOT (延迟检查) | Explain what limits each; 3 "user complains about X — which knob?" cases | Explanation right + **≥ 2 / 3** cases | ~30%: 1 knob case direction right first try (reason partial); compute/memory-bound swapped 11-24; `max_num_seqs` not taught |
+| B. TTFT vs TPOT (延迟检查) | Explain what limits each; 3 "user complains about X — which knob?" cases | Explanation right + **≥ 2 / 3** cases | ~40%: all 3 knobs taught; 2 knob cases right first try (reasons partial); mixed case missed (wrong knob); compute/memory-bound swapped 11-24 |
 | C. Prediction (运行前预测) | Before the run, write the expected KV cache size and block count for the Colab model | Written **before** running | After A |
 
 Estimate: **2–3 weeks** at ~4 sessions / week (A ≈ 1 week, B ≈ 1–2 weeks) → about mid-December. The CPU test does not block Colab; order chosen later.
@@ -70,18 +70,18 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 ## Next session
 
 1. **Review first (2026-11-25, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top, ≤ 6 questions, no hints):** TTFT compute-bound vs TPOT memory-bound (first question; 先算后读); lower the knob — does chat user A's K/V read still grow? (side-by-side causes); fill-in "prefill ___ K/V, decode ___ K/V"; FP8 KV cache last factor + a new model's full formula; why must a preempted request recompute?; chunked prefill first token (8000 tokens / 4 chunks).
-1b. **New concept:** **`max_num_seqs`** (batch size cap → TPOT vs throughput) — the 3rd knob case for 延迟检查.
+1b. **`max_num_seqs` re-check (taught 11-24):** one fresh mixed case, no hint — "one heavy person (tokens) or too many people (requests)?"; then "why does lowering `max_num_seqs` make each word faster?" Page: [max-num-seqs](concepts/max-num-seqs.md).
 2. **Then (≤3 questions, fresh cases):** blocks / `slot_mapping` (offset = remainder, physical block, pos from 0).
 3. **Main task — capacity reasoning (no hand arithmetic; the assistant does the math):** KV budget steps 2–4 — budget → max tokens → how many 4K requests fit (e.g. M1 Pro 16 GB with a small model). Learner finds the 4 fields in a real `config.json`. Use the [KV memory formula](concepts/kv-cache-memory.md).
 3b. **Next (main line item 2, 延迟检查):** chunked prefill key point **taught 11-23** — 11-24 only re-check it; then **`max_num_seqs`** (the 3rd knob). Original note: chunked prefill — fill the gap, not a full re-lesson (learned 11-10; 11-23 recall was partial: missing "chunks share a step with decode tokens"). One picture + one question on that piece. Chunked prefill is the fix for the TPOT cost of a big `max_num_batched_tokens` (split a long prompt into chunks and mix them with decode tokens in the same step). Then `max_num_seqs` (batch size → TPOT vs throughput). Together with `max_num_batched_tokens` these are the 3 knob cases for check B.
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-24, review, mostly first-try answers)
+## Latest session close (2026-11-24 part 2, new concept `max_num_seqs`)
 
-- **New fact:** `max_num_batched_tokens` reverse case (chat users stutter → **lower**, cost slower TTFT) answered right **first try, no hint** — first time after 5 misses. Scheduler roles and FCFS victim right first try. Leading 2 right first try.
-- **Gap:** TTFT/TPOT bounds swapped a 2nd time; bits vs bytes a 2nd time; linked two side-by-side causes a 3rd time; thought preempted blocks stay.
-- **Next action:** see *Next session* (re-checks, then `max_num_seqs`). Full log: [journal/2026-11-24.md](journal/2026-11-24.md) (also has the 11-23 evening recall).
+- **New fact:** all 3 knobs for 延迟检查 are taught. `max_num_seqs` cases right first try (E waits, never preempts; many users → lower, cost TTFT). Review took under 40 min (was 1.5–2 h).
+- **Gap:** mixed case — picked `max_num_seqs` for a long document (a token problem → `max_num_batched_tokens`); mechanism "each step reads every running user's K/V" missing 2nd time.
+- **Next action:** see *Next session*. Full log: [journal/2026-11-24.md § Part 2](journal/2026-11-24.md). MISTAKES.md now splits Miss / Partial and tags **G. Reason missing**.
 
 Older session closes live in [journal/](journal/) — one file per day.
 

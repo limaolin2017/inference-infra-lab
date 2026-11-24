@@ -28,6 +28,9 @@
 | 11-24 | 为啥 decode 是 memory 瓶颈呢? | Decode memory-bound (all weights moved for 1 token) | [memory-bound-and-batching](concepts/memory-bound-and-batching.md) |
 | 11-24 | FCFS 是啥意思? | Scheduler policy: First-Come, First-Served | [scheduler](components/scheduler.md) |
 | 11-24 | KV formula: 最后乘 16 还是多少? | Bits vs bytes | [kv-cache-memory](concepts/kv-cache-memory.md) |
+| 11-24 | 缺的部分能记下来吗? 新文件还是已经有了? | Repo / where notes live | [max-num-seqs](concepts/max-num-seqs.md) |
+| 11-24 | 答不完整的地方也要存一个文件吗? 有必要吗? | Mistake tracking → decided: Miss / Partial split + tag G | [MISTAKES.md](MISTAKES.md) |
+| 11-24 | slot_mapping 不是学过么? 对齐目标看看 gap | Learning plan / `slot_mapping` | journal 11-24 part 2 |
 
 ## English questions
 
@@ -37,6 +40,7 @@
 | 11-23 | What does "1 KB = 1,024 bytes" mean here? | Convert bytes to KB: ÷ 1,024 |
 | 11-23 | "knob" 中文是啥? | 旋钮 → in infra: a setting you can tune (可调参数) |
 | 11-24 | FCFS stands for? | First-Come, First-Served (先来先服务) |
+| 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs** | — |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 
@@ -65,6 +69,7 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 | 11-24 | Moving all weights from VRAM depends on memory bandwidth — 是吗? | Right | — |
 | 11-24 | Batch 1 → 50 decode → closer to compute-bound — 对不对? | Right (wavered; still mostly memory-bound) | later |
 | 11-24 | D's blocks go to the free queue, not held — 对吧? | Right (guided) | 11-25 |
+| 11-24 pt 2 | Fewer running requests → less K/V to read; 这应该是 decode 阶段吧? | Right (TPOT = decode) | later |
 
 **Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided).
 
