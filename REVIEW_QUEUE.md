@@ -4,6 +4,19 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-26 — preemption + quantization review (no formal pass)
+
+Full log: [journal/2026-11-26.md](journal/2026-11-26.md). 11-25: no session. **All 11-24 rows below were not reviewed — still due.** Rule from today: give the full setup before each question.
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| What triggers preemption (**2nd miss**, also 11-23) | "A, B, C running, D comes, one must be kicked out — 对吗?" Correct: a new request never preempts; only a running request that needs one more block, none free. | **Miss → restated right (guided)** | Next session: full setup, "D arrives and no blocks are free. What happens to D? Does anyone get kicked out?" |
+| Who is preempted when the requester is last (**new**) | `running` = B, C, A; A needs a block → "不知道". Correct: A kicks itself out. | **Miss → own words (guided)** | Next session: "`running` = X, Y, Z. Z needs a block. Who leaves?" |
+| Weight quantization → more users (**2nd**) | "权重被量化了" (the fix, not the effect); with the box hint: more space for KV blocks. | **Partial → right (guided)** | Next session: "Weights 16 GB → 8 GB. What changes for the KV cache, and why?" no hint |
+| Preempted → front of `waiting` | Said "waiting list", then "front" after a front/back prompt. | **Right (prompted)** | Later: "Where exactly, and which method?" (`prepend_request`) |
+| Scheduler vs `kv_cache_manager` | Scheduler decides. | **Right, first try (2nd day)** | Later day |
+| KV quantization → `bytes` | Named both places; `bytes` changes. | **Right** (said as a check) | Later day |
+
 ## 2026-11-24 part 4 — `allocate_kv_cache` and capacity start (no formal pass)
 
 Full log: [journal/2026-11-24.md § Part 4](journal/2026-11-24.md). Page: [kv-cache-memory](concepts/kv-cache-memory.md).

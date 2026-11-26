@@ -40,6 +40,12 @@
 | 11-24 | 什么是 `block_bytes`? | Block size in bytes | [kv-cache-memory](concepts/kv-cache-memory.md) |
 | 11-24 | `block_size` 和 `block_bytes` 有啥区别? (asked again after 2 explanations) | Count vs size | [block-size-vs-block-bytes](assets/block-size-vs-block-bytes.svg) |
 | 11-24 | bytes 啥意思? 盒子大了蛋就更大吗? | Units; direction egg → carton | journal 11-24 part 4 |
+| 11-26 | 什么意思? / 没看明白 / 你的问题是什么? (FCFS question asked mid-scenario, 3×) | Question format: setup missing | journal 11-26 |
+| 11-26 | 第二个问题是什么? 因为你不是说了 FCFS 吗? | FCFS → who is preempted | [scheduler](components/scheduler.md) |
+| 11-26 | 为什么要把一个 request 踢出去? | Why preempt: running request needs a block, none free | [scheduler](components/scheduler.md) |
+| 11-26 | A 是哪来的? → 你先把这个题前提给我讲清楚 | Question format: give the premise first | journal 11-26 |
+| 11-26 | Kick out 啥意思? 是 A、B、C 中间要踢一个出去吗? | Preemption = one running request leaves | [scheduler](components/scheduler.md) |
+| 11-26 | (twist B, C, A) 啥意思? 你的问题是啥? | Who is preempted when the requester is last | [scheduler](components/scheduler.md) |
 
 ## English questions
 
@@ -51,6 +57,8 @@
 | 11-24 | FCFS stands for? | First-Come, First-Served (先来先服务) |
 | 11-24 | (word fixes) print → **preempt**; preview → **prefill**; max number sequence → **max num seqs**; slope mapping → **slot mapping**; Gateway Cache → **KV cache**; shift → **shelf**; kiwi heads → **KV heads**; head demand → **head_dim** | — |
 | 11-24 | carton 中文是啥? | 纸盒; egg carton = 鸡蛋盒 |
+| 11-26 | Kick out 啥意思? | 踢出去 (here: preempt) |
+| 11-26 | (word fix) QV cache → **KV cache** | — |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 
@@ -83,10 +91,14 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 | 11-24 pt 4 | vLLM has a % of GPU memory setting, fixed once set — 对吧? | Right | later |
 | 11-24 pt 4 | config.json is the model's, block_size is vLLM's — 对吧? | Right (guided) | 11-25 |
 | 11-24 pt 4 | Two things limit the carton: block_size and block_bytes — 对吗? | Partial (`block_bytes` is a result) | 11-25 |
+| 11-26 | A, B, C running, D comes, so one of A, B, C must be kicked out — 对吗? | **Miss** (2nd time; new requests never preempt) | next session |
+| 11-26 | A needs a block for its next token, pick one of A, B, C; D unrelated — 对吗? | Right (guided) | next session |
+| 11-26 | KV quantization → the `bytes` factor changes — 吗? | Right | later |
+| 11-26 | Weight quantization → "权重被量化了吧?" | Partial → right with the box hint | next session |
 
-**Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided).
+**Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided). 11-26: 4 (2 right, 1 partial, 1 miss).
 
-**11-24 re-check of the 11-23 rows:** `kv_cache_manager` role ✅ · missing K/V 2 ✅ · bits vs bytes ❌ · shrinking weights = quantization ✅ · K/V read per user ✅ · long prompt → slow TTFT ✅ (implicit) · chunked prefill one step ✅ (first token ±1 step) · new C preempts B — not re-asked · 4 users → × 4 — not re-asked.
+**11-24 re-check of the 11-23 rows:** `kv_cache_manager` role ✅ · missing K/V 2 ✅ · bits vs bytes ❌ · shrinking weights = quantization ✅ · K/V read per user ✅ · long prompt → slow TTFT ✅ (implicit) · chunked prefill one step ✅ (first token ±1 step) · new C preempts B — not re-asked (11-26: ❌ again as "D comes") · 4 users → × 4 — not re-asked.
 
 ## Unclear areas (from questions)
 

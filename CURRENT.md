@@ -1,6 +1,6 @@
 # Current — Read This First
 
-**Last reviewed:** 2026-11-24 (project chat: full review of the 11-23 queue, then new concept `max_num_seqs`)  
+**Last reviewed:** 2026-11-26 (project chat + voice: preemption and quantization review; 11-25 no session)  
 **Goal:** Build job-ready inference-core skill through focused, verifiable upstream work.  
 **Hardware:** No owned or continuously available GPU. **Google Colab free GPU is an optional, availability-dependent way to run short NVIDIA tests.** Never require it for CPU core work.
 
@@ -13,16 +13,16 @@
 
 The request-path trace below is the background for items 1 and 3.
 
-## Status board — mastered / gap / unclear (updated 2026-11-24)
+## Status board — mastered / gap / unclear (updated 2026-11-26)
 
 Update this board at every session close. Copy kept in project memory.
 
 | Area | Mastered (can do) | Gap (cannot do alone yet) | Unclear (still confused) |
 | --- | --- | --- | --- |
-| KV memory (item 1) | `gpu_memory_utilization` = share of total memory, fixed at startup; `config.json` = the model's, `block_size` = vLLM's (guided 11-24); [`allocate_kv_cache`](concepts/kv-cache-memory.md) taught 11-24; Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2; KV heads vs KV cache; rough estimate idea; **leading 2 written first try (11-24)**; KV cache quantization changes `bytes` (first try 11-24); weight quantization → bigger KV budget (guided 11-24) | Last factor alone (bits vs bytes, 2×: FP16 = 2 bytes); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone (missed `layers` 11-24); say alone why weight quantization fits more users; `block_size` 16 → 32 effect | Bits vs bytes; **`block_size` vs `block_bytes` (count vs size; input vs result) — ended unclear 11-24** |
+| KV memory (item 1) | `gpu_memory_utilization` = share of total memory, fixed at startup; `config.json` = the model's, `block_size` = vLLM's (guided 11-24); [`allocate_kv_cache`](concepts/kv-cache-memory.md) taught 11-24; Formula `2 × layers × KV heads × head_dim × bytes`; MHA / GQA / MQA = KV head count; why × 2; KV heads vs KV cache; rough estimate idea; **leading 2 written first try (11-24)**; KV cache quantization changes `bytes` (first try 11-24); weight quantization → bigger KV budget (guided 11-24, guided again 11-26); both quantization places named first try (11-26) | Last factor alone (bits vs bytes, 2×: FP16 = 2 bytes); KV budget steps 2–4 alone; find the 4 fields in a `config.json` alone (missed `layers` 11-24); say alone why weight quantization fits more users (Partial 2×); `block_size` 16 → 32 effect | Bits vs bytes; **`block_size` vs `block_bytes` (count vs size; input vs result) — ended unclear 11-24** |
 | `slot_mapping` | 3-step rule; pos 12 needs a new block; read vs write (Block Table read, `slot_mapping` write — first try 11-24) | Fresh cases without help; say alone who builds (Model Runner) / uses (attention) it | offset = remainder (missed 2×); use the physical block; pos from 0; `slot_mapping` vs `block_table` (per token slot vs per request blocks, 2×); who builds / uses it |
 | BlockPool | `ref_cnt`, free queue front / end, evict vs preempt (guided) | Independent code trace | Free-queue "why end" reason; evict hash timing |
-| Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts; **Scheduler decides, not `kv_cache_manager` (first try 11-24)**; **FCFS preempts the last in `running` (first try 11-24)**; preempted → front of `waiting`; preempted request's blocks are freed → recompute (restated 11-24) | Independent `schedule()` trace + CPU test; `add_request` vs `prepend_request` names; say "front" without a prompt | Preempt frees blocks (said "blocks stay" 11-24) |
+| Scheduler | Token budget, preemption, Waiting gate (guided); 3 parts; **Scheduler decides, not `kv_cache_manager` (first try 11-24, 11-26)**; **FCFS preempts the last in `running` (first try 11-24)**; preempted → front of `waiting` (11-26 with a front/back prompt); preempted request's blocks are freed → recompute (restated 11-24) | Independent `schedule()` trace + CPU test; `add_request` vs `prepend_request` names; say "front" without a prompt; requester last in `running` → kicks **itself** out (Miss 11-26, own words after) | Preempt frees blocks (said "blocks stay" 11-24); **preemption trigger — thought a new request D forces a kick-out (Miss 2×: 11-23, 11-26)** |
 | Model Runner | `input_ids` / `positions` (guided) | Find `positions` / `slot_mapping` in source alone | Chunked prefill details |
 | Prefill / decode (item 2) | Long prompt → slow TTFT; raise `max_num_batched_tokens` → faster TTFT, cost TPOT; **reverse case (chat users stutter → lower) direction + cost right first try, no hint (11-24)**; chunked prefill = one step with a prefill chunk + others' decode (11-24); first token at the end of the last chunk (restated); batching shares weights, not K/V → still mostly memory-bound at 50 (own words 11-24); **[`max_num_seqs`](concepts/max-num-seqs.md) taught 11-24: new request waits, never preempts (first try); many users → lower it, cost TTFT (first try)** | Say alone: TTFT = compute-bound, TPOT = memory-bound (**swapped 2×**: 11-23, 11-24); reasons in own words first try ("shorter step", not "more compute for decode"); `max_num_seqs` mechanism first try (each step reads every running user's K/V — missed 2×); pick the right knob in a mixed case (missed 11-24) | Compute vs load wording (prefill computes, decode reads); two side-by-side causes linked as cause → effect (3×); tokens per step vs requests per step (which knob owns what) |
 | Benchmark / profiling (item 4) | — | Public, rerunnable benchmark; profiling | Not started |
@@ -69,20 +69,22 @@ Side concept (GPU): [memory-bound decode and batching](concepts/memory-bound-and
 
 ## Next session
 
-0. **Start with a re-teach (Chinese + egg carton picture):** `block_size` vs `block_bytes` — ended unclear 11-24. Then "which one do you set, which one does vLLM calculate?" and "16 → 32: what changes?"
-1. **Review first (2026-11-25, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md) top, ≤ 6 questions, no hints):** TTFT compute-bound vs TPOT memory-bound (first question; 先算后读); lower the knob — does chat user A's K/V read still grow? (side-by-side causes); fill-in "prefill ___ K/V, decode ___ K/V"; FP8 KV cache last factor + a new model's full formula; why must a preempted request recompute?; chunked prefill first token (8000 tokens / 4 chunks).
+**Question rule (from 11-26):** give the **full setup first** (what is fixed, who is running, in what order, what is needed), then ask. Mid-scenario questions confused the learner 6× on 11-26.
+
+0. **Start with a re-teach (Chinese + egg carton picture):** `block_size` vs `block_bytes` — ended unclear 11-24, not reached 11-26. Then "which one do you set, which one does vLLM calculate?" and "16 → 32: what changes?"
+0b. **Preemption re-check (11-26 misses, full setup, no hint):** "D arrives, no free blocks — what happens to D? Does anyone get kicked out?"; "`running` = X, Y, Z, Z needs a block — who leaves, and where does it go?"; "Weights 16 GB → 8 GB — what changes for the KV cache?"
+1. **Review (still due from 11-24, from [REVIEW_QUEUE.md](REVIEW_QUEUE.md), ≤ 6 questions, no hints):** TTFT compute-bound vs TPOT memory-bound (先算后读); lower the knob — does chat user A's K/V read still grow? (side-by-side causes); fill-in "prefill ___ K/V, decode ___ K/V"; FP8 KV cache last factor + a new model's full formula; why must a preempted request recompute?; chunked prefill first token (8000 tokens / 4 chunks).
 1b. **`max_num_seqs` re-check (taught 11-24):** one fresh mixed case, no hint — "one heavy person (tokens) or too many people (requests)?"; then "why does lowering `max_num_seqs` make each word faster?" Page: [max-num-seqs](concepts/max-num-seqs.md).
 2. **Then (≤2 concept questions, no math):** `slot_mapping` — who builds / uses it; per token vs per request. Code: [nano-vllm](raw/2026-11-24-nano-vllm.md).
 3. **Main task — capacity reasoning (no hand arithmetic; the assistant does the math):** KV budget steps 2–4 — budget → max tokens → how many 4K requests fit (e.g. M1 Pro 16 GB with a small model). Learner finds the 4 fields in a real `config.json`. Use the [KV memory formula](concepts/kv-cache-memory.md).
-3b. **Next (main line item 2, 延迟检查):** chunked prefill key point **taught 11-23** — 11-24 only re-check it; then **`max_num_seqs`** (the 3rd knob). Original note: chunked prefill — fill the gap, not a full re-lesson (learned 11-10; 11-23 recall was partial: missing "chunks share a step with decode tokens"). One picture + one question on that piece. Chunked prefill is the fix for the TPOT cost of a big `max_num_batched_tokens` (split a long prompt into chunks and mix them with decode tokens in the same step). Then `max_num_seqs` (batch size → TPOT vs throughput). Together with `max_num_batched_tokens` these are the 3 knob cases for check B.
 4. **Later (main line item 4):** run vLLM locally once and check the formula against the KV cache size in the startup log.
 5. **Teaching rule:** for a new concept, give the name + one sentence + where it sits in the main path **before** any picture; prefer one static picture; count from 0.
 
-## Latest session close (2026-11-24, parts 1–4)
+## Latest session close (2026-11-26)
 
-- **New fact:** all 3 knobs for 延迟检查 taught (`max_num_seqs` new, first-try cases); nano-vllm added as the code reference — main path ~60% learned (guided), map: [nano-vllm-progress](assets/nano-vllm-progress.svg); `allocate_kv_cache` = the KV formula in real code.
-- **Gap:** `block_size` vs `block_bytes` ended unclear; mixed knob case (wrong knob); who builds / uses `slot_mapping`.
-- **Next action:** re-teach `block_size` vs `block_bytes` first (Chinese + picture), then the review list. Full log: [journal/2026-11-24.md](journal/2026-11-24.md) (4 parts).
+- **New fact:** Scheduler vs `kv_cache_manager` right first try on a 2nd day; both quantization places named first try; KV quantization changes only `bytes`.
+- **Gap:** preemption trigger missed again (thought a new request D forces a kick-out, 2nd time); did not know the requester itself is kicked out when it is last in `running`; weight quantization effect needed a hint (2nd time).
+- **Next action:** give the full setup before each question; re-check preemption first, then the `block_size` vs `block_bytes` re-teach and the 11-24 list. Full log: [journal/2026-11-26.md](journal/2026-11-26.md).
 
 Older session closes live in [journal/](journal/) — one file per day.
 

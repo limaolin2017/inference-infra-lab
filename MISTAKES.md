@@ -13,10 +13,10 @@
 
 | Pattern | Wrong (total) | Since 11-24 pt 2: Miss / Partial | Worst items | What it means |
 | --- | --- | --- | --- | --- |
-| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **21** | 0 / 1 | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3× | Knows the parts, flips which way a knob moves the result |
-| **A. Roles: who owns / does what** | **21** | 2 / 2 | who builds / uses `slot_mapping` 2× (11-24), which knob owns tokens vs requests 1× (11-24), evict meaning 3×, preempt unit 2×, request field vs block field 2× | Mixes up which component or field does the job |
+| **B. Direction / cause → effect** ("raise or lower?", "need vs fix") | **22** | 1 / 1 | `max_num_batched_tokens` 5× (last right 11-24, no hint), WAITING gate 4×, side-by-side causes 3×, preemption trigger 2× (11-26: new D) | Knows the parts, flips which way a knob moves the result |
+| **A. Roles: who owns / does what** | **22** | 3 / 2 | who builds / uses `slot_mapping` 2× (11-24), which knob owns tokens vs requests 1× (11-24), evict meaning 3×, preempt unit 2×, request field vs block field 2×, who is preempted (itself if last) 1× (11-26) | Mixes up which component or field does the job |
 | **C. Formula details** | 10 | 1 / 1 | offset = remainder 2×, bits vs bytes 2× | Small steps inside a rule (now: assistant does arithmetic) |
-| **F. GPU / memory concepts** | 14 | 0 / 2 | batching shares weights, not KV 3×, compute vs load 3× | First-time misconceptions, mostly fixed |
+| **F. GPU / memory concepts** | 15 | 0 / 3 | batching shares weights, not KV 3×, compute vs load 3×, weight quantization → bigger KV budget 2× (11-26) | First-time misconceptions, mostly fixed |
 | **D. Names and front / end** | 7 | 0 / 0 | `add` / `prepend` / `append_n` / `prepend_n` 3×, free queue front / end 2× | Right idea, wrong method name or side |
 | **E. Next-day recall** | 2 | 0 / 0 | 3 Scheduler parts | Learned, then forgot after a day |
 | *G. Reason missing (tag)* | *5* | *0 / 1* | many users → TPOT mechanism 2× (11-23, 11-24); chunked → TTFT 11-23; knob TPOT cost 11-23 eve; "more compute for decode" 11-24 | Right conclusion, but the reason is missing or explains something else. Ask: *what changed, and why does that change the result?* |
@@ -31,13 +31,14 @@
 | Scheduler | WAITING gate after preemption | B | 4 | 11-05?, 11-09, 11-10, 11-11 | 11-13 (guided) |
 | Scheduler | `max_num_seqs` vs running requests | B | 1 | 11-09 | 11-24 (E waits, first try) |
 | Scheduler | Which knob: tokens per step (`max_num_batched_tokens`) vs requests per step (`max_num_seqs`) — long doc is 1 request | A | 1 | 11-24 (M) | 11-24 (restated, guided) |
-| Scheduler | What triggers preemption | B | 1 | 11-23 | 11-24 (new request never preempts, first try) |
+| Scheduler | What triggers preemption (11-26: thought new D forces a kick-out) | B | 2 | 11-23, 11-26 (M) | 11-26 (restated, guided) |
 | Scheduler | Preemption unit = request, not block | A | 2 | 11-05, 11-09 | — |
+| Scheduler | Who is preempted when the requester is itself last in `running` (itself) | A | 1 | 11-26 (M) | 11-26 (own words, guided) |
 | Scheduler | Preempt: request field vs block field / what is reset (11-24: said blocks stay) | A | 3 | 11-09, 11-11, 11-24 | 11-24 (restated) |
-| Scheduler | Scheduler vs `kv_cache_manager` roles | A | 1 | 11-23 | 11-24 (first try) |
+| Scheduler | Scheduler vs `kv_cache_manager` roles | A | 1 | 11-23 | 11-26 (first try, 2nd day) |
 | Scheduler | 3 key parts (next-day recall) | E | 1 | 11-20 | 11-23 (guided) |
 | Scheduler | `add_request` vs `prepend_request` | D | 2 | 11-19, 11-23 | — |
-| Scheduler | Preempted → **front** of `waiting` (said only "waiting") | D | 1 | 11-24 | 11-24 (restated) |
+| Scheduler | Preempted → **front** of `waiting` (said only "waiting") | D | 1 | 11-24 | 11-26 (front after a front/back prompt) |
 | Scheduler | Why lowering the knob helps (said "more compute for decode"; correct: shorter step) | B | 1 | 11-24 | 11-24 (restated) |
 | Scheduler | Side-by-side causes: knob cost vs own K/V growth (linked as cause → effect) | B | 3 | 11-23 eve (×2), 11-24 | 11-24 (restated) |
 | BlockPool | Evict: what it removes, when | A | 3 | 11-09, 11-13, 11-16 | — |
@@ -56,7 +57,7 @@
 | Model Runner | Model Runner does not allocate blocks | A | 1 | 11-09 | — |
 | Model Runner | Chunked prefill: how chunks combine; that chunks share a step with decode tokens; first token at the last chunk | F | 3 | 11-10, 11-23, 11-24 | 11-24 (one step = chunk + others' decode, right) |
 | GPU | Prefill **computes** K/V, decode **reads** it (said "load" / 读取) | F | 3 | 11-23 eve, 11-24, 11-24 pt 2 (P) | 11-24 (asked why → right) |
-| KV memory | Why weight quantization fits more users (bigger KV budget) | F | 1 | 11-24 | 11-24 (guided) |
+| KV memory | Why weight quantization fits more users (bigger KV budget) | F | 2 | 11-24, 11-26 (P) | 11-26 (guided, box hint) |
 | GPU | Memory-bound data path (HBM → SRAM, not CPU → GPU) | F | 1 | 11-10 | — |
 | GPU | Batching shares weights, not KV (why big batch → slower TPOT) — tag G on 11-24 | F | 3 | 11-10, 11-23, 11-24 pt 2 (P) | 11-24 pt 2 (own words, after explanation) |
 | GPU | Decode reads weights too | F | 1 | 11-10 | — |

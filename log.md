@@ -92,3 +92,6 @@ New picture [slot-mapping-who-builds-uses](assets/slot-mapping-who-builds-uses.s
 
 ## [2026-11-24] learn | allocate_kv_cache, gpu_memory_utilization vs allocate_kv_cache, block_size vs block_bytes (ended unclear)
 Pictures: [allocate-kv-cache](assets/allocate-kv-cache.svg), [block-size-vs-block-bytes](assets/block-size-vs-block-bytes.svg), [nano-vllm-progress](assets/nano-vllm-progress.svg). See [kv-cache-memory](concepts/kv-cache-memory.md) and [journal/2026-11-24.md § Part 4](journal/2026-11-24.md).
+
+## [2026-11-26] review | Preemption + quantization: Scheduler role and both quantization places right; preemption trigger missed 2nd time; self-preempt new miss
+11-25 no session. New rule: give the full setup before each question. See [journal/2026-11-26.md](journal/2026-11-26.md).

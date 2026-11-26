@@ -27,5 +27,6 @@
 
 - ❌ "KV Cache Manager decides who goes to waiting / running." ✅ The Scheduler decides.
 - ❌ "A new request can preempt a running one." ✅ Not in default FCFS (priority preemption: Issue #40004).
+- ❌ "If A needs the block, someone else must leave." ✅ FCFS kicks out the **last** in `running` — if A is last, A kicks itself out (11-26). Picture it as the last person on a full bus getting off.
 
 **Concepts:** [scheduler-and-cache-policy](../concepts/scheduler-and-cache-policy.md) · [memory-bound-and-batching](../concepts/memory-bound-and-batching.md)
