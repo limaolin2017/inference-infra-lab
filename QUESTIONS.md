@@ -46,6 +46,10 @@
 | 11-26 | A 是哪来的? → 你先把这个题前提给我讲清楚 | Question format: give the premise first | journal 11-26 |
 | 11-26 | Kick out 啥意思? 是 A、B、C 中间要踢一个出去吗? | Preemption = one running request leaves | [scheduler](components/scheduler.md) |
 | 11-26 | (twist B, C, A) 啥意思? 你的问题是啥? | Who is preempted when the requester is last | [scheduler](components/scheduler.md) |
+| 11-27 | 你的问题是啥意思? "What must they do first and why?" 是什么意思? | Why a preempted request recomputes (question wording) | journal 11-27 |
+| 11-27 | 一个请求可以用好几个 blocks 对吧? (after the widget) | Block basics: one request, many blocks | [kv-cache-memory § block_size vs block_bytes](concepts/kv-cache-memory.md) |
+| 11-27 | (feedback) 交互图没体现出不同模型的 block bytes 不一样 | `block_bytes` depends on the model too | [block-size-model-shelf](assets/block-size-model-shelf.svg) |
+| 11-27 | 这现在是算复习完了吧? | Session close | journal 11-27 |
 
 ## English questions
 
@@ -59,6 +63,7 @@
 | 11-24 | carton 中文是啥? | 纸盒; egg carton = 鸡蛋盒 |
 | 11-26 | Kick out 啥意思? | 踢出去 (here: preempt) |
 | 11-26 | (word fix) QV cache → **KV cache** | — |
+| 11-27 | (word fixes) block bias → **block bytes**; preview → **prefill** (3×, also 11-24); pull request → **prompt**; spcaes → **slots**; rounding → **running** | — |
 
 ## Confidence checks ("对吗? / 我的理解对吗?")
 
@@ -95,8 +100,11 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 | 11-26 | A needs a block for its next token, pick one of A, B, C; D unrelated — 对吗? | Right (guided) | next session |
 | 11-26 | KV quantization → the `bytes` factor changes — 吗? | Right | later |
 | 11-26 | Weight quantization → "权重被量化了吧?" | Partial → right with the box hint | next session |
+| 11-27 | X first keeps going, Z last… 有可能会踢出去自己吧，我忘了 | Right, unsure | later day |
+| 11-27 | 一个请求可以用好几个 blocks 对吧? | Right | — |
+| 11-27 | Prefill moves weights once; decode keeps moving K/V — 对吧? | Mostly right (guided): + prefill computes many tokens; decode moves weights every step too | next session |
 
-**Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided). 11-26: 4 (2 right, 1 partial, 1 miss).
+**Pattern:** 14 confidence checks on 11-23: 4 right, 9 partial, 1 miss. Even the right ones need a re-check. 11-23 evening: 2 (1 mostly right, 1 miss). 11-24: 5, all right (2 guided). 11-26: 4 (2 right, 1 partial, 1 miss). 11-27: 3 (2 right — 1 unsure, 1 mostly right).
 
 **11-24 re-check of the 11-23 rows:** `kv_cache_manager` role ✅ · missing K/V 2 ✅ · bits vs bytes ❌ · shrinking weights = quantization ✅ · K/V read per user ✅ · long prompt → slow TTFT ✅ (implicit) · chunked prefill one step ✅ (first token ±1 step) · new C preempts B — not re-asked (11-26: ❌ again as "D comes") · 4 users → × 4 — not re-asked.
 
@@ -105,3 +113,4 @@ When the learner ends with "对吗?", confidence is low, even if the answer is r
 - **KV memory formula** (5 questions on 11-23): what each factor means, where the numbers come from.
 - **Batching / what is shared** (1, plus 2 mistakes in [MISTAKES.md](MISTAKES.md)).
 - **Compute vs read, and what limits TTFT / TPOT** (2 questions on 11-24, plus 3 mistakes): prefill computes, decode reads — 先算后读.
+- **What "bound" means** (11-27): thought prefill moves no data; both phases move data, the bound is whichever takes longer. HBM vs SRAM named as fast / slow "compute" instead of storage.

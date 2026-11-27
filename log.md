@@ -95,3 +95,6 @@ Pictures: [allocate-kv-cache](assets/allocate-kv-cache.svg), [block-size-vs-bloc
 
 ## [2026-11-26] review | Preemption + quantization: Scheduler role and both quantization places right; preemption trigger missed 2nd time; self-preempt new miss
 11-25 no session. New rule: give the full setup before each question. See [journal/2026-11-26.md](journal/2026-11-26.md).
+
+## [2026-11-27] review | Preemption trigger and compute/memory-bound direction right first try; block_size vs block_bytes in own words (guided); "prefill moves no data" new miss
+New picture [block-size-model-shelf](assets/block-size-model-shelf.svg); kitchen / HBM vs SRAM table added to [memory-bound-and-batching](concepts/memory-bound-and-batching.md). See [journal/2026-11-27.md](journal/2026-11-27.md).

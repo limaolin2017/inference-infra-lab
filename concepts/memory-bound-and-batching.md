@@ -16,6 +16,18 @@
 - **Batching:** weights are read **once** and shared by every request in the batch; KV cache is **per request** and cannot be shared (except prefix-cache blocks).
 - Small batch → **memory-bound** (cores wait). Bigger batch → throughput rises almost for free. Past the **turning point** → **compute-bound**: throughput flattens and each step gets slower.
 
+## Both phases move data — "bound" means which part takes longer (added 2026-11-27)
+
+| Kitchen | GPU |
+| --- | --- |
+| chef's hands + knife (cut) | compute units (math) |
+| cutting board — small, right next to the hands | **SRAM** — tiny (MBs), very fast |
+| fridge — big, a few steps away | **HBM** — big (e.g. 80 GB), slower; weights + KV cache live here |
+
+- **Prefill:** walk to the fridge **once** (weights HBM → SRAM), then cut **all 2,000 prompt tokens** → the hands are the limit → **compute-bound**.
+- **Decode:** walk to the fridge **every step** (all weights + every user's K/V), cut **1 token** per user → the walking is the limit → **memory-bound**.
+- Common mistake (11-27): "prefill moves no data". Both phases move data; the bound is whichever takes longer — the moving or the math. SRAM / HBM are fast / slow **storage**, not fast / slow compute.
+
 ## Two metrics — do not mix them
 
 | Metric | Who cares | Meaning |

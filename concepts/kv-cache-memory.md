@@ -114,9 +114,11 @@ It is **not** for warm-up. (But a warm-up / profiling run happens *before* it, t
 
 Warehouse: you tell the manager "use 90% of the building" (the knob). The manager (`allocate_kv_cache`) measures, takes out the furniture (weights) and the working room (peak), and cuts the rest into equal shelves (blocks). Raise the knob → more blocks → more users before preemption. To change it, restart.
 
-## `block_size` vs `block_bytes` (added 2026-11-24 — still unclear)
+## `block_size` vs `block_bytes` (added 2026-11-24; re-taught 2026-11-27 — own words, guided)
 
 ![block_size vs block_bytes as an egg carton](../assets/block-size-vs-block-bytes.svg)
+
+![Same block_size, bigger model: bigger blocks, fewer fit on the shelf](../assets/block-size-model-shelf.svg)
 
 | | Unit | Set by | Meaning |
 | --- | --- | --- | --- |
@@ -125,6 +127,13 @@ Warehouse: you tell the manager "use 90% of the building" (the knob). The manage
 | `block_bytes` | bytes | **nobody — it is calculated** | how **heavy** one full carton is = `block_size` × egg size |
 
 `block_bytes` is a **result**, not a second limit. Egg size → carton weight, never the reverse. Example (Qwen2.5-7B, FP16): egg 56 KiB × 16 = 896 KiB. `block_size` 16 → 32: egg same, `block_bytes` × 2, N ÷ 2, total tokens about the same; more waste in each request's last half-empty block.
+
+**Added 2026-11-27:**
+
+- **Notebook picture:** block = one page, `block_size` = lines per page, 1 line = 1 token's K/V. A request takes a new page only when the last one is full (16 tokens → 1 block; the 17th token → a new block with 15 empty slots). Pages belong to **one** request — nobody else can use its empty slots.
+- **Last-block waste:** on average the last block is about half empty → waste ≈ `block_size` ÷ 2 per request. Example, 40 tokens: `block_size` 16 → 3 blocks, 8 empty; 32 → 2 blocks, 24 empty. Bigger `block_size` → more waste.
+- **Switching the model** changes **how big** each block is (`block_bytes`), not **how many** blocks a request needs (that depends only on tokens and `block_size`).
+- Learner's own words (guided): "I set `block_size`, the model decides the egg size, and the two multiplied give `block_bytes`."
 
 ## Next checks
 

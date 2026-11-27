@@ -4,6 +4,23 @@ This file tracks **concepts that caused confusion**, not every question asked. L
 
 **Review rule:** Prioritize the **Scheduler → KV Manager → Model Runner** main path. Ask a short unseen question when it helps learning, before showing notes or hints. Record Pass / Partial / Miss after the attempt. **The older EAGLE quiz is optional (P2), not a blocker.**
 
+## 2026-11-27 — preemption re-check, `block_size` vs `block_bytes`, compute vs memory bound (no formal pass)
+
+Full log: [journal/2026-11-27.md](journal/2026-11-27.md). Rule kept: full setup before each question. New picture: [block-size-model-shelf](assets/block-size-model-shelf.svg).
+
+| Topic | Observed answer / uncertainty | State | Next check |
+| --- | --- | --- | --- |
+| Prefill moves data too (**new**) | "prefill 不涉及搬数据". Correct: both phases move data; bound = which takes longer (move vs math). | **Miss → mostly right (guided)** | Next session: "Both phases move data. So why is prefill compute-bound?" — no hint |
+| Bound reasons (prefill: weights once for all prompt tokens; decode: weights **every step** + all K/V) | Prefill: "prompt 塞到显存" (tag G); decode: "weights moved once". | **Partial → guided** | Next session: "What is moved from HBM in **each** decode step?" |
+| Preempt frees blocks (**2nd**, also 11-24) | Said "会被释放", then "不会被释放, KV 还在，会被覆盖". | **Partial → restated right (guided)** | Next session: "Z is preempted. Who owns Z's blocks now?" (hotel check-out) |
+| `block_bytes` = 2 factors (**2nd**, also 11-24) | "`block_bytes` 由模型决定" — missed `block_size`. | **Partial → own words (guided)** | Next session, no picture: "`block_bytes` = ___ × ___. Which is yours, which is the model's?" |
+| `block_size` → last-block waste (**new**) | "剩 16 个" (real 8 vs 24); "depends on length" right; direction not said. | **Partial** | Next session: "`block_size` 16 → 32: more or less waste per request, and why?" |
+| Self-preempt when last | Z kicks itself out — "有可能…我忘了". | **Right, unsure (cc)** | Later day: "`running` = P, Q, R. R needs a block. Who leaves?" |
+| TTFT compute-bound / TPOT memory-bound | Direction right, first try, no hint (swapped 2× before). | **Right** | Later day: re-check once |
+| Preemption trigger | Q1 + fill-in right, first try, no hint (missed 2× before). | **Right** | Later day: re-check once |
+| Preempted → front of `waiting` / recompute | Front first try, no hint; recompute right. | **Right** | Later: "which method?" (`prepend_request`) |
+| HBM vs SRAM (raised by learner) | Idea right; called them "算的快 / 慢" — they are fast / slow **storage**. | **Right idea · wording** | Fold into the bound-reasons check |
+
 ## 2026-11-26 — preemption + quantization review (no formal pass)
 
 Full log: [journal/2026-11-26.md](journal/2026-11-26.md). 11-25: no session. **All 11-24 rows below were not reviewed — still due.** Rule from today: give the full setup before each question.

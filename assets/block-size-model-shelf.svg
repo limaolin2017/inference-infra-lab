@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="430" viewBox="0 0 680 430" font-family="Arial, sans-serif">
+<rect width="680" height="430" fill="#ffffff"/>
+<text x="340" y="28" font-size="16" font-weight="bold" text-anchor="middle" fill="#2C2C2A">block_size (you set) × 1 egg (model sets) = block_bytes (calculated)</text>
+<text x="340" y="48" font-size="12" text-anchor="middle" fill="#5F5E5A">Same request (20 tokens), same block_size 16. Only the model changes.</text>
+<text x="40" y="80" font-size="14" font-weight="bold" fill="#2C2C2A">Qwen2.5-7B (FP16) — 1 egg = 56 KiB</text>
+<rect x="40" y="92" width="104" height="32" rx="5" fill="none" stroke="#888780" stroke-width="1"/>
+<rect x="45" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="57" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="69" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="81" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="93" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="105" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="117" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="129" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="45" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="57" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="69" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="81" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="93" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="105" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="117" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="129" y="109" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="156" y="92" width="104" height="32" rx="5" fill="none" stroke="#888780" stroke-width="1"/>
+<rect x="161" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="173" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="185" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="197" y="97" width="10" height="10" rx="2" fill="#1D9E75"/>
+<rect x="209.5" y="97.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="221.5" y="97.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="233.5" y="97.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="245.5" y="97.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="161.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="173.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="185.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="197.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="209.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="221.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="233.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="245.5" y="109.5" width="9" height="9" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<text x="282" y="110" font-size="12" fill="#2C2C2A">2 blocks (same count)</text>
+<text x="282" y="128" font-size="12" fill="#2C2C2A">block_bytes = 16 × 56 KiB = 896 KiB</text>
+<text x="40" y="146" font-size="12" fill="#5F5E5A">A fixed 20 MiB piece of the KV shelf: 22 blocks fit</text>
+<rect x="40" y="154" width="600" height="28" rx="5" fill="none" stroke="#888780"/>
+<rect x="43.0" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="69.0" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="95.0" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="121.0" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="146.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="172.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="198.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="224.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="250.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="276.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="302.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="328.9" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="354.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="380.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="406.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="432.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="458.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="484.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="510.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="536.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="562.8" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="588.7" y="157" width="24.0" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="40" y="250" font-size="14" font-weight="bold" fill="#2C2C2A">Llama-3-8B (FP16) — 1 egg = 128 KiB</text>
+<rect x="40" y="262" width="144" height="42" rx="5" fill="none" stroke="#888780" stroke-width="1"/>
+<rect x="45" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="62" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="79" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="96" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="113" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="130" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="147" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="164" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="45" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="62" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="79" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="96" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="113" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="130" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="147" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="164" y="284" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="196" y="262" width="144" height="42" rx="5" fill="none" stroke="#888780" stroke-width="1"/>
+<rect x="201" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="218" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="235" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="252" y="267" width="15" height="15" rx="2" fill="#1D9E75"/>
+<rect x="269.5" y="267.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="286.5" y="267.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="303.5" y="267.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="320.5" y="267.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="201.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="218.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="235.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="252.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="269.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="286.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="303.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<rect x="320.5" y="284.5" width="14" height="14" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/>
+<text x="362" y="280" font-size="12" fill="#2C2C2A">2 blocks (same count)</text>
+<text x="362" y="298" font-size="12" fill="#2C2C2A">block_bytes = 16 × 128 KiB = 2 MiB</text>
+<text x="40" y="326" font-size="12" fill="#5F5E5A">A fixed 20 MiB piece of the KV shelf: 10 blocks fit</text>
+<rect x="40" y="334" width="600" height="28" rx="5" fill="none" stroke="#888780"/>
+<rect x="43.0" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="102.4" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="161.8" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="221.2" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="280.6" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="340.0" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="399.4" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="458.8" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="518.2" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="577.6" y="337" width="57.4" height="22" rx="3" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="40" y="398" width="11" height="11" rx="2" fill="#1D9E75"/><text x="57" y="408" font-size="12" fill="#2C2C2A">token K/V</text>
+<rect x="140" y="398" width="11" height="11" rx="2" fill="none" stroke="#E24B4A" stroke-dasharray="2 2"/><text x="157" y="408" font-size="12" fill="#2C2C2A">empty slot (wasted; only this request owns the block)</text>
+</svg>
